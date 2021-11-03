@@ -1,0 +1,49 @@
+<!-- A grey navbar that expands horizontally at medium device -->
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- The brand(or icon) of the navbar -->
+    <a class="navbar-brand" href="/Home/Index"
+       style="font-size:32px; font-weight:bold; color:#3399FF;">
+        GreenDoor
+    </a>
+    <!-- Toggle/collapsible Button, also known as hamburger button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#staffNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Links in the navbar, displayed as drop-down list when collapsed -->
+    <div class="collapse navbar-collapse" id="staffNavbar">
+        <!-- Links that are aligned to the left,
+        mr-auto: right margin auto-adjusted -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/Home/Shops">Shops</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Home/Events">Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Home/Forum">Forum</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Home/About">About</a>
+            </li>
+        </ul>
+        <!-- Links that are aligned to the right,
+        ml-auto: left margin auto-adjusted -->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Register
+                </a>
+                <div class="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/Owner/Create">As Owner</a>
+                    <a class="dropdown-item" href="/Customer/Create">As Customer</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <!-- A link for logging out user -->
+                <a class="nav-link" href="/Home/Login">Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
