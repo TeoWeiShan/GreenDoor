@@ -6,21 +6,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace greendoor.Models
 {
-    public class Owner
+    public class Shop
     {
-        [Display(Name = "Owner ID")]
-        public int OwnerID { get; set; }
         [Display(Name = "Shop ID")]
         public int ShopID { get; set; }
-        [Display(Name = "Owner Name")]
-        [Required(ErrorMessage = "Please enter a name!")]
-        [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
-        public string OwnerName { get; set; }
+        
         [Display(Name = "Shop Name")]
         [Required(ErrorMessage = "Please enter a name!")]
         [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
         public string ShopName { get; set; }
-        public string Salutation { get; set; }
+       
         [Display(Name = "E-mail Address")]
         [EmailAddress]
         // Custom Validation Attribute for checking email address exists

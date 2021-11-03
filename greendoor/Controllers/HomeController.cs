@@ -72,7 +72,33 @@ namespace greendoor.Controllers
                 return View(customer);
             }
         }
+        /*
+        // GET: RegShop
+        public ActionResult RegisterShop()
+        {
+            return View();
+        }
 
+        // POST: RegShop
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterShop(Shop shop)
+        {
+            if (ModelState.IsValid)
+            {
+                //Add staff record to database
+                customer.CustomerID = customerContext.Add(customer);
+                //Redirect user to Staff/Index view
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                //Input validation fails, return to the Create view
+                //to display error message
+                return View(customer);
+            }
+        }
+        */
 
         public IActionResult Login()
         {
