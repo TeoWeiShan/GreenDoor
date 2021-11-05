@@ -155,6 +155,12 @@ namespace greendoor.Controllers
             return View(); //test
         }
 
+        // GET: About Us
+        public ActionResult About()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
