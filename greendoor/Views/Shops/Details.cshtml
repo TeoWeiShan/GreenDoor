@@ -1,0 +1,60 @@
+﻿@model greendoor.Models.Shop
+
+@{
+    ViewData["Title"] = "Details";
+}
+<h4 class="PageTitle">View Competition Details</h4>
+<hr />
+<fieldset class="FormContent">
+    <div class="form-group row">
+        <label asp-for="ShopName"
+               class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.Display("CompetitionID")
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ShopDescription" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.Display("Name")
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Zone"
+               class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.Display("CompetitionName")
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ContactNumber"
+               class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.Display("StartDate")
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Address"
+               class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.Display("EndDate")
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Website"
+               class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.Display("ResultReleasedDate")
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-9 offset-sm-3">
+            <a asp-action="Edit" asp-controller="Competition"
+               asp-route-id="@Model.ShopID">Edit</a> |
+            <a asp-action="Delete" asp-controller="Competition"
+               asp-route-id="@Model.ShopID">Delete</a> |
+            <a asp-action="Index"
+               asp-controller="Competition">Return</a>
+        </div>
+    </div>
+</fieldset>

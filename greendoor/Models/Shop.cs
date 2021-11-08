@@ -15,7 +15,14 @@ namespace greendoor.Models
         [Required(ErrorMessage = "Please enter a name!")]
         [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
         public string ShopName { get; set; }
-       
+
+        public string ShopDescription { get; set; }
+        public string Zone { get; set; }
+        public int ContactNumber { get; set; }
+        public string Address { get; set; }
+        public string Website { get; set; }
+
+
         [Display(Name = "E-mail Address")]
         [EmailAddress]
         // Custom Validation Attribute for checking email address exists
