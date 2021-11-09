@@ -10,7 +10,7 @@ using greendoor.Models;
 
 namespace greendoor.Controllers
 {
-    public class ShopController : Controller
+    public class ShopsController : Controller
     {
         private ShopDAL shopContext = new ShopDAL();
         public IActionResult Index()
