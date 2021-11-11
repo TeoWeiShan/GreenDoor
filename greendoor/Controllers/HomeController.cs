@@ -155,13 +155,14 @@ namespace greendoor.Controllers
             return View(); //test
         }
 
+
         // GET: About Us
         public ActionResult About()
         {
             return View();
         }
 
-        // GET: About Us
+        // GET: User Profile
         public ActionResult UserProfile()
         {
             return View();
