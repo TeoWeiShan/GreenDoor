@@ -30,7 +30,16 @@ namespace greendoor.Models
 
         [Required(ErrorMessage = "Address must not be empty")]
         public string Address { get; set; }
-        public string Website { get; set; }
+        [Display(Name ="Postal Code")]
+        [Required(ErrorMessage ="Please enter the postal code")]
+        [RegularExpression(@"^[0-9]{6}$", ErrorMessage = "Please enter a 6-digit Postal Code")]
+        public int PostalCode { get; set; }
+
+        [Display(Name ="Website URL")]
+        public string WebsiteLink { get; set; }
+
+        [Display(Name = "Social Media URL")]
+        public string SocialMediaLink { get; set; }
 
 
         [Display(Name = "E-mail Address")]

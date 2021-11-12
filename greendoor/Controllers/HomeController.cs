@@ -118,6 +118,51 @@ namespace greendoor.Controllers
         {
             string email = FormData["txtEmail"].ToString().Trim();
             string password = FormData["txtPassword"].ToString();
+
+            //Check if login is Customer
+            List<Customer> customerList = customerContext.GetAllCustomer();
+            foreach (Customer customer in customerList)
+            {
+                if (customer.EmailAddr.ToLower() == email && customer.Password == password)
+                {
+                    // Store Login ID in session with the key “LoginID”
+                    HttpContext.Session.SetString("LoginID", customer.customerID.ToString());
+                    // Store user role “customer” as a string in session with the key “Role” 
+                    HttpContext.Session.SetString("Role", "Customer");
+                    return RedirectToAction("Index");
+                }
+            }
+            //Check if login is Shop
+            List<Shop> shopList = shopContext.GetAllShop();
+            foreach (Shop shop in shopList)
+            {
+                if (shop.EmailAddr.ToLower() == email && shop.Password == password)
+                {
+                    // Store Login ID in session with the key “LoginID”
+                    HttpContext.Session.SetString("LoginID", shop.shopID.ToString());
+                    // Store user role “customer” as a string in session with the key “Role” 
+                    HttpContext.Session.SetString("Role", "Shop");
+                    return RedirectToAction("Index");
+                }
+            }
+            if (email == "admin@greendoor.sg" && password == "adminpass")
+            {
+                // Store Login ID in session with the key “LoginID”
+                HttpContext.Session.SetString("LoginID", loginID);
+                // Store user role “Staff” as a string in session with the key “Role” 
+                HttpContext.Session.SetString("Role", "Admin");
+                return RedirectToAction("Index");
+            }
+            //Invalid credentials
+            else
+            {
+                // Store an error message in TempData for display at the index view
+                TempData["Message"] = "Invalid Login Credentials!";
+
+                // Redirect user back to the index view through an action
+                return RedirectToAction("Login");
+            }
+
             /*Customer customer = customerContext.LoginCustomer(email);
             Owner owner = ownerContext.LoginOwner(email);
             if(email=="admin1@gmail.com" && password == "admin3699") //for admin
