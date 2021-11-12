@@ -23,7 +23,7 @@ namespace greendoor.DAL
             .AddJsonFile("appsettings.json");
             Configuration = builder.Build();
             string strConn = Configuration.GetConnectionString(
-            "NPBookConnectionString");
+            "GreenDoorConnectionString");
 
             //Instantiate a SqlConnection object with the
             //Connection String read.
