@@ -21,7 +21,16 @@ namespace greendoor.Models
 
         [Display(Name = "Event Description")]
         [Required(ErrorMessage = "Please enter a description!")]
-        [StringLength(50, ErrorMessage = "Description must not be longer than 3000 words")]
-        public string EventName { get; set; }
+        [StringLength(4000, ErrorMessage = "Description must not be longer than 4000 words")]
+        public string EventDescription { get; set; }
+
+        [Display(Name = "Date Posted")]
+        public DateTime DateTimePosted { get; set; }
+
+        [Display(Name = "Start Date")]
+        public DateTime StartDate { get; set; }
+
+        [Display(Name ="End Date")]
+        public DateTime EndDate { get; set; }
     }
 }

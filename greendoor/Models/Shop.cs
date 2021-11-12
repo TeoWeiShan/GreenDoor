@@ -10,15 +10,25 @@ namespace greendoor.Models
     {
         [Display(Name = "Shop ID")]
         public int ShopID { get; set; }
-        
+
+        [Display(Name = "Profile Photo")]
+        [StringLength(255, ErrorMessage = "File name cannot exceed 255 characters!")]
+        public string ShopPicture { get; set; }
+
         [Display(Name = "Shop Name")]
         [Required(ErrorMessage = "Please enter a name!")]
         [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
         public string ShopName { get; set; }
 
+        [Display(Name ="Description")]
+        [StringLength(250, ErrorMessage = "Description cannot exceed 250 characters!")]
         public string ShopDescription { get; set; }
         public string Zone { get; set; }
+        [Display(Name ="Contact Number")]
+        [Required(ErrorMessage ="Contact Number must not be empty")]
         public int ContactNumber { get; set; }
+
+        [Required(ErrorMessage = "Address must not be empty")]
         public string Address { get; set; }
         public string Website { get; set; }
 
