@@ -21,6 +21,7 @@ namespace greendoor.Controllers
         private List<string> salutList = new List<string> { "Mr", "Mrs", "Mdm", "Dr" };
         private List<SelectListItem> salutDropDownList = new List<SelectListItem>();
         private CustomerDAL customerContext = new CustomerDAL();
+        private ShopDAL shopContext = new ShopDAL();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -114,7 +115,7 @@ namespace greendoor.Controllers
         
 
         [HttpPost]
-        public ActionResult HomeLogin(IFormCollection FormData)
+        public ActionResult Login(IFormCollection FormData)
         {
             string email = FormData["txtEmail"].ToString().Trim();
             string password = FormData["txtPassword"].ToString();
@@ -126,7 +127,7 @@ namespace greendoor.Controllers
                 if (customer.EmailAddr.ToLower() == email && customer.Password == password)
                 {
                     // Store Login ID in session with the key “LoginID”
-                    HttpContext.Session.SetString("LoginID", customer.customerID.ToString());
+                    HttpContext.Session.SetString("LoginID", customer.CustomerID.ToString());
                     // Store user role “customer” as a string in session with the key “Role” 
                     HttpContext.Session.SetString("Role", "Customer");
                     return RedirectToAction("Index");
@@ -139,7 +140,7 @@ namespace greendoor.Controllers
                 if (shop.EmailAddr.ToLower() == email && shop.Password == password)
                 {
                     // Store Login ID in session with the key “LoginID”
-                    HttpContext.Session.SetString("LoginID", shop.shopID.ToString());
+                    HttpContext.Session.SetString("LoginID", shop.ShopID.ToString());
                     // Store user role “customer” as a string in session with the key “Role” 
                     HttpContext.Session.SetString("Role", "Shop");
                     return RedirectToAction("Index");
@@ -148,7 +149,7 @@ namespace greendoor.Controllers
             if (email == "admin@greendoor.sg" && password == "adminpass")
             {
                 // Store Login ID in session with the key “LoginID”
-                HttpContext.Session.SetString("LoginID", loginID);
+                HttpContext.Session.SetString("LoginID", email);
                 // Store user role “Staff” as a string in session with the key “Role” 
                 HttpContext.Session.SetString("Role", "Admin");
                 return RedirectToAction("Index");
@@ -162,42 +163,14 @@ namespace greendoor.Controllers
                 // Redirect user back to the index view through an action
                 return RedirectToAction("Login");
             }
+        }
 
-            /*Customer customer = customerContext.LoginCustomer(email);
-            Owner owner = ownerContext.LoginOwner(email);
-            if(email=="admin1@gmail.com" && password == "admin3699") //for admin
-            {
-                 HttpContext.Session.SetString("Role",  "Admin");
-                return RedirectToAction("Index","Admin")
-            }
-            if(email==customer.EmailAddr && password == customer.Password)
-            {
-                HttpContext.Session.SetInt32("customerId", customer.CustomerID);
-                HttpContext.Session.SetString("Name", customer.CustomerName);
-                HttpContext.Session.SetString("Role", "Customer");
-
-                // Redirect user to the "create" view through an action
-                return RedirectToAction("Index", "Customer");
-            }
-            else if((email == owner.EmailAddr && password == owner.Password))
-            {
-                HttpContext.Session.SetInt32("ownerId", owner.OwnerID);
-                HttpContext.Session.SetInt32("shopID", owner.ShopID);
-                HttpContext.Session.SetString("ownerName", owner.OwnerName);
-                HttpContext.Session.SetString("shopName", owner.ShopName);
-                HttpContext.Session.SetString("Role", "Owner");
-
-                return RedirectToAction("Index", "Owner");
-            }
-            else
-            {
-                // Store an error message in TempData for display at the index view
-                TempData["Message"] = "Invalid Login Credentials!";
-                // Redirect user back to the login view through an action
-                return RedirectToAction("Login");
-            }
-            */
-            return View(); //test
+        public ActionResult LogOut()
+        {
+            // Clear all key-values pairs stored in session state
+            HttpContext.Session.Clear();
+            // Call the Index action of Home controller
+            return RedirectToAction("Index");
         }
 
 

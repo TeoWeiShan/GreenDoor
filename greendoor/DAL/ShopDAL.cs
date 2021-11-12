@@ -35,8 +35,7 @@ namespace greendoor.DAL
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SELECT SQL statement
-            //CHANGE SQL QUERY (Name)
-            cmd.CommandText = @"SELECT * FROM Shop ORDER BY ShopName";
+            cmd.CommandText = @"SELECT * FROM Shop ORDER BY ShopID";
             //Open a database connection
             conn.Open();
             //Execute the SELECT SQL through a DataReader
@@ -48,9 +47,10 @@ namespace greendoor.DAL
                 shopList.Add(
                 new Shop
                 {
-                    //CHANGE RELAVANT DETAILS
                     ShopID = reader.GetInt32(0),
-                    //Name = reader.GetString(1),
+                    ShopName = reader.GetString(2),
+                    EmailAddr = reader.GetString(10),
+                    Password = reader.GetString(11)
                 }
                 );
             }

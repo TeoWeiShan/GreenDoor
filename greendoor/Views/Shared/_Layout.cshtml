@@ -9,8 +9,23 @@
 </head>
 <body>
     <header>
-        @await Html.PartialAsync("_MainMenu.cshtml")
-        
+        @if (Context.Session.GetString("Role") == "Admin")
+        {
+            @await Html.PartialAsync("_AdminMenu.cshtml")
+        }
+        else if (Context.Session.GetString("Role") == "Shop")
+        {
+            @await Html.PartialAsync("_ShopMenu.cshtml")
+        }
+        else if (Context.Session.GetString("Role") == "Customer")
+        {
+            @await Html.PartialAsync("_UserMenu.cshtml")
+        }
+        else
+        {
+            @await Html.PartialAsync("_MainMenu.cshtml")
+        }
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">

@@ -28,6 +28,39 @@ namespace greendoor.DAL
             conn = new SqlConnection(strConn);
         }
 
+        public List<Customer> GetAllCustomer()
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement
+            cmd.CommandText = @"SELECT * FROM Customer ORDER BY CustomerID";
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            //Read all records until the end, save data into a judge list
+            List<Customer> customerList = new List<Customer>();
+            while (reader.Read())
+            {
+                customerList.Add(
+                new Customer
+                {
+                    CustomerID = reader.GetInt32(0), //0: 1st column
+                    CustomerName = reader.GetString(1), //1: 2nd column
+                    EmailAddr = reader.GetString(2),
+                    Password = reader.GetString(3)
+                }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            return customerList;
+        }
+
         public int Add(Customer customer)
         {
             //Create a SqlCommand object from connection object
