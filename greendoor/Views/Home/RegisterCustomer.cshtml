@@ -4,66 +4,14 @@
     ViewData["Title"] = "Register";
 }
 
-<html>
-<head>
-    <!-- Use Unicode character encoding - multi-language compatibity -->
-    <meta charset="utf-8">
-    <!-- Set the initial view zooming scale for mobile device -->
-    <meta name="viewport" content="width = device-width,
- initial-scale = 1" />
-    <title>Register</title>
-    <!-- Reference to customized styling for this website -->
-    <link rel="stylesheet" type="text/css" href="~/css/Site.css">
-</head>
-<body class="text-center">
-    <div class="px-4 py-5 my-5 text-center">
-        <div class="container" id="mainContainer">
-            <!-- 1st row -->
-            <div class="flex-container">
-
-                <!-- Flexbox for staff login -->
-                <div>
-                    <form method="post" action="~/Home/RegisterCustomer">
-                        <fieldset class="registerCustomerFieldset">
-                            <legend class="h3 mb-3 font-weight-normal">Register Customer Account</legend>
-                            <label for="txtName" class="sr-only">Name:</label>
-                            <input type="text" name="txtName"
-                                   id="txtName" style="margin :10px" required placeholder="Name" />
-                            <br />
-                            <label for="txtEmail" class="sr-only">Email:</label>
-                            <input type="email" name="txtEmail"
-                                   id="txtLoginID" style="margin :10px" required placeholder="Email" />
-                            <br />
-                            <label for="txtPassword" class="sr-only">Password:</label>
-                            <input type="password" name="txtPassword"
-                                   id="txtPassword" style="margin :10px"
-                                   required placeholder="Password" />
-                            <br />
-                            <input type="submit" id="btnStaffLogin" style="margin :10px"
-                                   class="myButton" value="Login" />
-                            <br />
-                            <span style="color:red;">@TempData["Message"]</span>
-
-                        </fieldset>
-                    </form>
-                </div>
-                <div>
-                    <p>Don't have an existing account? Create a <a asp-action="RegisterCustomer" asp-controller="Home">Customer </a>or a <a asp-action="RegisterShop" asp-controller="Home">Shop </a>account now!</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-
-@*<div class="px-4 py-5 my-5 text-center">
+<div class="px-4 py-5 my-5 text-center">
     <h4 class="PageTitle">Register Customer Account</h4>
-    <hr />
+    <br/>
     <form asp-action="Create">
-        <fieldset class="FormContent">
+        <fieldset class="FormContent  ">
             <div class="form-group row">
                 <label asp-for="CustomerName"
-                       class="col-sm-3 col-form-label sr-only" ></label>
+                       class="sr-only" ></label>
                 <div class="col-sm-9 col-md-5">
                     <input asp-for="CustomerName" class="form-control" required placeholder="Name"/>
                     <span asp-validation-for="CustomerName"
@@ -91,11 +39,11 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-9 offset-sm-3">
+                <div>
                     <input type="submit" value="Register"
                            class="btn btn-primary" />
                 </div>
             </div>
         </fieldset>
     </form>
-</div>*@
+</div>

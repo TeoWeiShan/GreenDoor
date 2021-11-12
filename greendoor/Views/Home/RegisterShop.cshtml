@@ -4,45 +4,46 @@
     ViewData["Title"] = "Register";
 }
 
-<h4 class="PageTitle">Register Shop Account</h4>
-<hr />
-<form asp-action="Create">
-    <fieldset class="FormContent">
-        <div class="form-group row">
-            <label asp-for="ShopName"
-                   class="col-sm-3 col-form-label"></label>
-            <div class="col-sm-9 col-md-5">
-                <input asp-for="ShopName" class="form-control" />
-                <span asp-validation-for="ShopName"
-                      class="text-danger"></span>
+<div class="px-4 py-5 my-5 text-center">
+    <h4 class="PageTitle">Register Shop Account</h4>
+    <br />
+    <form asp-action="Create">
+        <fieldset class="FormContent  ">
+            <div class="form-group row">
+                <label asp-for="ShopName"
+                       class="sr-only"></label>
+                <div class="col-sm-9 col-md-5">
+                    <input asp-for="ShopName" class="form-control" required placeholder="Name" />
+                    <span asp-validation-for="ShopName"
+                          class="text-danger"></span>
+                </div>
             </div>
-        </div>
 
-        
-        <div class="form-group row">
-            <label asp-for="EmailAddr"
-                   class="col-sm-3 col-form-label"></label>
-            <div class="col-sm-9 col-md-5">
-                <input asp-for="EmailAddr" class="form-control" />
-                <span asp-validation-for="EmailAddr"
-                      class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Password"
-                   class="col-sm-3 col-form-label"></label>
-            <div class="col-sm-9 col-md-5">
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password"
-                      class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-9 offset-sm-3">
-                <input type="submit" value="Register"
-                       class="btn btn-primary" />
-            </div>
-        </div>
-    </fieldset>
-</form>
 
+            <div class="form-group row">
+                <label asp-for="EmailAddr"
+                       class="col-sm-3 col-form-label sr-only"></label>
+                <div class="col-sm-9 col-md-5">
+                    <input asp-for="EmailAddr" class="form-control" required placeholder="Email" />
+                    <span asp-validation-for="EmailAddr"
+                          class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Password"
+                       class="col-sm-3 col-form-label sr-only"></label>
+                <div class="col-sm-9 col-md-5">
+                    <input asp-for="Password" class="form-control" required placeholder="Password" />
+                    <span asp-validation-for="Password"
+                          class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div>
+                    <input type="submit" value="Register"
+                           class="btn btn-primary" />
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
