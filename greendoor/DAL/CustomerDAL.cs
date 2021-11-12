@@ -22,7 +22,7 @@ namespace greendoor.DAL
             .AddJsonFile("appsettings.json");
             Configuration = builder.Build();
             string strConn = Configuration.GetConnectionString(
-            "NPBookConnectionString");
+            "GreenDoorConnectionString");
             //Instantiate a SqlConnection object with the
             //Connection String read.
             conn = new SqlConnection(strConn);
@@ -40,7 +40,6 @@ namespace greendoor.DAL
             //Define the parameters used in SQL statement, value for each parameter
             //is retrieved from respective class's property.
             cmd.Parameters.AddWithValue("@name", customer.CustomerName);
-            cmd.Parameters.AddWithValue("@salutation", customer.Salutation);
             cmd.Parameters.AddWithValue("@email", customer.EmailAddr);
             cmd.Parameters.AddWithValue("@password", customer.Password);
             //A connection to database must be opened before any operations made.
