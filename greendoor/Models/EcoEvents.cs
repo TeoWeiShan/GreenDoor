@@ -22,6 +22,6 @@ namespace greendoor.Models
         [Display(Name = "Event Description")]
         [Required(ErrorMessage = "Please enter a description!")]
         [StringLength(50, ErrorMessage = "Description must not be longer than 3000 words")]
-        public string EventName { get; set; }
+        public string EventDescription { get; set; }
     }
 }
