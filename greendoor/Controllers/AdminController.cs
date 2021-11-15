@@ -59,7 +59,7 @@ namespace greendoor.Controllers
             ShopVM = adCtx.GetShopDetails(ShopVM.ShopID);
             return View(ShopVM);
         }
-        
+
         public ActionResult ShopDelete(int ShopID)
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -117,6 +117,8 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            return View();
         }
+    }
 }
 
