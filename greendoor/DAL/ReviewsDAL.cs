@@ -41,7 +41,7 @@ namespace greendoor.DAL
             //Define the parameters used in SQL statement, value for each parameter
             //is retrieved from respective class's property.
             cmd.Parameters.AddWithValue("@rating", reviews.Rating);
-            cmd.Parameters.AddWithValue("@custID", reviews.CustomerID);
+            //cmd.Parameters.AddWithValue("@custID", reviews.CustomerID);
             cmd.Parameters.AddWithValue("@shopID", reviews.ShopID);
             cmd.Parameters.AddWithValue("@desc", reviews.Description);
             cmd.Parameters.AddWithValue("@dateTime", DateTime.Now);
@@ -62,7 +62,8 @@ namespace greendoor.DAL
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SELECT SQL statement
             //CHANGE SQL QUERY (Name)
-            cmd.CommandText = @"SELECT * FROM Reviews WHERE ShopID = @selectedShopID";
+            cmd.CommandText = @"SELECT Reviews.* , Customer.CustomerName FROM Customer
+INNER JOIN Reviews ON Reviews.CustomerID = Customer.CustomerID WHERE ShopID = @selectedShopID";
             cmd.Parameters.AddWithValue("@selectedShopID", shopID);
             //Open a database connection
             conn.Open();
@@ -78,10 +79,11 @@ namespace greendoor.DAL
                     //CHANGE RELAVANT DETAILS
                     ReviewsID = reader.GetInt32(0),
                     Rating = !reader.IsDBNull(1) ? reader.GetInt32(1):(int?)null,
-                    CustomerID = reader.GetInt32(2),
+                    
                     ShopID = reader.GetInt32(3),
                     Description = reader.GetString(4),
-                    DateTimePosted = reader.GetDateTime(5)
+                    DateTimePosted = reader.GetDateTime(5),
+                    CustomerName = reader.GetString(6),
                 }
                 );
             }
