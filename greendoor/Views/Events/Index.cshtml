@@ -1,6 +1,7 @@
-﻿
+﻿@model IEnumerable<greendoor.Models.EcoEvents>
+
 @{
-    ViewData["Title"] = "Events";
+    ViewData["Title"] = "Index";
 }
 
 <html>
@@ -22,77 +23,7 @@
             <p class="lead mb-4"> Find Out The Lastest Events</p>
 
         </div>
-        <div class="container">
-        
-        <br />
-        <div class="row">
-            <div class="card col" style="margin-left:4px; margin-right:4px">
-                <img src="~/images/image1.jpg" class="card-img-top" style="width:100%; height:50%" alt="Event image">
-                <div class="card-body">
-                    <h4 class="card-title"><b>Event A</b></h4>
-                    <p class="card-text">Event description</p>
-                </div>
-            </div>
-            <div class="card col" style="margin-left:4px; margin-right:4px">
-                <img src="~/images/image2.jpg" class="card-img-top" style="width:100%; height:50%" alt="Event image">
-                <div class="card-body">
-                    <h4 class="card-title"><b>Event B</b></h4>
-                    <p class="card-text">Event description</p>
-                </div>
-            </div>
-            <div class="card col" style="margin-left:4px; margin-right:4px">
-                <img src="~/images/image3.jpg" class="card-img-top" style="width:100%; height:50%" alt="Event image">
-                <div class="card-body">
-                    <h4 class="card-title"><b>Event C</b></h4>
-                    <p class="card-text">Event description.</p>
-                </div>
-            </div>
-            <div class="card col" style="margin-left:4px; margin-right:4px">
-                <img src="~/images/image3.jpg" class="card-img-top" style="width:100%; height:50%" alt="Event image">
-                <div class="card-body">
-                    <h4 class="card-title"><b>Event D</b></h4>
-                    <p class="card-text">Event description.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
 
+        <partial name="~/Views/Events/_ViewEvents.cshtml" model="@Model" />
 </body>
 </html>
-
-
-@*<div class="container">
-    <h2>Events</h2>
-    <br />
-    <div class="row">
-        <div class="card col" style="margin-left:4px; margin-right:4px">
-            <img src="~/images/image1.jpg" class="card-img-top" style="width:100%; height:50%" alt="Event image">
-            <div class="card-body">
-                <h4 class="card-title"><b>Event A</b></h4>
-                <p class="card-text">Event description</p>
-            </div>
-        </div>
-        <div class="card col" style="margin-left:4px; margin-right:4px">
-            <img src="~/images/image2.jpg" class="card-img-top" style="width:100%; height:50%" alt="Event image">
-            <div class="card-body">
-                <h4 class="card-title"><b>Event B</b></h4>
-                <p class="card-text">Event description</p>
-            </div>
-        </div>
-        <div class="card col" style="margin-left:4px; margin-right:4px">
-            <img src="~/images/image3.jpg" class="card-img-top" style="width:100%; height:50%" alt="Event image">
-            <div class="card-body">
-                <h4 class="card-title"><b>Event C</b></h4>
-                <p class="card-text">Event description.</p>
-            </div>
-        </div>
-        <div class="card col" style="margin-left:4px; margin-right:4px">
-            <img src="~/images/image3.jpg" class="card-img-top" style="width:100%; height:50%" alt="Event image">
-            <div class="card-body">
-                <h4 class="card-title"><b>Event D</b></h4>
-                <p class="card-text">Event description.</p>
-            </div>
-        </div>
-    </div>
-</div>*@
