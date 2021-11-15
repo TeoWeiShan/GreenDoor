@@ -17,7 +17,6 @@ namespace greendoor.Controllers
 {
     public class CustomerController : Controller
     {
-        private CustomerDAL customerContext = new CustomerDAL();
         public IActionResult Index()
         {
             return View();

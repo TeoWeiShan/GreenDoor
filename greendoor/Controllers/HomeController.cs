@@ -46,8 +46,12 @@ namespace greendoor.Controllers
             {                      
                 // Add customer record to database
                 customer.CustomerID = customerContext.Add(customer);
-                //Redirect user to Staff/Index view
-                return RedirectToAction("Index","Customer");
+                // Store Login ID in session with the key “LoginID”
+                HttpContext.Session.SetString("LoginID", customer.CustomerID.ToString());
+                // Store user role “Customer” as a string in session with the key “Role” 
+                HttpContext.Session.SetString("Role", "Customer");
+                //Redirect user to Home/Index view
+                return RedirectToAction("Index");
             }
             else
             {
@@ -127,7 +131,7 @@ namespace greendoor.Controllers
         [HttpPost]
         public ActionResult Login(IFormCollection FormData)
         {
-            string email = FormData["txtEmail"].ToString().Trim();
+            string email = FormData["txtEmail"].ToString().ToLower().Trim();
             string password = FormData["txtPassword"].ToString();
 
             //Check if login is Customer

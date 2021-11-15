@@ -7,8 +7,8 @@
 <div class="px-4 py-5 my-5 text-center">
     <h4 class="PageTitle">Register Customer Account</h4>
     <br/>
-    <form asp-action="Create">
-        <fieldset class="FormContent  ">
+    <form asp-action="RegisterCustomer">
+        <fieldset class="FormContent">
             <div class="form-group row">
                 <label asp-for="CustomerName"
                        class="sr-only" ></label>
@@ -40,8 +40,7 @@
             </div>
             <div class="form-group row">
                 <div>
-                    <input type="submit" value="Register"
-                           class="btn btn-primary" />
+                    <input type="submit" value="Register" class="btn btn-primary" />
                 </div>
             </div>
         </fieldset>
