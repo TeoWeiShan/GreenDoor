@@ -109,6 +109,14 @@ namespace greendoor.Controllers
             eventVM = adCtx.GetEventDetails(eventVM.EventID);
             return View(eventVM);
         }
-    }
+
+        public ActionResult ManageForum()
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
 }
 
