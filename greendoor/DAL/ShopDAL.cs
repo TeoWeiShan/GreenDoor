@@ -142,5 +142,36 @@ namespace greendoor.DAL
             //Return id when no error occurs.
             return shop.ShopID;
         }
+
+        public bool IsEmailExist(string email, int shopID)
+        {
+            bool emailFound = false;
+            //Create a SqlCommand object and specify the SQL statement
+            //to get a shop record with the email address to be validated
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT ShopID FROM Shop
+                                WHERE EmailAddr=@selectedEmail";
+            cmd.Parameters.AddWithValue("@selectedEmail", email);
+            //Open a database connection and execute the SQL statement
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            { //Records found
+                while (reader.Read())
+                {
+                    if (reader.GetInt32(0) != shopID)
+                        //The email address is used by another shop
+                        emailFound = true;
+                }
+            }
+            else
+            { //No record
+                emailFound = false; // The email address given does not exist
+            }
+            reader.Close();
+            conn.Close();
+
+            return emailFound;
+        }
     }
 }
