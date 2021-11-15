@@ -69,7 +69,7 @@ namespace greendoor.DAL
             //return the auto-generated StaffID after insertion
             cmd.CommandText = @"INSERT INTO Customer (CustomerName, EmailAddr, Password)
                                 OUTPUT INSERTED.CustomerID
-                                VALUES(@name, @salutation, @email, @password)";
+                                VALUES(@name, @email, @password)";
             //Define the parameters used in SQL statement, value for each parameter
             //is retrieved from respective class's property.
             cmd.Parameters.AddWithValue("@name", customer.CustomerName);
@@ -84,6 +84,37 @@ namespace greendoor.DAL
             conn.Close();
             //Return id when no error occurs.
             return customer.CustomerID;
+        }
+
+        public bool IsEmailExist(string email, int customerID)
+        {
+            bool emailFound = false;
+            //Create a SqlCommand object and specify the SQL statement
+            //to get a customer record with the email address to be validated
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT CustomerID FROM Customer
+                                WHERE EmailAddr=@selectedEmail";
+            cmd.Parameters.AddWithValue("@selectedEmail", email);
+            //Open a database connection and execute the SQL statement
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            { //Records found
+                while (reader.Read())
+                {
+                    if (reader.GetInt32(0) != customerID)
+                        //The email address is used by another customer
+                        emailFound = true;
+                }
+            }
+            else
+            { //No record
+                emailFound = false; // The email address given does not exist
+            }
+            reader.Close();
+            conn.Close();
+
+            return emailFound;
         }
     }
 }
