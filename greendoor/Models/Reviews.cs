@@ -13,8 +13,8 @@ namespace greendoor.Models
 
         public int? Rating { get; set; }
 
-        [Display(Name = "Customer ID")]
-        public int CustomerID { get; set; }
+        [Display(Name = "Customer Name")]
+        public string CustomerName { get; set; }
 
         [Display(Name = "Shop ID")]
         public int ShopID { get; set; }
