@@ -59,7 +59,7 @@ namespace greendoor.Controllers
             ShopVM = adCtx.GetShopDetails(ShopVM.ShopID);
             return View(ShopVM);
         }
-        
+
         public ActionResult ShopDelete(int ShopID)
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -108,6 +108,16 @@ namespace greendoor.Controllers
             eventVM.EventID = eventID;
             eventVM = adCtx.GetEventDetails(eventVM.EventID);
             return View(eventVM);
+        }
+
+        public ActionResult ManageForum()
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
         }
     }
 }

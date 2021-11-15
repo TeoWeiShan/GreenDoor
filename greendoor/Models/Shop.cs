@@ -45,7 +45,7 @@ namespace greendoor.Models
         [Display(Name = "E-mail Address")]
         [EmailAddress]
         // Custom Validation Attribute for checking email address exists
-        //[ValidateJudgeEmail]
+        [ValidateEmailExists]
         [Required(ErrorMessage = "Please enter an email address!")]
         [StringLength(50, ErrorMessage = "Email cannot exceed 50 characters!")]
         public string EmailAddr { get; set; }
