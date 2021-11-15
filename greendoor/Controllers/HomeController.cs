@@ -18,25 +18,8 @@ namespace greendoor.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private List<string> salutList = new List<string> { "Mr", "Mrs", "Mdm", "Dr" };
-        private List<SelectListItem> salutDropDownList = new List<SelectListItem>();
         private CustomerDAL customerContext = new CustomerDAL();
         private ShopDAL shopContext = new ShopDAL();
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            int i = 1;
-            foreach (string salut in salutList)
-            {
-                salutDropDownList.Add(
-                    new SelectListItem
-                    {
-                        Text = salut,
-                    });
-                i++;
-            }
-            _logger = logger;
-        }
 
         public IActionResult Index()
         {
@@ -60,18 +43,15 @@ namespace greendoor.Controllers
         public ActionResult RegisterCustomer(Customer customer)
         {
             if (ModelState.IsValid)
-            {
-                
-                
-                //Add staff record to database
+            {                      
+                // Add customer record to database
                 customer.CustomerID = customerContext.Add(customer);
                 //Redirect user to Staff/Index view
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Customer");
             }
             else
             {
-                //Input validation fails, return to the Create view
-                //to display error message
+                //Input validation fails, return to the Create view to display error message
                 return View(customer);
             }
         }
