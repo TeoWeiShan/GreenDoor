@@ -63,6 +63,14 @@ namespace greendoor.Controllers
         // GET: RegShop
         public ActionResult RegisterShop()
         {
+            List<SelectListItem> li = new List<SelectListItem>();
+            li.Add(new SelectListItem { Text = "Central", Value = "0" });
+            li.Add(new SelectListItem { Text = "East", Value = "1" });
+            li.Add(new SelectListItem { Text = "North", Value = "2" });
+            li.Add(new SelectListItem { Text = "North-East", Value = "3" });
+            li.Add(new SelectListItem { Text = "West", Value = "4" });
+            ViewData["zoneList"] = li;
+
             return View();
         }
 
@@ -85,38 +93,18 @@ namespace greendoor.Controllers
             }
             else
             {
-                //Input validation fails, return to the Create view
-                //to display error message
+                List<SelectListItem> li = new List<SelectListItem>();
+                li.Add(new SelectListItem { Text = "Central", Value = "Central" });
+                li.Add(new SelectListItem { Text = "East", Value = "East" });
+                li.Add(new SelectListItem { Text = "North", Value = "North" });
+                li.Add(new SelectListItem { Text = "North-East", Value = "North-East" });
+                li.Add(new SelectListItem { Text = "West", Value = "West" });
+                ViewData["zoneList"] = li;
+
+                //Input validation fails, return to the Register view to display error message
                 return View(shop);
             }
         }
-        /*
-        // GET: RegShop
-        public ActionResult RegisterShop()
-        {
-            return View();
-        }
-
-        // POST: RegShop
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RegisterShop(Shop shop)
-        {
-            if (ModelState.IsValid)
-            {
-                //Add staff record to database
-                customer.CustomerID = customerContext.Add(customer);
-                //Redirect user to Staff/Index view
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                //Input validation fails, return to the Create view
-                //to display error message
-                return View(customer);
-            }
-        }
-        */
 
         public IActionResult Login()
         {

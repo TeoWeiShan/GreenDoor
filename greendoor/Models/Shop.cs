@@ -25,6 +25,8 @@ namespace greendoor.Models
         public string ShopDescription { get; set; }
         public string Zone { get; set; }
         [Display(Name ="Contact Number")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^[0-9]{8}$", ErrorMessage = "Please enter a 8-digit Phone Number")]
         [Required(ErrorMessage ="Contact Number must not be empty")]
         public int ContactNumber { get; set; }
 
