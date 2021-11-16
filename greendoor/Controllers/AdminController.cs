@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Razor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -117,6 +118,11 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            return View();
+        }
+
+        public ActionResult About()
+        {
             return View();
         }
     }
