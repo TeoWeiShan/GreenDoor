@@ -73,11 +73,14 @@ namespace greendoor.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Store Login ID in session with the key “LoginID”
+                HttpContext.Session.SetString("LoginID", shop.ShopID.ToString());
+                // Store user role “Shop” as a string in session with the key “Role” 
+                HttpContext.Session.SetString("Role", "Shop");
 
-
-                //Add staff record to database
+                // Add shop record to database
                 shop.ShopID = shopContext.Add(shop);
-                //Redirect user to Staff/Index view
+                //Redirect user to Shops/Index view
                 return RedirectToAction("Index");
             }
             else
