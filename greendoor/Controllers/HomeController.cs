@@ -169,7 +169,7 @@ namespace greendoor.Controllers
                 HttpContext.Session.SetString("LoginID", email);
                 // Store user role “Staff” as a string in session with the key “Role” 
                 HttpContext.Session.SetString("Role", "Admin");
-                return RedirectToAction("Index");
+                return RedirectToAction("About","Admin");
             }
             //Invalid credentials
             else

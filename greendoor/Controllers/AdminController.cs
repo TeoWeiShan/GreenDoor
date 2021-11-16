@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Razor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace greendoor.Controllers
     public class AdminController : Controller
     {
         private AdminDAL adCtx = new AdminDAL();
+        private ReviewsDAL reviewContext = new ReviewsDAL();
         public IActionResult Index()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -30,8 +32,13 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            List<AdminShopViewModel> shopList = adCtx.GetAllShop();
-            return View(shopList);
+            AdminShopViewModel asVM = new AdminShopViewModel();
+            asVM.shopList = adCtx.GetAllShop();
+            if(asVM.shopList.Count == 0)
+            {
+                ViewData["noShop"] = "No Shop available";
+            }
+            return View(asVM);
         }
 
         public ActionResult ShopDetails(int ShopID)
@@ -43,7 +50,16 @@ namespace greendoor.Controllers
             }
             AdminShopViewModel ShopVM = new AdminShopViewModel();
             ShopVM.ShopID = ShopID;
-            ShopVM = adCtx.GetShopDetails(ShopVM.ShopID);
+            ShopVM.ShopName = (adCtx.GetShopDetails(ShopVM.ShopID)).ShopName;
+            ShopVM.ShopDescription = (adCtx.GetShopDetails(ShopVM.ShopID)).ShopDescription;
+            ShopVM.Zone = (adCtx.GetShopDetails(ShopVM.ShopID)).Zone;
+            ShopVM.ContactNumber = (adCtx.GetShopDetails(ShopVM.ShopID)).ContactNumber;
+            ShopVM.Address = (adCtx.GetShopDetails(ShopVM.ShopID)).Address;
+            ShopVM.PostalCode = (adCtx.GetShopDetails(ShopVM.ShopID)).PostalCode;
+            ShopVM.WebsiteLink = (adCtx.GetShopDetails(ShopVM.ShopID)).WebsiteLink;
+            ShopVM.SocialMediaLink = (adCtx.GetShopDetails(ShopVM.ShopID)).SocialMediaLink;
+            ShopVM.EmailAddr = (adCtx.GetShopDetails(ShopVM.ShopID)).EmailAddr;
+            ShopVM.reviewsList = reviewContext.GetAllReviews(ShopID);
             return View(ShopVM);
         }
 
@@ -80,8 +96,13 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            List<AdminEventViewModel> eventList = adCtx.GetAllEvents();
-            return View(eventList);
+            AdminEventViewModel aeVM = new AdminEventViewModel();
+            aeVM.eventsList = adCtx.GetAllEvents();
+            if (aeVM.eventsList.Count == 0)
+            {
+                ViewData["noEvents"] = "No Event available";
+            }
+            return View(aeVM);
         }
 
         public ActionResult EventUpdate(int eventID)
@@ -117,6 +138,11 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            return View();
+        }
+
+        public ActionResult About()
+        {
             return View();
         }
     }

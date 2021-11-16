@@ -1,0 +1,103 @@
+﻿@model greendoor.Models.AdminShopViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<br>
+<h4 class="PageTitle">@Html.Display("ShopName")</h4>
+<hr />
+
+<section class="holder">
+
+
+    <div class="split">
+        <img src="https://picsum.photos/400/400" />
+    </div>
+
+    <div class="split">
+        <fieldset class="FormContent">
+            <div class="form-group row">
+                <label asp-for="ShopName"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.ShopName
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ShopDescription" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.ShopDescription
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Zone"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.Zone
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ContactNumber"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.ContactNumber
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="EmailAddr"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.EmailAddr
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Address"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.Address
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <label asp-for="PostalCode"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.PostalCode
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <label asp-for="WebsiteLink"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.WebsiteLink
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="SocialMediaLink"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.SocialMediaLink
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+
+</section>
+
+<div class="overflow-scroll">
+
+    @if (Model.reviewsList.Count != 0)
+    {
+        <h5>
+            Reviews:
+        </h5>
+        <partial name="~/Views/Shops/_ViewReviews.cshtml"
+                 model="@Model.reviewsList" />
+    }
+    else
+    {
+        <h5>No review for this shop yet!</h5>
+    }
+</div>

@@ -49,8 +49,8 @@ namespace greendoor.DAL
                 {
                     ShopID = reader.GetInt32(0),
                     ShopName = reader.GetString(2),
-                    EmailAddr = reader.GetString(10),
-                    Password = reader.GetString(11)
+                    EmailAddr = reader.GetString(9),
+                    Password = reader.GetString(10)
                 }
                 );
             }
