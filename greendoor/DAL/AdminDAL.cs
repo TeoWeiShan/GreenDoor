@@ -48,8 +48,7 @@ namespace greendoor.DAL
                 {
                     ShopID = reader.GetInt32(0),
                     ShopName = reader.GetString(2),
-                    EmailAddr = reader.GetString(10),
-                    Password = reader.GetString(11)
+                    EmailAddr = reader.GetString(10)
                 }
                 );
             }
@@ -115,7 +114,10 @@ namespace greendoor.DAL
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SELECT SQL statement
-            cmd.CommandText = @"SELECT * FROM EcoEvents ORDER BY EventID";
+            cmd.CommandText = @"SELECT ec.EventID, ec.ShopID, ec.EventName, ec.EventDescription,ec.DateTimePosted,ec.StartDate,ec.EndDate, s.ShopName
+                                FROM EcoEvents ec
+                                INNER JOIN Shop s
+                                ON ec.ShopID = s.ShopID";
             //Open a database connection
             conn.Open();
             //Execute the SELECT SQL through a DataReader
@@ -131,8 +133,11 @@ namespace greendoor.DAL
                     ShopID = reader.GetInt32(1),
                     EventName = reader.GetString(2),
                     EventDescription = reader.GetString(3),
-                    DateTimePosted = reader.GetDateTime(4)
-                }) ;
+                    DateTimePosted = reader.GetDateTime(4),
+                    StartDate = !reader.IsDBNull(5) ? reader.GetDateTime(5) : (DateTime?)null,
+                    EndDate = !reader.IsDBNull(6) ? reader.GetDateTime(6) : (DateTime?)null,
+                    ShopName = reader.GetString(7)
+                });
             }
             //Close DataReader
             reader.Close();
