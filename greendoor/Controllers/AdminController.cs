@@ -105,6 +105,20 @@ namespace greendoor.Controllers
             return View(aeVM);
         }
 
+        public ActionResult EventDetails(int eventID)
+        {
+            AdminEventViewModel aeVM = new AdminEventViewModel();
+            aeVM.EventID = eventID;
+            aeVM.EventName = (adCtx.GetEventDetails(aeVM.EventID)).EventName;
+            aeVM.ShopID = (adCtx.GetEventDetails(aeVM.EventID)).ShopID;
+            aeVM.ShopName = (adCtx.GetEventDetails(aeVM.EventID)).ShopName;
+            aeVM.EventDescription = (adCtx.GetEventDetails(aeVM.EventID)).EventDescription;
+            aeVM.DateTimePosted = (adCtx.GetEventDetails(aeVM.EventID)).DateTimePosted;
+            aeVM.StartDate = (adCtx.GetEventDetails(aeVM.EventID)).StartDate;
+            aeVM.EndDate = (adCtx.GetEventDetails(aeVM.EventID)).EndDate;
+            return View(aeVM);
+        }
+
         public ActionResult EventUpdate(int eventID)
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -138,7 +152,26 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            AdminForumPostViewModel afpVM = new AdminForumPostViewModel();
+            afpVM.forumPostList = adCtx.GetAllForumPost();
+            if (afpVM.forumPostList.Count == 0)
+            {
+                ViewData["noPost"] = "No Post available";
+            }
+            return View(afpVM);
+        }
+
+        public ActionResult ForumPostDetails(int ForumPostID)
+        {
+            AdminForumPostViewModel FPDetails = new AdminForumPostViewModel();
+            FPDetails.ForumPostID= ForumPostID;
+            FPDetails.CustomerID = (adCtx.GetForumPostDetails(FPDetails.ForumPostID)).CustomerID;
+            FPDetails.PostName = (adCtx.GetForumPostDetails(FPDetails.ForumPostID)).PostName;
+            FPDetails.PostDescription = (adCtx.GetForumPostDetails(FPDetails.ForumPostID)).PostDescription;
+            FPDetails.DateTimePosted = (adCtx.GetForumPostDetails(FPDetails.ForumPostID)).DateTimePosted;
+            FPDetails.CustomerName = (adCtx.GetForumPostDetails(FPDetails.ForumPostID)).CustomerName;
+            FPDetails.EmailAddr = (adCtx.GetForumPostDetails(FPDetails.ForumPostID)).EmailAddr;
+            return View(FPDetails);
         }
 
         public ActionResult About()

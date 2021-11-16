@@ -156,7 +156,11 @@ namespace greendoor.DAL
             //Specify the SELECT SQL statement that
             //retrieves all attributes of a shop record.
 
-            cmd.CommandText = @"SELECT * FROM EcoEvents WHERE EventID = @selectedEventID";
+            cmd.CommandText = @"SELECT ec.EventID, ec.ShopID, ec.EventName, ec.EventDescription,ec.DateTimePosted,ec.StartDate,ec.EndDate, s.ShopName
+                                FROM EcoEvents ec
+                                INNER JOIN Shop s
+                                ON ec.ShopID = s.ShopID
+								WHERE ec.EventID = @selectedEventID";
 
             //Define the parameter used in SQL statement, value for the
             //parameter is retrieved from the method parameter “judgeId”.
@@ -173,6 +177,7 @@ namespace greendoor.DAL
                 while (reader.Read())
                 {
                     ecoevent.ShopID = reader.GetInt32(1);
+                    ecoevent.ShopName = reader.GetString(7);
                     ecoevent.EventName = reader.GetString(2);
                     ecoevent.EventDescription = reader.GetString(3);
                     ecoevent.DateTimePosted = reader.GetDateTime(4);
@@ -187,6 +192,97 @@ namespace greendoor.DAL
             conn.Close();
 
             return ecoevent;
+        }
+
+        public List<AdminForumPostViewModel> GetAllForumPost()
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement
+            cmd.CommandText = @"SELECT fp.ForumPostID, fp.CustomerID,fp.PostName,fp.PostDescription,fp.DateTimePosted, c.CustomerName,c.EmailAddr
+                                FROM ForumPost fp
+                                INNER JOIN Customer c
+                                ON fp.CustomerID = c.CustomerID";
+
+            //Open a database connection
+            conn.Open();
+
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            //Read all records until the end, save data into a list of forum post objects
+            List<AdminForumPostViewModel> forumPostList = new List<AdminForumPostViewModel>();
+
+            while (reader.Read())
+            {
+                forumPostList.Add(
+                    new AdminForumPostViewModel
+                    {
+                        CustomerID = reader.GetInt32(1),
+                        ForumPostID = reader.GetInt32(0),
+                        PostName = reader.GetString(2),
+                        PostDescription = reader.GetString(3),
+                        DateTimePosted = reader.GetDateTime(4),
+                        CustomerName = reader.GetString(5),
+                        EmailAddr = reader.GetString(6)
+                    }
+                );
+            }
+
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+            return forumPostList;
+        }
+
+        public AdminForumPostViewModel GetForumPostDetails(int ForumPostID)
+        {
+            AdminForumPostViewModel postDetails = new AdminForumPostViewModel();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a shop record.
+
+            cmd.CommandText = @"SELECT fp.ForumPostID, fp.CustomerID,fp.PostName,fp.PostDescription,fp.DateTimePosted, c.CustomerName,c.EmailAddr
+                                FROM ForumPost fp
+                                INNER JOIN Customer c
+                                ON fp.CustomerID = c.CustomerID
+                                WHERE fp.ForumPostID = @selectedFPID";
+
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “judgeId”.
+            cmd.Parameters.AddWithValue("@selectedFPID", ForumPostID);
+
+            //Open a database connection
+            conn.Open();
+
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    postDetails.CustomerID = reader.GetInt32(1);
+                    postDetails.ForumPostID = reader.GetInt32(0);
+                    postDetails.PostName = reader.GetString(2);
+                    postDetails.PostDescription = reader.GetString(3);
+                    postDetails.DateTimePosted = reader.GetDateTime(4);
+                    postDetails.CustomerName = reader.GetString(5);
+                    postDetails.EmailAddr = reader.GetString(6);
+                }
+            }
+            //Close DataReader
+            reader.Close();
+
+            //Close the database connection
+            conn.Close();
+
+            return postDetails;
         }
     }
 }
