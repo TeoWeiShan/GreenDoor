@@ -121,23 +121,31 @@ namespace greendoor.DAL
                                 VALUES(@shopPic, @shopName, @shopDesc, @zone,@contactNum,@addr,@postalCode,@socialMedia,@webLink,@emailAddr,@password)";
             //Define the parameters used in SQL statement, value for each parameter
             //is retrieved from respective class's property.
+            string web = " ";
+            string social = " ";
+            if (shop.SocialMediaLink != null)
+            {
+                web = shop.WebsiteLink;
+            }
+            if (shop.WebsiteLink != null)
+            {
+                social = shop.SocialMediaLink;
+            }
+            cmd.Parameters.AddWithValue("@shopPic", shop.ShopPicture);
             cmd.Parameters.AddWithValue("@shopName", shop.ShopName);
             cmd.Parameters.AddWithValue("@shopDesc", shop.ShopDescription);
             cmd.Parameters.AddWithValue("@zone", shop.Zone);
             cmd.Parameters.AddWithValue("@contactNum", shop.ContactNumber);
             cmd.Parameters.AddWithValue("@addr", shop.Address);
             cmd.Parameters.AddWithValue("@postalCode", shop.PostalCode);
-            cmd.Parameters.AddWithValue("@socialMedia", shop.SocialMediaLink);
-            cmd.Parameters.AddWithValue("@webLink", shop.WebsiteLink);
+            cmd.Parameters.AddWithValue("@socialMedia", social);
+            cmd.Parameters.AddWithValue("@webLink", web);
             cmd.Parameters.AddWithValue("@emailAddr", shop.EmailAddr);
             cmd.Parameters.AddWithValue("@password", shop.Password);
 
             //A connection to database must be opened before any operations made.
             conn.Open();
-            //ExecuteScalar is used to retrieve the auto-generated
-            //StaffID after executing the INSERT SQL statement
             shop.ShopID = (int)cmd.ExecuteScalar();
-            //A connection should be closed after operations.
             conn.Close();
             //Return id when no error occurs.
             return shop.ShopID;
