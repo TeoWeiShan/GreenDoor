@@ -48,9 +48,17 @@ namespace greendoor.DAL
                 new Shop
                 {
                     ShopID = reader.GetInt32(0),
+                    ShopPicture = reader.GetString(1),
                     ShopName = reader.GetString(2),
-                    EmailAddr = reader.GetString(9),
-                    Password = reader.GetString(10)
+                    ShopDescription = reader.GetString(3),
+                    Zone = reader.GetString(4),
+                    ContactNumber = reader.GetInt32(5),
+                    Address = reader.GetString(6),
+                    PostalCode = reader.GetInt32(7),
+                    SocialMediaLink = reader.GetString(8),
+                    WebsiteLink = reader.GetString(9),
+                    EmailAddr = reader.GetString(10),
+                    Password = reader.GetString(11)
                 }
                 );
             }
