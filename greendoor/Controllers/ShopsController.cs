@@ -131,5 +131,44 @@ namespace greendoor.Controllers
             return View(shopModel);
         }
 
+        public ActionResult Edit()
+        {
+            EditShopDetailsViewModel shopViewModel = new EditShopDetailsViewModel();
+          
+            Shop shop = shopContext.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
+            shopViewModel.ShopPicture = shop.ShopPicture;
+            shopViewModel.ShopName = shop.ShopName;
+            shopViewModel.ShopDescription = shop.ShopDescription;
+            shopViewModel.Zone = shop.Zone;
+            shopViewModel.ContactNumber = shop.ContactNumber;
+            shopViewModel.Address = shop.Address;
+            shopViewModel.PostalCode = shop.PostalCode;
+            shopViewModel.SocialMediaLink = shop.SocialMediaLink;
+            shopViewModel.WebsiteLink = shop.WebsiteLink;
+            shopViewModel.EmailAddr = shop.EmailAddr;
+            shopViewModel.Password = shop.Password;
+
+            List<SelectListItem> li = new List<SelectListItem>();
+            li.Add(new SelectListItem { Text = "Central", Value = "Central" });
+            li.Add(new SelectListItem { Text = "East", Value = "East" });
+            li.Add(new SelectListItem { Text = "North", Value = "North" });
+            li.Add(new SelectListItem { Text = "North-East", Value = "North-East" });
+            li.Add(new SelectListItem { Text = "West", Value = "West" });
+            li.Add(new SelectListItem { Text = "NA", Value = "NA" });
+            ViewData["zoneList"] = li;
+
+            //If query id not in db, redirect out
+            if (shop.ShopName == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            return View(shopViewModel);
+        }
+
+        public ActionResult Delete()
+        {
+            return View();
+        }
     }
 }
