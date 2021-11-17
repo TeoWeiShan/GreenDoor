@@ -70,7 +70,7 @@ namespace greendoor.DAL
         }
 
         //add area of forum post (C)
-        public int Add(ForumPostCommentViewModel forumPost, int custID)
+        public int Add(ForumPostCommentViewModel forumPost)
         {
             //Create a SqlCommand object from connection object 
             SqlCommand cmd = conn.CreateCommand();
@@ -81,7 +81,7 @@ namespace greendoor.DAL
                                 VALUES(@cust, @name, @desc, @date)";
             //Define the parameters used in SQL statement, value for each parameter 
             //is retrieved from respective class's property. 
-            cmd.Parameters.AddWithValue("@cust", custID);
+            cmd.Parameters.AddWithValue("@cust", forumPost.CustomerID);
             cmd.Parameters.AddWithValue("@name", forumPost.PostName);
             cmd.Parameters.AddWithValue("@desc", forumPost.PostDescription);
             cmd.Parameters.AddWithValue("@date", DateTime.Now);
@@ -92,7 +92,6 @@ namespace greendoor.DAL
             forumPost.ForumPostID = (int)cmd.ExecuteScalar();
             //A connection should be closed after operations. 
             conn.Close();
-            //Return id when no error occurs. 
             return forumPost.ForumPostID;
         }
 

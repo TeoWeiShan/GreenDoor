@@ -39,24 +39,13 @@ namespace greendoor.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ForumPostCommentViewModel forumPost)
         {
-            if (ModelState.IsValid)
-            {
-                //Add ForumPost record to database 
-                int custID = 1;
+            forumPost.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
+            forumPost.DateTimePosted = DateTime.Now;
+            //Add ForumPost record to database 
+            forumPost.ForumPostID = forumPostContext.Add(forumPost);
 
-                forumPost.ForumPostID = forumPostContext.Add(forumPost, custID);
-
-                //alert user that ForumPost record has been successfully addded
-                TempData["SuccessDetail"] = "Topic has been posted successfully!";
-
-                //return to the Sucess view to display success message
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                //Input validation fails, return to the Create view to display error message 
-                return View(forumPost);
-            }
+            //return to the Sucess view to display success message
+            return RedirectToAction("Index", "Forum");
         }
     }
 }
