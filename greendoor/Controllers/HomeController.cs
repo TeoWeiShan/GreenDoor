@@ -144,7 +144,7 @@ namespace greendoor.Controllers
                 if (customer.EmailAddr.ToLower() == email && customer.Password == password)
                 {
                     // Store Login ID in session with the key “LoginID”
-                    HttpContext.Session.SetString("LoginID", customer.CustomerID.ToString());
+                    HttpContext.Session.SetInt32("LoginID", customer.CustomerID);
                     // Store user role “customer” as a string in session with the key “Role” 
                     HttpContext.Session.SetString("Role", "Customer");
                     return RedirectToAction("Index");
@@ -157,7 +157,7 @@ namespace greendoor.Controllers
                 if (shop.EmailAddr.ToLower() == email && shop.Password == password)
                 {
                     // Store Login ID in session with the key “LoginID”
-                    HttpContext.Session.SetString("LoginID", shop.ShopID.ToString());
+                    HttpContext.Session.SetInt32("LoginID", shop.ShopID);
                     // Store user role “customer” as a string in session with the key “Role” 
                     HttpContext.Session.SetString("Role", "Shop");
                     return RedirectToAction("Index");
