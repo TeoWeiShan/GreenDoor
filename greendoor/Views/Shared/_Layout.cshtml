@@ -19,7 +19,7 @@
         }
         else if (Context.Session.GetString("Role") == "Customer")
         {
-            @await Html.PartialAsync("_UserMenu.cshtml")
+            @await Html.PartialAsync("_CustomerMenu.cshtml")
         }
         else
         {
