@@ -1,0 +1,34 @@
+﻿@model IEnumerable<greendoor.Models.Shop>
+
+@if (Model.ToList().Count > 0)
+{
+
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="card" style="width:300px; margin-top:5%; margin-left:3%;">
+
+                    <img class="card-img-top" src="https://picsum.photos/400/400" alt="Card image" style="width:100%">
+                    <div class="card-body">
+                        <h4 class="card-title"> @item.ShopName</h4>
+
+                    </div>
+                    <div class="card-footer">
+                        <a asp-action="ShopDetails" asp-controller="Customer"
+                           asp-route-ShopId="@item.ShopID">Details</a>
+                    </div>
+
+                </div>
+                <br>
+            }
+
+        </div>
+    </div>
+
+}
+
+else
+{
+    <span style="color:red">No record found!</span>
+}
