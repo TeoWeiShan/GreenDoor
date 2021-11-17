@@ -16,6 +16,9 @@ namespace greendoor.Models
         [Display(Name = "Customer Name")]
         public string CustomerName { get; set; }
 
+        [Display(Name = "Customer ID")]
+        public string CustomerID { get; set; }
+
         [Display(Name = "Shop ID")]
         public int ShopID { get; set; }
 
