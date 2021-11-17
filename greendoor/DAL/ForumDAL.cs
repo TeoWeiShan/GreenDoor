@@ -31,7 +31,7 @@ namespace greendoor.DAL
         }
 
         //retrieve a list of forum post objects from database
-        public List<AdminForumCommentsViewModel> GetForumComments()
+        public List<ForumPost> GetAllForumPost()
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
