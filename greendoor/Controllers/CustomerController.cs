@@ -18,7 +18,10 @@ namespace greendoor.Controllers
     public class CustomerController : Controller
     {
         private CustomerDAL custCtx = new CustomerDAL();
-        
+        private ShopDAL shopContext = new ShopDAL();
+        private ReviewsDAL reviewContext = new ReviewsDAL();
+        private ForumDAL forumPostContext = new ForumDAL();
+        private EventDAL eContext = new EventDAL();
         public ActionResult Profile()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -53,6 +56,76 @@ namespace greendoor.Controllers
             Customer cust = new Customer();
             cust = custCtx.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
             return View(cust);
+        }
+
+        public ActionResult ViewShops()
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            List<Shop> shopList = shopContext.GetAllShop();
+            return View(shopList);
+        }
+
+        public ActionResult ShopDetails(int ShopID)
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
+            //Get details of competition
+            shopreviewVM = custCtx.ShopDetails(ShopID);
+            shopreviewVM.reviewsList = reviewContext.GetAllReviews(ShopID);
+            shopreviewVM.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
+            shopreviewVM.CustomerName = (custCtx.GetDetails(shopreviewVM.CustomerID)).CustomerName;
+            return View(shopreviewVM);
+        }
+
+        public ActionResult ViewForum()
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            List<ForumPost> forumPostList = forumPostContext.GetAllForumPost();
+            return View(forumPostList);
+        }
+
+        public ActionResult ViewEvents()
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            List<EcoEvents> eList = eContext.GetAllEvent();
+            return View(eList);
+        }
+
+        public ActionResult EventDetails(int EventID)
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            EcoEvents e = eContext.GetDetails(EventID);
+            if (e.EventName == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            return View(e);
+        }
+
+        public ActionResult About()
+        {
+            return View();
         }
 
         [HttpPost]
