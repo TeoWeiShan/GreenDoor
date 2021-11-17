@@ -29,7 +29,7 @@
                         <div class="form-group row">
                             <label asp-for="PhotoFile" class="col-sm-3 col-form-label">Shop Photo (jpg format):</label>
                             <div class="col-sm-9 col-md-5">
-                                <input asp-for="PhotoFile"  accept="image/jpeg" />
+                                <input asp-for="PhotoFile" required accept="image/jpeg" />
                                 <span asp-validation-for="PhotoFile" class="text-danger"></span>
                             </div>
                         </div>
