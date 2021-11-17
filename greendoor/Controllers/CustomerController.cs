@@ -17,9 +17,62 @@ namespace greendoor.Controllers
 {
     public class CustomerController : Controller
     {
-        public IActionResult Index()
+        private CustomerDAL custCtx = new CustomerDAL();
+        
+        public ActionResult Profile()
         {
-            return View();
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Customer cust = new Customer();
+            cust = custCtx.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
+            return View(cust);
+        }
+
+        public ActionResult UpdateProfile()
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Customer cust = new Customer();
+            cust = custCtx.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
+            return View(cust);
+        }
+
+        public ActionResult DeleteProfile()
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Customer cust = new Customer();
+            cust = custCtx.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
+            return View(cust);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(Customer cust)
+        {
+
+            //Add judge record to database
+            custCtx.Update(cust);
+            //Redirect user to Judge/Create View
+            return RedirectToAction("Profile", "Customer");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Customer cust)
+        {
+            custCtx.Delete(cust);
+            HttpContext.Session.Remove("Role");
+            //Redirect user to Judge/ Create View
+            return RedirectToAction("Index", "Home");
         }
     }
 }
