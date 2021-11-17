@@ -26,7 +26,7 @@ namespace greendoor.Controllers
             // Stop accessing the action if not logged in or account not Admin role
             if ((HttpContext.Session.GetString("Role") == "Customer") ||
                     (HttpContext.Session.GetString("Role") == "Admin") ||
-                        (HttpContext.Session.GetString("Role") == "Shop"))
+                        (HttpContext.Session.GetString("Role") == "Owner"))
             {
                 return View();
             }
