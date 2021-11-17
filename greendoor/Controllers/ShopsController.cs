@@ -21,6 +21,11 @@ namespace greendoor.Controllers
             return View(shopList);
         }
 
+        public IActionResult HomePage()
+        {
+            return View();
+        }
+
         // GET: ShopController/Details/5
         public ActionResult Details(int id)
         {

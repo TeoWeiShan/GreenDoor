@@ -13,6 +13,7 @@ namespace greendoor.Controllers
     {
         // GET: EventsController
         private EventDAL eContext = new EventDAL();
+        private ShopDAL sContext= new ShopDAL();
 
         public ActionResult Index()
         {
@@ -23,8 +24,10 @@ namespace greendoor.Controllers
         // GET: EventsController/Details/5
         public ActionResult Details(int id)
         {
-            
+            HttpContext.Session.SetString("ShopID", id.ToString());
+
             EcoEvents e = eContext.GetDetails(id);
+            string shopID = HttpContext.Session.GetString("ShopID");
             if (e.EventName == null)
             {
                 //Return to listing page, not allowed to edit
@@ -44,9 +47,12 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            //Shop s = new Shop();
+           int  s = (int)HttpContext.Session.GetInt32("LoginID");
 
-           // ViewData["AreaInterestList"] = GetAreaInterest();
+             ViewData["ShopID"] = s;
             return View();
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -54,10 +60,16 @@ namespace greendoor.Controllers
         {
             //Get country list for drop-down list
             //in case of the need to return to Create.cshtml view
-           // ViewData["AreaInterestList"] = GetAreaInterest();
+            
+            //HttpContext.Session.SetString("ShopID", id.ToString());
+
+            
+            //string shopID = HttpContext.Session.GetString("ShopID");
+            //e.ShopID = id;
             if (ModelState.IsValid)
             {
                 //Add staff record to database
+                e.DateTimePosted= DateTime.Now;
                 e.EventID = eContext.Add(e);
                 //Redirect user to Competition/Index view
                 return RedirectToAction("Index");
