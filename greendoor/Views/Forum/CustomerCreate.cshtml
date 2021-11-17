@@ -8,7 +8,7 @@
     <h4 class="PageTitle">Add Discussion Topic</h4>
     <br />
 
-    <form asp-action="CreatePost">
+    <form asp-action="CustomerCreate" asp-controller="Forum">
         <div class="form-group">
             <label asp-for="CustomerName" class="control-label"></label>
             <input asp-for="CustomerName" class="form-control" readonly />
@@ -30,6 +30,6 @@
         </div>
     </form>
     <div>
-        <a asp-action="ViewForum" asp-controller="Customer">View Discussion Topics</a>
+        <a asp-action="CustomerViewForum" asp-controller="Forum">View Discussion Topics</a>
     </div>
 </div>

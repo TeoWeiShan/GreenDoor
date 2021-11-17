@@ -90,31 +90,6 @@ namespace greendoor.Controllers
             return View(shopreviewVM);
         }
 
-        public ActionResult ViewForum()
-        {
-            if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Customer"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
-            fpcVM.PostsList = forumPostContext.GetAllForumPostVM();
-            return View(fpcVM);
-        }
-
-        public ActionResult CreatePost()
-        {
-            if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Customer"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
-            fpcVM.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
-            fpcVM.CustomerName =(custCtx.GetDetails(fpcVM.CustomerID)).CustomerName;
-            return View(fpcVM);
-        }
-
         public ActionResult ViewEvents()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -165,19 +140,6 @@ namespace greendoor.Controllers
             HttpContext.Session.Remove("Role");
             //Redirect user to Judge/ Create View
             return RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreatePost(ForumPostCommentViewModel forumPost)
-        {
-            forumPost.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
-            forumPost.DateTimePosted = DateTime.Now;
-            //Add ForumPost record to database 
-            forumPost.ForumPostID =  forumPostContext.Add(forumPost);
-
-            //return to the Sucess view to display success message
-            return RedirectToAction("ViewForum","Customer");
         }
     }
 }

@@ -11,6 +11,8 @@ namespace greendoor.Models
         public int CustomerID { get; set; }
         public int ForumPostID { get; set; }
 
+        public int ShopID { get; set; }
+
         [Display(Name = "Post Name")]
         [Required(ErrorMessage = "Please enter a name for this post!")]
         [StringLength(50, ErrorMessage = "Name must not exceed 50 characters")]

@@ -88,7 +88,7 @@
         <div>
             @if (Context.Session.GetString("Role") == "Customer")
             {
-                <a asp-action="CreatePost" asp-controller="Customer">Add Discussion Topic</a>
+                <a asp-action="CustomerCreate" asp-controller="Forum">Add Discussion Topic</a>
             }
             else
             {
