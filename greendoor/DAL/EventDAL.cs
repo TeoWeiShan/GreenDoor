@@ -108,7 +108,38 @@ namespace greendoor.DAL
 
             return e;
         }
-       
+
+        public int Add(EcoEvents e)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify an INSERT SQL statement which will
+            //return the auto-generated competitionID after insertion
+            cmd.CommandText = @"INSERT INTO EcoEvents (ShopID, EventName,EventDescription,DateTimePosted, StartDate, EndDate)
+                                OUTPUT INSERTED.EventID
+                                VALUES(@shopID, @eventName, @eventDescription,@dateTimePosted,@startDate,@endDate)";
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+
+            cmd.Parameters.AddWithValue("@shopID", e.ShopID);
+            cmd.Parameters.AddWithValue("@eventName", e.EventName);
+            cmd.Parameters.AddWithValue("@eventDescription", e.EventDescription);
+            cmd.Parameters.AddWithValue("@dateTimePosted", e.DateTimePosted);
+            cmd.Parameters.AddWithValue("@startDate", e.StartDate);
+            cmd.Parameters.AddWithValue("@endDate", e.EndDate);
+            
+
+            //A connection to database must be opened before any operations made.
+            conn.Open();
+            //ExecuteScalar is used to retrieve the auto-generated
+            //CompetitionID after executing the INSERT SQL statement
+            e.EventID = (int)cmd.ExecuteScalar();
+            //A connection should be closed after operations.
+            conn.Close();
+            //Return id when no error occurs.
+            return e.EventID;
+        }
+
     }
 }
 
