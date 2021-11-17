@@ -1,4 +1,4 @@
-﻿@model greendoor.Models.Shop
+﻿@model greendoor.Models.RegisterShopViewModel
 
 @{
     ViewData["Title"] = "Register";
@@ -13,14 +13,43 @@
     <link rel="stylesheet" type="text/css" href="~/css/Site.css">
 </head>
 <body>
+    <div>
+        @ViewData["Error"];
+    </div>
     <div class="d-flex align-content-center justify-content-center">
-        <div class="card my-5 shadow" style="width:700px">
+        <div class="card my-5 shadow" style="width:1000px">
             <h2 class="card-title card-header bg-custom navbar-dark mb-3 text-center" style="color:#f5eec2">
                 Register Shop Account
             </h2>
             <div class="card-body">
-                <form asp-action="RegisterShop">
+                <form asp-action="RegisterShop" enctype="multipart/form-data">
                     <fieldset class="FormContent  ">
+                      
+
+                        <div class="form-group row">
+                            <label asp-for="PhotoFile" class="col-sm-3 col-form-label">Shop Photo (jpg format):</label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="PhotoFile" required accept="image/jpeg" />
+                                <span asp-validation-for="PhotoFile" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="SocialMediaLink" class="col-sm-3 col-form-label">Social Media Link(Optional):</label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="SocialMediaLink" class="form-control" placeholder="Social Media Link" />
+                                <span asp-validation-for="SocialMediaLink" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="WebsiteLink" class="col-sm-3 col-form-label">Website Link(Optional):</label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="WebsiteLink" class="form-control" placeholder="Website Link" />
+                                <span asp-validation-for="WebsiteLink" class="text-danger"></span>
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label asp-for="ShopName" class="col-sm-3 col-form-label">Shop Name: </label>
                             <div class="col-sm-9 col-md-5">
@@ -53,6 +82,14 @@
                         </div>
 
                         <div class="form-group row">
+                            <label asp-for="PostalCode" class="col-sm-3 col-form-label">Postal Code: </label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="PostalCode" class="form-control" required placeholder="Postal Code" />
+                                <span asp-validation-for="PostalCode" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label asp-for="ContactNumber" class="col-sm-3 col-form-label">Contact Number: </label>
                             <div class="col-sm-9 col-md-5">
                                 <input asp-for="ContactNumber" class="form-control" required placeholder="Contact Number" />
@@ -81,7 +118,7 @@
                                 <input type="submit" value="Register" class="btn btn-primary" />
                             </div>
                         </div>
-                    </fieldset>
+                        </fieldset>
                 </form>
             </div>
         </div>

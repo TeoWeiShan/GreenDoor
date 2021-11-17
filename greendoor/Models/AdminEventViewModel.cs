@@ -32,5 +32,17 @@ namespace greendoor.Models
 
         [Display(Name = "End Date")]
         public DateTime? EndDate { get; set; }
+
+        [Display(Name = "Shop Name")]
+        [Required(ErrorMessage = "Please enter a name!")]
+        [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
+        public string ShopName { get; set; }
+
+        public List<AdminEventViewModel> eventsList { get; set; }
+
+        public AdminEventViewModel()
+        {
+            eventsList = new List<AdminEventViewModel>();
+        }
     }
 }

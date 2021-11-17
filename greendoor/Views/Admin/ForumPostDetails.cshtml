@@ -1,0 +1,71 @@
+﻿@model greendoor.Models.AdminForumPostViewModel
+
+@{
+    ViewData["Title"] = "Post Details";
+}
+<br>
+<h4 class="PageTitle">@Html.Display("PostName")</h4>
+<hr />
+
+<section class="holder">
+
+
+    <div class="split">
+        <img src="https://picsum.photos/400/400" />
+    </div>
+
+    <div class="split">
+        <fieldset class="FormContent">
+            <div class="form-group row">
+                <label asp-for="ForumPostID"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.ForumPostID
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="CustomerID" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.CustomerID
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="CustomerName"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.CustomerName
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="EmailAddr"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.EmailAddr
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="PostName"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.PostName
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="PostDescription"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.PostDescription
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="DateTimePosted"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.DateTimePosted
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+
+</section>

@@ -11,7 +11,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 using greendoor.DAL;
+using Microsoft.AspNetCore.Hosting;
 
 namespace greendoor.Controllers
 {
@@ -64,11 +66,11 @@ namespace greendoor.Controllers
         public ActionResult RegisterShop()
         {
             List<SelectListItem> li = new List<SelectListItem>();
-            li.Add(new SelectListItem { Text = "Central", Value = "0" });
-            li.Add(new SelectListItem { Text = "East", Value = "1" });
-            li.Add(new SelectListItem { Text = "North", Value = "2" });
-            li.Add(new SelectListItem { Text = "North-East", Value = "3" });
-            li.Add(new SelectListItem { Text = "West", Value = "4" });
+            li.Add(new SelectListItem { Text = "Central", Value = "Central" });
+            li.Add(new SelectListItem { Text = "East", Value = "East" });
+            li.Add(new SelectListItem { Text = "North", Value = "North" });
+            li.Add(new SelectListItem { Text = "North-East", Value = "North-East" });
+            li.Add(new SelectListItem { Text = "West", Value = "West" });
             ViewData["zoneList"] = li;
 
             return View();
@@ -77,33 +79,43 @@ namespace greendoor.Controllers
         // POST: RegShop
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RegisterShop(Shop shop)
+        public async Task<ActionResult> RegisterShop(RegisterShopViewModel shopModel)
         {
-            if (ModelState.IsValid)
+            // Find the filename extension of the file to be uploaded.
+            string fileExt = Path.GetExtension(shopModel.PhotoFile.FileName);
+            // Rename the uploaded file with the shop’s name.
+            string uploadedFile = shopModel.ShopName + fileExt;
+            // Get the complete path to the images folder in server
+            string savePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", uploadedFile);
+            // Upload the file to server
+            using (var fileSteam = new FileStream(savePath, FileMode.Create))
             {
-                // Store Login ID in session with the key “LoginID”
-                HttpContext.Session.SetString("LoginID", shop.ShopID.ToString());
-                // Store user role “Shop” as a string in session with the key “Role” 
-                HttpContext.Session.SetString("Role", "Shop");
-
-                // Add shop record to database
-                shop.ShopID = shopContext.Add(shop);
-                //Redirect user to Shops/Index view
-                return RedirectToAction("Index");
+                await shopModel.PhotoFile.CopyToAsync(fileSteam);
             }
-            else
-            {
-                List<SelectListItem> li = new List<SelectListItem>();
-                li.Add(new SelectListItem { Text = "Central", Value = "Central" });
-                li.Add(new SelectListItem { Text = "East", Value = "East" });
-                li.Add(new SelectListItem { Text = "North", Value = "North" });
-                li.Add(new SelectListItem { Text = "North-East", Value = "North-East" });
-                li.Add(new SelectListItem { Text = "West", Value = "West" });
-                ViewData["zoneList"] = li;
 
-                //Input validation fails, return to the Register view to display error message
-                return View(shop);
-            }
+            Shop shop = new Shop();
+            shop.ShopDescription = shopModel.ShopDescription;
+            shop.Password = shopModel.Password;
+            shop.PostalCode = shopModel.PostalCode;
+            shop.ShopName = shopModel.ShopName;
+            shop.WebsiteLink = shopModel.WebsiteLink;
+            shop.SocialMediaLink = shopModel.SocialMediaLink;
+            shop.Zone = shopModel.Zone;
+            shop.ContactNumber = shopModel.ContactNumber;
+            shop.Address = shopModel.Address;
+            shop.EmailAddr = shopModel.EmailAddr;
+            shop.ShopPicture = uploadedFile;
+
+            // Add shop record to database
+            shop.ShopID = shopContext.Add(shop);
+
+            // Store Login ID in session with the key “LoginID”
+            HttpContext.Session.SetString("LoginID", shop.ShopID.ToString());
+            // Store user role “Shop” as a string in session with the key “Role” 
+            HttpContext.Session.SetString("Role", "Shop");
+
+            //Redirect user to Shops/Index view
+            return RedirectToAction("Index");
         }
 
         public IActionResult Login()
@@ -132,7 +144,7 @@ namespace greendoor.Controllers
                 if (customer.EmailAddr.ToLower() == email && customer.Password == password)
                 {
                     // Store Login ID in session with the key “LoginID”
-                    HttpContext.Session.SetString("LoginID", customer.CustomerID.ToString());
+                    HttpContext.Session.SetInt32("LoginID", customer.CustomerID);
                     // Store user role “customer” as a string in session with the key “Role” 
                     HttpContext.Session.SetString("Role", "Customer");
                     return RedirectToAction("Index");
@@ -145,7 +157,7 @@ namespace greendoor.Controllers
                 if (shop.EmailAddr.ToLower() == email && shop.Password == password)
                 {
                     // Store Login ID in session with the key “LoginID”
-                    HttpContext.Session.SetString("LoginID", shop.ShopID.ToString());
+                    HttpContext.Session.SetInt32("LoginID", shop.ShopID);
                     // Store user role “customer” as a string in session with the key “Role” 
                     HttpContext.Session.SetString("Role", "Shop");
                     return RedirectToAction("Index");
