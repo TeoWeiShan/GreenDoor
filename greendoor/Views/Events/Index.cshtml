@@ -24,7 +24,7 @@
         </div>
         <div>
 
-            @if (Context.Session.GetString("Role") == "Owner")
+            @if (Context.Session.GetString("Role") == "Shop")
             {
                 <p><a asp-action="Create">Add Event</a></p>
             }

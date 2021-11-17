@@ -40,7 +40,7 @@ namespace greendoor.Controllers
         public ActionResult Create()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "Owner"))
+            (HttpContext.Session.GetString("Role") != "Shop"))
             {
                 return RedirectToAction("Index", "Home");
             }
