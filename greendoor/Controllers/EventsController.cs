@@ -13,12 +13,13 @@ namespace greendoor.Controllers
     {
         // GET: EventsController
         private EventDAL eContext = new EventDAL();
+
         public ActionResult Index()
         {
             List<EcoEvents> eList = eContext.GetAllEvent();
             return View(eList);
         }
-
+        
         // GET: EventsController/Details/5
         public ActionResult Details(int id)
         {
@@ -34,23 +35,38 @@ namespace greendoor.Controllers
         }
 
         // GET: EventsController/Create
+       
+    
         public ActionResult Create()
         {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Shop"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+           // ViewData["AreaInterestList"] = GetAreaInterest();
             return View();
         }
-
-        // POST: EventsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(EcoEvents e)
         {
-            try
+            //Get country list for drop-down list
+            //in case of the need to return to Create.cshtml view
+           // ViewData["AreaInterestList"] = GetAreaInterest();
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                //Add staff record to database
+                e.EventID = eContext.Add(e);
+                //Redirect user to Competition/Index view
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                //Input validation fails, return to the Create view
+                //to display error message
+                return View(e);
             }
         }
 
