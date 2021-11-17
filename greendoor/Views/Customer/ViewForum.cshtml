@@ -1,6 +1,97 @@
-﻿@{
+﻿@model greendoor.Models.ForumPostCommentViewModel
+@{
     ViewData["Title"] = "Forum";
 }
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GreenDoor</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<style>
+    #abc {
+        width: 100%;
+        height: 100%;
+        opacity: .95;
+        top: 0;
+        left: 0;
+        display: none;
+        position: absolute;
+        padding-left: 25%;
+        /*padding-right:;*/
+        background-color: #313131;
+        overflow: auto
+    }
+
+    img#close {
+        position: absolute;
+        right: -14px;
+        top: -14px;
+        max-width: 10%;
+        height: 10%;
+        cursor: pointer
+    }
+
+    div#popupContact {
+        position: absolute;
+        margin: 0 auto;
+        top: 17%;
+        font-family: 'Raleway',sans-serif
+    }
+
+    form {
+        max-width: 1200px;
+        min-width: 700px;
+        padding: 10px 50px;
+        border: 2px solid gray;
+        border-radius: 10px;
+        font-family: raleway;
+        background-color: #fff
+    }
+
+    p {
+        margin-top: 30px
+    }
+
+    h2 {
+        background-color: #FEFFED;
+        padding: 20px 35px;
+        margin: -10px -50px;
+        text-align: center;
+        border-radius: 10px 10px 0 0
+    }
+
+    .comments_HR {
+        margin: 10px -50px;
+        border: 0;
+        border-top: 1px solid #ccc
+    }
+
+    #submitComments {
+        text-decoration: none;
+        width: 100%;
+        text-align: center;
+        display: block;
+        background-color: #FFBC00;
+        color: #fff;
+        border: 1px solid #FFCB00;
+        padding: 10px 0;
+        font-size: 20px;
+        cursor: pointer;
+        border-radius: 5px
+    }
+
+    #commentsSection {
+        width: 10%;
+        height: 30px;
+        border-radius: 3px;
+        background-color: #a9c25d;
+        font-family: Arial;
+        cursor: pointer
+    }
+</style>
 
 <body class="text-center">
     <div class="px-4 py-5 my-5 text-center">
@@ -8,9 +99,9 @@
         <p class="lead mb-4">Have friendly discussions and be kind!</p>
 
         <div>
-            @if (Context.Session.GetString("Role") == "Customer" || Context.Session.GetString("Role") == "Owner")
+            @if (Context.Session.GetString("Role") == "Customer")
             {
-                <a asp-action="Create">Add Discussion Topic</a>
+                <a asp-action="CreatePost" asp-controller="Customer">Add Discussion Topic</a>
             }
             else
             {
@@ -31,18 +122,57 @@
                 <p class="post-description">Thrift shopping can help you lose weight and get 6pack abs!</p>
 
                 <div class="comment-section">
-                    <p><u>Comments</u></p>
-
-                    <div class="comments"></div>
+                    <button id="commentsSection" onclick="comments_show()">Comments</button>
                 </div>
 
             </div><br />
 
         </div><br />
 
-        <!-- partial view that displays all forum discussion posts -->
-        <partial name="~/Views/Customer/_ViewForumPosts.cshtml" model="@Model" />
+        @foreach (var item in Model.PostsList)
+        {
+            <div class="post border border-success rounded">
+                <br />
+                <div class="col-lg-12 mx-auto">
+                    <h5 class="post-name">@item.PostName</h5>
+                    <p> Added by: <span class="added-by">@item.CustomerName</span> </p>
+                    <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
+
+                    <p class="post-description">@item.PostDescription</p>
+
+                    <div class="comment-section">
+                        <button id="commentsSection" onclick="comments_show()">Comments</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <br />
+        }
 
     </div>
 </body>
+<div id="abc">
+    <!-- Popup Div Starts Here -->
+    <div id="popupContact">
+        <!-- Contact Us Form -->
+        <form action="#" id="form" method="post" name="form">
+            <img id="close" src="~/images/close-button.jpg" onclick="comments_hide()">
+            <h2>hi</h2>
+            <hr class="comments_HR">
+        </form>
+    </div>
+</div>
 
+
+<script async>
+    //Function To Display Popup
+    function comments_show() {
+        document.getElementById('abc').style.display = "block";
+    }
+    //Function to Hide Popup
+    function comments_hide() {
+        document.getElementById('abc').style.display = "none";
+    }
+</script>

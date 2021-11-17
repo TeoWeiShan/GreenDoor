@@ -92,8 +92,22 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            List<ForumPost> forumPostList = forumPostContext.GetAllForumPost();
-            return View(forumPostList);
+            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+            fpcVM.PostsList = forumPostContext.GetAllForumPostVM();
+            return View(fpcVM);
+        }
+
+        public ActionResult CreatePost()
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+            fpcVM.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
+            fpcVM.CustomerName =(custCtx.GetDetails(fpcVM.CustomerID)).CustomerName;
+            return View(fpcVM);
         }
 
         public ActionResult ViewEvents()
