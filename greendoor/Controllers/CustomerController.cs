@@ -22,6 +22,11 @@ namespace greendoor.Controllers
         private ReviewsDAL reviewContext = new ReviewsDAL();
         private ForumDAL forumPostContext = new ForumDAL();
         private EventDAL eContext = new EventDAL();
+
+        public IActionResult Index()
+        {
+            return View();
+        }
         public ActionResult Profile()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
