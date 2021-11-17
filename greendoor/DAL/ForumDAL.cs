@@ -9,13 +9,13 @@ using greendoor.Models;
 
 namespace greendoor.DAL
 {
-    public class ForumPostDAL
+    public class ForumDAL
     {
         private IConfiguration Configuration { get; }
         private SqlConnection conn;
 
         //constructor
-        public ForumPostDAL()
+        public ForumDAL()
         {
             //Read ConnectionString from appsettings.json file
             var builder = new ConfigurationBuilder()
@@ -31,7 +31,7 @@ namespace greendoor.DAL
         }
 
         //retrieve a list of forum post objects from database
-        public List<ForumPost> GetAllForumPost()
+        public List<AdminForumCommentsViewModel> GetForumComments()
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();

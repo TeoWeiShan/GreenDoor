@@ -12,13 +12,17 @@ namespace greendoor.Controllers
 {
     public class ForumController : Controller
     {
-        private ForumPostDAL forumPostContext = new ForumPostDAL();
+        private ForumDAL forumPostContext = new ForumDAL();
 
-        public IActionResult Index()
+       /* public IActionResult Index()
         {
-            List<ForumPost> forumPostList = forumPostContext.GetAllForumPost();
+            List<ForumPost> forumPostList = forumPostContext.GetForumComments();
             return View(forumPostList);
         }
+        public ActionResult ViewComments(int ForumPostID)
+        {
+
+        }*/
     }
 }
 
