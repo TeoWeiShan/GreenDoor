@@ -37,7 +37,7 @@ namespace greendoor.Controllers
         // POST: ForumController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ForumPost forumPost)
+        public ActionResult Create(ForumPostCommentViewModel forumPost)
         {
             if (ModelState.IsValid)
             {
