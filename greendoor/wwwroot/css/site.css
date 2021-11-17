@@ -100,6 +100,16 @@ body {
     margin-left: -15 px;
     justify-content: center;
 }
+
+.review-row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    margin-right: -15 px;
+    margin-left: -15 px;
+    justify-content: flex-start
+}
+
 .holder {
     display: flex
 }

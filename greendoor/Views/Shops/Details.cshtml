@@ -94,3 +94,25 @@
         
     }
 </div>
+
+<div>
+
+    @if (Context.Session.GetString("Role") == "Customer")
+    {
+        <hr />
+        <h5>
+            Add Review:
+        </h5>
+        <partial name="~/Views/Shops/_AddReviews.cshtml" />
+    }
+    else
+    {
+<p><a asp-action="Login" asp-controller="Home">Login </a> to leave a review!</p>
+    }
+</div>
+
+@*<div class="form-group row">
+    <div class="col-sm-9 offset-sm-3">
+        <a asp-action="Add" asp-route-id="@Context.Session.GetString("ShopID")">Add Review</a>
+    </div>
+</div>*@

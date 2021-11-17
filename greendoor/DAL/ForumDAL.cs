@@ -68,5 +68,33 @@ namespace greendoor.DAL
             conn.Close();
             return forumPostList;
         }
+
+        //add area of forum post (C)
+        public int Add(ForumPost forumPost, int custID)
+        {
+            //Create a SqlCommand object from connection object 
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify an INSERT SQL statement which will 
+            //return the auto-generated ForumPostID after insertion 
+            cmd.CommandText = @"INSERT INTO ForumPost (CustomerID, PostName, PostDescription, DateTimePosted)
+                                OUTPUT INSERTED.ForumPostID 
+                                VALUES(@cust, @name, @desc, @date)";
+            //Define the parameters used in SQL statement, value for each parameter 
+            //is retrieved from respective class's property. 
+            cmd.Parameters.AddWithValue("@cust", custID);
+            cmd.Parameters.AddWithValue("@name", forumPost.PostName);
+            cmd.Parameters.AddWithValue("@desc", forumPost.PostDescription);
+            cmd.Parameters.AddWithValue("@date", DateTime.Now);
+            //A connection to database must be opened before any operations made. 
+            conn.Open();
+            //ExecuteScalar is used to retrieve the auto-generated 
+            //ForumPostID after executing the INSERT SQL statement 
+            forumPost.ForumPostID = (int)cmd.ExecuteScalar();
+            //A connection should be closed after operations. 
+            conn.Close();
+            //Return id when no error occurs. 
+            return forumPost.ForumPostID;
+        }
     }
 }
+
