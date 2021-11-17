@@ -1,0 +1,44 @@
+﻿@model greendoor.Models.Reviews
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4 class="PageTitle">Add Review</h4>
+<hr />
+
+
+<form asp-action="Add">
+    <fieldset class="FormContent">
+        <div class="form-group row">
+            <label asp-for="Rating"
+                   class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 col-md-5">
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating"
+                      class="text-danger"></span>
+            </div>
+        </div>
+
+
+
+        <div class="form-group row">
+            <label asp-for="Description"
+                   class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 col-md-5">
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description"
+                      class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+                <input type="submit" value="Add"
+                       class="btn btn-primary" />
+            </div>
+        </div>
+
+        
+    </fieldset>
+</form>
