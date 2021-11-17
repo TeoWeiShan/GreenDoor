@@ -20,9 +20,16 @@
         <h1 class="display-5 fw-bold">Events</h1>
         <div class="col-lg-6 mx-auto">
             <p class="lead mb-4"> Find Out The Lastest Events</p>
-
+            @*<button type="button" class="btn btn-success" asp-action="Create">Add Event </button>*@
         </div>
+        <div>
 
+            @if (Context.Session.GetString("Role") == "Owner")
+            {
+                <p><a asp-action="Create">Add Event</a></p>
+            }
+        </div>
+        
         <partial name="~/Views/Events/_ViewEvents.cshtml" model="@Model" />
     </div>
 </body>
