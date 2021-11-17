@@ -29,8 +29,8 @@
         position: absolute;
         right: -14px;
         top: -14px;
-        max-width: 10%;
-        height: 10%;
+        max-width: 30%;
+        height: 30%;
         cursor: pointer
     }
 
@@ -41,28 +41,15 @@
         font-family: 'Raleway',sans-serif
     }
 
-    form {
-        max-width: 1200px;
-        min-width: 700px;
+    .comments {
+        max-width: 2500px;
+        min-width: 1000px;
         padding: 10px 50px;
         border: 2px solid gray;
         border-radius: 10px;
         font-family: raleway;
         background-color: #fff
     }
-
-    p {
-        margin-top: 30px
-    }
-
-    h2 {
-        background-color: #FEFFED;
-        padding: 20px 35px;
-        margin: -10px -50px;
-        text-align: center;
-        border-radius: 10px 10px 0 0
-    }
-
     .comments_HR {
         margin: 10px -50px;
         border: 0;
@@ -157,7 +144,7 @@
     <!-- Popup Div Starts Here -->
     <div id="popupContact">
         <!-- Contact Us Form -->
-        <form action="#" id="form" method="post" name="form">
+        <form class="comments" action="#" id="form" method="post" name="form">
             <img id="close" src="~/images/close-button.jpg" onclick="comments_hide()">
             <h2>hi</h2>
             <hr class="comments_HR">

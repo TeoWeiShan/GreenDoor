@@ -70,7 +70,7 @@ namespace greendoor.DAL
         }
 
         //add area of forum post (C)
-        public int Add(ForumPost forumPost, int custID)
+        public int Add(ForumPostCommentViewModel forumPost, int custID)
         {
             //Create a SqlCommand object from connection object 
             SqlCommand cmd = conn.CreateCommand();
