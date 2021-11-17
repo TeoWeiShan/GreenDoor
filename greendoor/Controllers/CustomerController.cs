@@ -18,7 +18,12 @@ namespace greendoor.Controllers
     public class CustomerController : Controller
     {
         private CustomerDAL custCtx = new CustomerDAL();
-        
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         public ActionResult Profile()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||

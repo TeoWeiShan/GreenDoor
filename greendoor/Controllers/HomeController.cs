@@ -161,7 +161,7 @@ namespace greendoor.Controllers
                     HttpContext.Session.SetInt32("LoginID", customer.CustomerID);
                     // Store user role “customer” as a string in session with the key “Role” 
                     HttpContext.Session.SetString("Role", "Customer");
-                    return RedirectToAction("Profile","Customer");
+                    return RedirectToAction("Index","Customer");
                 }
             }
             //Check if login is Shop
@@ -175,7 +175,7 @@ namespace greendoor.Controllers
                     // Store user role “customer” as a string in session with the key “Role” 
                     HttpContext.Session.SetString("Role", "Shop");
                     //Redirect user to Shops/Index view
-                    return RedirectToAction("Index", "Shops");
+                    return RedirectToAction("HomePage", "Shops");
                 }
             }
             if (email == "admin@greendoor.sg" && password == "adminpass")

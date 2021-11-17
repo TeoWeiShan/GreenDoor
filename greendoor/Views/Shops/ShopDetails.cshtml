@@ -9,72 +9,78 @@
 
 <section class="holder">
 
-
-    <div class="split">
-        <img src="https://picsum.photos/400/400" />
-    </div>
-
     <div class="split">
         <fieldset class="FormContent">
             <div class="form-group row">
-                <label asp-for="ShopName"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Html.Display("ShopName")
-                </div>
+                <img src="https://picsum.photos/400/400" />
             </div>
             <div class="form-group row">
-                <label asp-for="ShopDescription" class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Html.Display("ShopDescription")
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="Zone"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Html.Display("Zone")
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="ContactNumber"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Html.Display("ContactNumber")
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="Address"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Html.Display("Address")
-                </div>
-
-            </div>
-            <div class="form-group row">
-                <label asp-for="PostalCode"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Html.Display("PostalCode")
-                </div>
-
-            </div>
-            <div class="form-group row">
-                <label asp-for="WebsiteLink"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Html.Display("WebsiteLink")
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="SocialMediaLink"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Html.Display("SocialMediaLink")
-                </div>
+                <a asp-action="Edit">Back to Submission List</a>
             </div>
         </fieldset>
     </div>
+    
+        <div class="split">
+            <fieldset class="FormContent">
+                <div class="form-group row">
+                    <label asp-for="ShopName"
+                           class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9 form-control-plaintext">
+                        @Html.Display("ShopName")
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ShopDescription" class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9 form-control-plaintext">
+                        @Html.Display("ShopDescription")
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Zone"
+                           class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9 form-control-plaintext">
+                        @Html.Display("Zone")
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ContactNumber"
+                           class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9 form-control-plaintext">
+                        @Html.Display("ContactNumber")
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Address"
+                           class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9 form-control-plaintext">
+                        @Html.Display("Address")
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <label asp-for="PostalCode"
+                           class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9 form-control-plaintext">
+                        @Html.Display("PostalCode")
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <label asp-for="WebsiteLink"
+                           class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9 form-control-plaintext">
+                        @Html.Display("WebsiteLink")
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="SocialMediaLink"
+                           class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9 form-control-plaintext">
+                        @Html.Display("SocialMediaLink")
+                    </div>
+                </div>
+            </fieldset>
+        </div>
 
 
 </section>
