@@ -1,0 +1,59 @@
+﻿@model greendoor.Models.EcoEvents
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br>
+<h4 class="PageTitle">@Html.Display("ShopName")</h4>
+<hr />
+
+<section class="holder">
+
+
+    <div class="split">
+        <img src="https://picsum.photos/400/400" />
+    </div>
+
+    <div class="split">
+        <fieldset class="FormContent">
+            <div class="form-group row">
+                <label asp-for="EventName"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.Display("EventName")
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="EventDescription" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.Display("EventDescription")
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="DateTimePosted"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.Display("DateTimePosted")
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="StartDate"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.Display("StartDate")
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="EndDate"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.Display("EndDate")
+                </div>
+
+            </div>
+        </fieldset>
+    </div>
+
+
+</section>
