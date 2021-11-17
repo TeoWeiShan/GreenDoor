@@ -90,17 +90,6 @@ namespace greendoor.Controllers
             return View(shopreviewVM);
         }
 
-        public ActionResult ViewForum()
-        {
-            if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Customer"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            List<ForumPost> forumPostList = forumPostContext.GetAllForumPost();
-            return View(forumPostList);
-        }
-
         public ActionResult ViewEvents()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
