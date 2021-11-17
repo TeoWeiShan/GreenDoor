@@ -22,7 +22,15 @@ namespace greendoor.Controllers
         // GET: EventsController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            
+            EcoEvents e = eContext.GetDetails(id);
+            if (e.EventName == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            return View(e);
+
         }
 
         // GET: EventsController/Create
@@ -87,5 +95,7 @@ namespace greendoor.Controllers
                 return View();
             }
         }
+        // GET: EventController/Details/5
+        
     }
 }

@@ -161,7 +161,7 @@ namespace greendoor.Controllers
                     HttpContext.Session.SetInt32("LoginID", customer.CustomerID);
                     // Store user role “customer” as a string in session with the key “Role” 
                     HttpContext.Session.SetString("Role", "Customer");
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Profile","Customer");
                 }
             }
             //Check if login is Shop
