@@ -41,7 +41,7 @@ namespace greendoor.DAL
             //Define the parameters used in SQL statement, value for each parameter
             //is retrieved from respective class's property.
             cmd.Parameters.AddWithValue("@rating", reviews.Rating);
-            //cmd.Parameters.AddWithValue("@custID", reviews.CustomerID);
+            cmd.Parameters.AddWithValue("@custID", reviews.CustomerID);
             cmd.Parameters.AddWithValue("@shopID", reviews.ShopID);
             cmd.Parameters.AddWithValue("@desc", reviews.Description);
             cmd.Parameters.AddWithValue("@dateTime", DateTime.Now);

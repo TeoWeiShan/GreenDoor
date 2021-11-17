@@ -56,5 +56,27 @@ namespace greendoor.Models
         public string Password { get; set; }
         public bool IsVerified { get; set; }
         public List<Reviews> reviewsList { get; set; }
+
+        [Display(Name = "Reviews ID")]
+        public int ReviewsID { get; set; }
+
+        public int? Rating { get; set; }
+
+        [Display(Name = "Customer Name")]
+        public string CustomerName { get; set; }
+
+        [Display(Name = "Customer ID")]
+        public int? CustomerID { get; set; }
+
+        [Display(Name = "Post ID")]
+        public int ForumPostID { get; set; }
+
+        [Display(Name = "Description")]
+        [Required(ErrorMessage = "Please enter a comment!")]
+        [StringLength(150, ErrorMessage = "Description must not exceed 150 characters")]
+        public string Description { get; set; }
+
+        [Display(Name = "Date Posted")]
+        public DateTime DateTimePosted { get; set; }
     }
 }

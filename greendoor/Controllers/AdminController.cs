@@ -50,15 +50,7 @@ namespace greendoor.Controllers
             }
             AdminShopViewModel ShopVM = new AdminShopViewModel();
             ShopVM.ShopID = ShopID;
-            ShopVM.ShopName = (adCtx.GetShopDetails(ShopVM.ShopID)).ShopName;
-            ShopVM.ShopDescription = (adCtx.GetShopDetails(ShopVM.ShopID)).ShopDescription;
-            ShopVM.Zone = (adCtx.GetShopDetails(ShopVM.ShopID)).Zone;
-            ShopVM.ContactNumber = (adCtx.GetShopDetails(ShopVM.ShopID)).ContactNumber;
-            ShopVM.Address = (adCtx.GetShopDetails(ShopVM.ShopID)).Address;
-            ShopVM.PostalCode = (adCtx.GetShopDetails(ShopVM.ShopID)).PostalCode;
-            ShopVM.WebsiteLink = (adCtx.GetShopDetails(ShopVM.ShopID)).WebsiteLink;
-            ShopVM.SocialMediaLink = (adCtx.GetShopDetails(ShopVM.ShopID)).SocialMediaLink;
-            ShopVM.EmailAddr = (adCtx.GetShopDetails(ShopVM.ShopID)).EmailAddr;
+            ShopVM = adCtx.GetShopDetails(ShopVM.ShopID);
             ShopVM.reviewsList = reviewContext.GetAllReviews(ShopID);
             return View(ShopVM);
         }
@@ -109,13 +101,7 @@ namespace greendoor.Controllers
         {
             AdminEventViewModel aeVM = new AdminEventViewModel();
             aeVM.EventID = eventID;
-            aeVM.EventName = (adCtx.GetEventDetails(aeVM.EventID)).EventName;
-            aeVM.ShopID = (adCtx.GetEventDetails(aeVM.EventID)).ShopID;
-            aeVM.ShopName = (adCtx.GetEventDetails(aeVM.EventID)).ShopName;
-            aeVM.EventDescription = (adCtx.GetEventDetails(aeVM.EventID)).EventDescription;
-            aeVM.DateTimePosted = (adCtx.GetEventDetails(aeVM.EventID)).DateTimePosted;
-            aeVM.StartDate = (adCtx.GetEventDetails(aeVM.EventID)).StartDate;
-            aeVM.EndDate = (adCtx.GetEventDetails(aeVM.EventID)).EndDate;
+            aeVM = adCtx.GetEventDetails(aeVM.EventID);
             return View(aeVM);
         }
 
@@ -165,12 +151,7 @@ namespace greendoor.Controllers
         {
             AdminForumPostViewModel FPDetails = new AdminForumPostViewModel();
             FPDetails.ForumPostID= ForumPostID;
-            FPDetails.CustomerID = (adCtx.GetForumPostDetails(FPDetails.ForumPostID)).CustomerID;
-            FPDetails.PostName = (adCtx.GetForumPostDetails(FPDetails.ForumPostID)).PostName;
-            FPDetails.PostDescription = (adCtx.GetForumPostDetails(FPDetails.ForumPostID)).PostDescription;
-            FPDetails.DateTimePosted = (adCtx.GetForumPostDetails(FPDetails.ForumPostID)).DateTimePosted;
-            FPDetails.CustomerName = (adCtx.GetForumPostDetails(FPDetails.ForumPostID)).CustomerName;
-            FPDetails.EmailAddr = (adCtx.GetForumPostDetails(FPDetails.ForumPostID)).EmailAddr;
+            FPDetails = adCtx.GetForumPostDetails(FPDetails.ForumPostID);
             return View(FPDetails);
         }
 
