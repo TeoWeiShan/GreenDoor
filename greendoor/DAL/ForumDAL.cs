@@ -54,7 +54,7 @@ namespace greendoor.DAL
                     new ForumPost
                     {
                         CustomerID = reader.GetInt32(0),
-                        ForumPostID = reader.GetInt32(1), 
+                        ForumPostID = reader.GetInt32(1),
                         PostName = reader.GetString(2),
                         PostDescription = reader.GetString(3),
                         DateTimePosted = reader.GetDateTime(4)
@@ -162,7 +162,60 @@ namespace greendoor.DAL
             return forumPostList;
         }
 
-/*        public ForumPostCommentViewModel ForumPostDetails(int ForumPostID)
+        public List<ForumPostCommentViewModel> CustomerComments(int ForumPostID)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a shop record.
+
+            cmd.CommandText = @"SELECT fc.ForumCommentsID, fc.CustomerID, c.CustomerName, fc.ForumPostID, fp.PostName, fc.DateTimePosted, fc.ForumCommentsID, fc.CommentsDescription
+                                FROM ForumComment fc
+                                INNER JOIN Customer c
+                                ON c.CustomerID = fc.CustomerID
+                                INNER JOIN ForumPost fp
+                                ON fc.ForumPostID = fp.ForumPostID
+                                WHERE fc.ForumPostID = @selectedPostID";
+
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “judgeId”.
+            cmd.Parameters.AddWithValue("@selectedPostID", ForumPostID);
+
+            //Open a database connection
+            conn.Open();
+
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<ForumPostCommentViewModel> CustomerCommentsList = new List<ForumPostCommentViewModel>();
+
+            while (reader.Read())
+            {
+                CustomerCommentsList.Add(
+                    new ForumPostCommentViewModel
+                    {
+                        ForumCommentsID = reader.GetInt32(0),
+                        CustomerID = reader.GetInt32(1),
+                        CustomerName = reader.GetString(2),
+                        ForumPostID = reader.GetInt32(3),
+                        PostName = reader.GetString(4),
+                        DateTimePosted = reader.GetDateTime(5),
+                        CommentsDescription = reader.GetString(6)
+                    }
+                );
+            }
+
+            //Close DataReader
+            reader.Close();
+
+            //Close the database connection
+            conn.Close();
+
+            return CustomerCommentsList;
+        }
+
+        public List<ForumPostCommentViewModel> ShopComments(int ForumPostID)
         {
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
 
@@ -172,11 +225,70 @@ namespace greendoor.DAL
             //Specify the SELECT SQL statement that
             //retrieves all attributes of a shop record.
 
-            cmd.CommandText = @"SELECT * FROM EcoEvents WHERE EventID = @selectedEventID";
+            cmd.CommandText = @"SELECT fc.ForumCommentsID, fc.ShopID, s.ShopName, fc.ForumPostID, fp.PostName, fc.DateTimePosted, fc.CommentsDescription
+                                FROM ForumComment fc
+                                INNER JOIN Shop s
+                                ON s.ShopID = fc.ShopID
+                                INNER JOIN ForumPost fp
+                                ON fc.ForumPostID = fp.ForumPostID
+                                WHERE fc.ForumPostID = @selectedPostID";
 
             //Define the parameter used in SQL statement, value for the
             //parameter is retrieved from the method parameter “judgeId”.
-            cmd.Parameters.AddWithValue("@selectedEventID", eventId);
+            cmd.Parameters.AddWithValue("@selectedPostID", ForumPostID);
+
+            //Open a database connection
+            conn.Open();
+
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<ForumPostCommentViewModel> ShopCommentsList = new List<ForumPostCommentViewModel>();
+
+            while (reader.Read())
+            {
+                ShopCommentsList.Add(
+                    new ForumPostCommentViewModel
+                    {
+                        ForumCommentsID = reader.GetInt32(0),
+                        ShopID = reader.GetInt32(1),
+                        ShopName = reader.GetString(2),
+                        ForumPostID = reader.GetInt32(3),
+                        PostName = reader.GetString(4),
+                        DateTimePosted = reader.GetDateTime(5),
+                        CommentsDescription = reader.GetString(6)
+                    }
+                );
+            }
+
+            //Close DataReader
+            reader.Close();
+
+            //Close the database connection
+            conn.Close();
+
+            return ShopCommentsList;
+        }
+
+        public ForumPostCommentViewModel CustomerPostDetails(int ForumPostID)
+        {
+            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a shop record.
+
+            cmd.CommandText = @"SELECT fp.ForumPostID, fp.PostName, fp.PostDescription,fp.DateTimePosted, fp.CustomerID, c.CustomerName
+                                FROM ForumPost fp
+                                INNER JOIN Customer c
+                                ON fp.CustomerID = c.CustomerID
+                                WHERE ForumPostID = @selectedPostID";
+
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “judgeId”.
+            cmd.Parameters.AddWithValue("@selectedPostID", ForumPostID);
 
             //Open a database connection
             conn.Open();
@@ -189,25 +301,23 @@ namespace greendoor.DAL
                 while (reader.Read())
                 {
                     // Fill judge object with values from the data reader
-                    e.EventID = eventId;
-                    e.ShopID = reader.GetInt32(1);
-                    e.EventName = reader.GetString(2);
-                    e.EventDescription = !reader.IsDBNull(3) ? reader.GetString(3) : null;
-                    e.DateTimePosted = reader.GetDateTime(4);
-                    e.StartDate = reader.GetDateTime(5);
-                    e.EndDate = reader.GetDateTime(6);
+                    fpcVM.ForumPostID = reader.GetInt32(0);
+                    fpcVM.PostName = reader.GetString(1);
+                    fpcVM.PostDescription = reader.GetString(2);
+                    fpcVM.DateTimePosted = reader.GetDateTime(3);
+                    fpcVM.CustomerID = reader.GetInt32(4);
+                    fpcVM.CustomerName = reader.GetString(5);
 
                 }
             }
-
             //Close DataReader
             reader.Close();
 
             //Close the database connection
             conn.Close();
 
-            return e;
-        }*/
+            return fpcVM;
+        }
     }
 }
 
