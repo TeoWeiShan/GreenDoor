@@ -169,7 +169,7 @@ namespace greendoor.Controllers
 
         public IActionResult Login()
         {
-            if ((HttpContext.Session.GetString("Role") == "Admin") || (HttpContext.Session.GetString("Role") == "Owner") || (HttpContext.Session.GetString("Role") == "Customer"))
+            if ((HttpContext.Session.GetString("Role") == "Admin") || (HttpContext.Session.GetString("Role") == "Shop") || (HttpContext.Session.GetString("Role") == "Customer"))
             {
                 return RedirectToAction("Index", "Home");
             }
