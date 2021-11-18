@@ -36,10 +36,10 @@ namespace greendoor.Models
         public int PostalCode { get; set; }
 
         [Display(Name = "Website URL")]
-        public string WebsiteLink { get; set; }
+        public string? WebsiteLink { get; set; }
 
         [Display(Name = "Social Media URL")]
-        public string SocialMediaLink { get; set; }
+        public string? SocialMediaLink { get; set; }
 
         [Display(Name = "Reviews ID")]
         public int ReviewsID { get; set; }

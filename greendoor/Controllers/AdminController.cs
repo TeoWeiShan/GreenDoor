@@ -98,6 +98,15 @@ namespace greendoor.Controllers
             ShopVM = adCtx.GetShopDetails(ShopVM.ShopID);
             return View(ShopVM);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ShopDelete(AdminShopViewModel asVM)
+        {
+            //Add judge record to database
+            adCtx.ShopDelete(asVM);
+            //Redirect user to Judge/Create View
+            return RedirectToAction("ManageShops", "Admin");
+        }
 
         public ActionResult ShopPostDelete(int ShopPostID)
         {

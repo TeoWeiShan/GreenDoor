@@ -1023,5 +1023,64 @@ namespace greendoor.DAL
             return asVM;
         }
 
+        public void ShopDelete(AdminShopViewModel asVM)
+        {
+            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
+
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"DELETE FROM ShopPost
+                                WHERE ShopID = @selectedShopID";
+            cmd.Parameters.AddWithValue("@selectedShopID", asVM.ShopID);
+
+            SqlCommand cmd2 = conn.CreateCommand();
+            cmd2.CommandText = @"DELETE FROM ShopComment
+                                WHERE ShopID = @selectedShopID";
+            cmd2.Parameters.AddWithValue("@selectedShopID", asVM.ShopID);
+
+            SqlCommand cmd3 = conn.CreateCommand();
+            cmd3.CommandText = @"DELETE FROM Reviews
+                                WHERE ShopID = @selectedShopID";
+            cmd3.Parameters.AddWithValue("@selectedShopID", asVM.ShopID);
+
+            SqlCommand cmd4 = conn.CreateCommand();
+            cmd4.CommandText = @"DELETE FROM ForumPost
+                                WHERE ShopID = @selectedShopID";
+            cmd4.Parameters.AddWithValue("@selectedShopID", asVM.ShopID);
+
+            SqlCommand cmd5 = conn.CreateCommand();
+            cmd5.CommandText = @"DELETE FROM ForumComment
+                                WHERE ShopID = @selectedShopID";
+            cmd5.Parameters.AddWithValue("@selectedShopID", asVM.ShopID);
+
+            SqlCommand cmd6 = conn.CreateCommand();
+            cmd6.CommandText = @"DELETE FROM Favourite
+                                WHERE ShopID = @selectedShopID";
+            cmd6.Parameters.AddWithValue("@selectedShopID", asVM.ShopID);
+
+            SqlCommand cmd7 = conn.CreateCommand();
+            cmd7.CommandText = @"DELETE FROM EcoEvents
+                                WHERE ShopID = @selectedShopID";
+            cmd7.Parameters.AddWithValue("@selectedShopID", asVM.ShopID);
+
+            SqlCommand cmd8 = conn.CreateCommand();
+            cmd8.CommandText = @"DELETE FROM Shop
+                                WHERE ShopID = @selectedShopID";
+            cmd8.Parameters.AddWithValue("@selectedShopID", asVM.ShopID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute the DELETE SQL to remove the staff record
+            cmd.ExecuteNonQuery();
+            cmd2.ExecuteNonQuery();
+            cmd3.ExecuteNonQuery();
+            cmd4.ExecuteNonQuery();
+            cmd5.ExecuteNonQuery();
+            cmd6.ExecuteNonQuery();
+            cmd7.ExecuteNonQuery();
+            cmd8.ExecuteNonQuery();
+            //Close database connection
+            conn.Close();
+        }
+
     }
 }

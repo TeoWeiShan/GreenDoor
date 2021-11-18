@@ -69,11 +69,12 @@ namespace greendoor.Controllers
             return View(shopreviewVM);
         }
 
-        public ActionResult ShopProfile(int id)  // for shop
+        public ActionResult ShopProfile()  // for shop
         {
             ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
-            shopreviewVM = shopContext.GetDetailsVM(id);
-            shopreviewVM.reviewsList = reviewContext.GetAllReviews((int)HttpContext.Session.GetInt32("LoginID"));
+            shopreviewVM.ShopID = (int)HttpContext.Session.GetInt32("LoginID");
+            shopreviewVM = shopContext.GetDetailsVM(shopreviewVM.ShopID);
+            shopreviewVM.reviewsList = reviewContext.GetAllReviews(shopreviewVM.ShopID);
             //Get details of competition
             //If query id not in db, redirect out
             if (shopreviewVM.ShopName == null)
