@@ -111,7 +111,7 @@ namespace greendoor.Controllers
             EditShopDetailsViewModel shopDetails = new EditShopDetailsViewModel();
 
             Shop shop = shopContext.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
-            shopDetails.ShopPicture = shop.ShopPicture;
+
             shopDetails.ShopName = shop.ShopName;
             shopDetails.ShopDescription = shop.ShopDescription;
             shopDetails.Zone = shop.Zone;
@@ -138,17 +138,25 @@ namespace greendoor.Controllers
             li.Add(new SelectListItem { Text = "West", Value = "West" });
             li.Add(new SelectListItem { Text = "NA", Value = "NA" });
             ViewData["zoneList"] = li;
-            if (ModelState.IsValid)
-            {
-                //Update shop record to database
+
+                Shop shop = new Shop();
+                shop.ShopID = (int)HttpContext.Session.GetInt32("LoginID");
+                shop.ShopName = shopDetail.ShopName;
+                shop.ShopDescription = shopDetail.ShopDescription;
+                shop.Zone = shopDetail.Zone;
+                shop.ContactNumber = shopDetail.ContactNumber;
+                shop.Address = shopDetail.Address;
+                shop.PostalCode = shopDetail.PostalCode;
+                shop.SocialMediaLink = shopDetail.SocialMediaLink;
+                shop.WebsiteLink = shopDetail.WebsiteLink;
+                shop.EmailAddr = shopDetail.EmailAddr;
+                shop.Password = shopDetail.Password;
+
+                // Update shop record to database
+                shopContext.Update(shop);
+
                 return RedirectToAction("ShopProfile", "Shops");
-            }
-            else
-            {
-                //Input validation fails, return to the view
-                //to display error message
-                return View(shopDetail);
-            }
+            
         }
 
         public ActionResult EditPhoto()
@@ -182,29 +190,6 @@ namespace greendoor.Controllers
                 //Input validation fails, return to the view to display error message
                 return View(photoViewModel);
             }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Update(EditShopDetailsViewModel shopDetails)
-        {
-            Shop shop = new Shop();
-            shop.ShopID = (int)HttpContext.Session.GetInt32("LoginID");
-            shop.ShopName = shopDetails.ShopName;
-            shop.ShopDescription = shopDetails.ShopDescription;
-            shop.Zone = shopDetails.Zone;
-            shop.ContactNumber = shopDetails.ContactNumber;
-            shop.Address = shopDetails.Address;
-            shop.PostalCode = shopDetails.PostalCode;
-            shop.SocialMediaLink = shopDetails.SocialMediaLink;
-            shop.WebsiteLink = shopDetails.WebsiteLink;
-            shop.EmailAddr = shopDetails.EmailAddr;
-            shop.Password = shopDetails.Password;
-
-            // Update shop record to database
-            shopContext.Update(shop);
-            
-            return RedirectToAction("ShopProfile", "Shops");
         }
 
         // GET: CompetitionController/Create

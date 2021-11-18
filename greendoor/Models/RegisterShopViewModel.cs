@@ -40,6 +40,7 @@ namespace greendoor.Models
         [Display(Name = "Website URL")]
         public string? WebsiteLink { get; set; }
 
+        [Url(ErrorMessage = "Please enter an Url link!")]
         [Display(Name = "Social Media URL")]
         public string? SocialMediaLink { get; set; }
 

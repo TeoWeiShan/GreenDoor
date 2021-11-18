@@ -9,13 +9,6 @@ namespace greendoor.Models
 {
     public class EditShopDetailsViewModel
     {
-        [Display(Name = "Profile Photo")]
-        [StringLength(255, ErrorMessage = "File name cannot exceed 255 characters!")]
-        public string ShopPicture { get; set; }
-
-        [Required(ErrorMessage = "Please input a shop photo!")]
-        public IFormFile PhotoFile { get; set; }
-
         [Display(Name = "Shop Name")]
         [Required(ErrorMessage = "Please enter a name!")]
         [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
@@ -25,6 +18,7 @@ namespace greendoor.Models
         [StringLength(250, ErrorMessage = "Description cannot exceed 250 characters!")]
         public string ShopDescription { get; set; }
         public string Zone { get; set; }
+
         [Display(Name = "Contact Number")]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^[0-9]{8}$", ErrorMessage = "Please enter a 8-digit Phone Number")]
@@ -35,6 +29,7 @@ namespace greendoor.Models
         public string Address { get; set; }
 
         [Display(Name = "Postal Code")]
+        [DataType(DataType.PostalCode)]
         [Required(ErrorMessage = "Please enter the postal code")]
         [RegularExpression(@"^[0-9]{6}$", ErrorMessage = "Please enter a 6-digit Postal Code")]
         public int PostalCode { get; set; }
@@ -43,6 +38,7 @@ namespace greendoor.Models
         [Display(Name = "Website URL")]
         public string? WebsiteLink { get; set; }
 
+        [Url(ErrorMessage = "Please enter an Url link!")]
         [Display(Name = "Social Media URL")]
         public string? SocialMediaLink { get; set; }
 
