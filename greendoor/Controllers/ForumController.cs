@@ -81,6 +81,20 @@ namespace greendoor.Controllers
             return View(fpcVM);
         }
 
+        public ActionResult ShopViewDiscussion(int ForumPostID)
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Shop"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+            fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
+            fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
+            fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
+            return View(fpcVM);
+        }
+
         public ActionResult CustomerCreate()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
