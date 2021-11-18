@@ -14,6 +14,11 @@ namespace greendoor.Models
         [Display(Name = "Customer ID")]
         public int CustomerID { get; set; }
 
+        [Display(Name = "Name")]
+        [Required(ErrorMessage = "Please enter a name!")]
+        [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
+        public string CustomerName { get; set; }
+
         [Display(Name = "Shop ID")]
         public int ShopID { get; set; }
 

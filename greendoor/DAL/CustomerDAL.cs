@@ -232,5 +232,55 @@ namespace greendoor.DAL
             //A connection should be closed after operations.
             conn.Close();
         }
+
+        public ShopReviewViewModel ShopDetails(int shopId)
+        {
+            ShopReviewViewModel shop = new ShopReviewViewModel();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a shop record.
+
+            cmd.CommandText = @"SELECT * FROM Shop WHERE ShopID = @selectedShopID";
+
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “judgeId”.
+            cmd.Parameters.AddWithValue("@selectedShopID", shopId);
+
+            //Open a database connection
+            conn.Open();
+
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    // Fill judge object with values from the data reader
+                    shop.ShopID = shopId;
+                    shop.ShopPicture = reader.GetString(1);
+                    shop.ShopName = reader.GetString(2);
+                    shop.ShopDescription = !reader.IsDBNull(3) ? reader.GetString(3) : null;
+                    shop.Zone = reader.GetString(4);
+                    shop.ContactNumber = reader.GetInt32(5);
+                    shop.Address = reader.GetString(6);
+                    shop.PostalCode = reader.GetInt32(7);
+                    shop.SocialMediaLink = !reader.IsDBNull(8) ? reader.GetString(8) : null;
+                    shop.WebsiteLink = !reader.IsDBNull(9) ? reader.GetString(9) : null;
+                    shop.EmailAddr = reader.GetString(10);
+                }
+            }
+
+            //Close DataReader
+            reader.Close();
+
+            //Close the database connection
+            conn.Close();
+
+            return shop;
+        }
     }
 }

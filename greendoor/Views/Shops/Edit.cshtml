@@ -1,0 +1,92 @@
+﻿@model greendoor.Models.EditShopDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<br>
+<h4 class="PageTitle">@Html.Display("ShopName")</h4>
+<hr />
+
+<section class="holder">
+
+    <div class="split">
+        <fieldset class="FormContent">
+            <div class="form-group row">
+                <img src="https://picsum.photos/400/400" />
+            </div>
+            <div class="form-group row">
+                <a asp-action="ShopDetails">Back to profile</a>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="split">
+        <fieldset class="FormContent">
+            <form>
+            <div class="form-group-row">
+                <label asp-for="ShopName" class="control-label">Shop Name:</label>
+                <input asp-for="ShopName" class="form-control" />
+                <span asp-validation-for="ShopName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group-row">
+                <label asp-for="ShopDescription" class="control-label">Shop Description:</label>
+                <input asp-for="ShopDescription" class="form-control" />
+                <span asp-validation-for="ShopDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group-row">
+                <label asp-for="Zone" class="control-label">Zone:</label>
+                <select asp-for="Zone" asp-items="@ViewData["zoneList"] as List<SelectListItem>" class="form-control"></select>
+            </div>
+
+            <div class="form-group-row">
+                <label asp-for="ContactNumber" class="control-label">Contact Number:</label>
+                <input asp-for="ContactNumber" class="form-control" />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group-row">
+                <label asp-for="Address" class="control-label">Address:</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group-row">
+                <label asp-for="PostalCode" class="control-label">Postal Code:</label>
+                <input asp-for="PostalCode" class="form-control" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group-row">
+                <label asp-for="WebsiteLink" class="control-label">Website Link:</label>
+                <input asp-for="WebsiteLink" class="form-control" />
+                <span asp-validation-for="WebsiteLink" class="text-danger"></span>
+            </div>
+
+            <div class="form-group-row">
+                <label asp-for="SocialMediaLink" class="control-label">Social Media Link:</label>
+                <input asp-for="SocialMediaLink" class="form-control" />
+                <span asp-validation-for="SocialMediaLink" class="text-danger"></span>
+            </div>
+
+            <div class="form-group-row">
+                <label asp-for="EmailAddr" class="control-label">Email Address:</label>
+                <input asp-for="EmailAddr" class="form-control" readonly />
+            </div>
+
+            <div class="form-group-row">
+                <label asp-for="Password" class="control-label">Password:</label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group-row">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+                </form>
+        </fieldset>
+    </div>
+
+
+</section>

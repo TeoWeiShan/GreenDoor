@@ -21,7 +21,7 @@
                 transition: 0.4s;
             }
 
-                .card .card-img-top {
+             .card .card-img-top {
                     width: inherit;
                     height: inherit;
                     border-radius: 40px;
@@ -54,38 +54,39 @@
             }
         </style>
     </head>
-    <body>
-        @if (Model.ToList().Count > 0)
-        {
+<body>
+    @if (Model.ToList().Count > 0)
+    {
 
-            <div class="container">
-                <div class="row">
-                    @foreach (var item in Model)
-                    {
-                        <div class="card" style="width:300px; margin-top:5%; margin-left:3%;">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="card" style="width:300px; margin-top:5%; margin-left:3%;">
 
-                            <img class="card-img-top" src="https://picsum.photos/400/400" alt="Card image" style="width:100%">
-                            <div class="card-body">
-                                <a asp-action="Details" asp-controller="Events"
-                                   asp-route-id="@item.EventID">
-                                    <h4 class="card-title"> @item.EventName</h4>
-                                </a>
-                            </div>
-                            
-                               
-                            
-
+                        <img class="card-img-top" src="https://picsum.photos/400/400" alt="Card image" style="width:100%">
+                        <div class="card-body">
+                            <a asp-action="EventDetails" asp-controller="Customer"
+                               asp-route-EventId="@item.EventID">
+                                <h4 class="card-title"> @item.EventName</h4>
+                            </a>
                         </div>
-                        <br>
-                    }
+                        @*<div class="card-footer">
+                    <a asp-action="EventDetails" asp-controller="Customer"
+                       asp-route-EventId="@item.EventID">Details</a>
+                </div>*@
 
-                </div>
+                    </div>
+                    <br>
+                }
+
             </div>
+        </div>
 
-        }
+    }
 
-        else
-        {
-            <span style="color:red">No record found!</span>
-        }
+    else
+    {
+        <span style="color:red">No record found!</span>
+    }
 </body>

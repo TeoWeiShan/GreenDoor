@@ -1,4 +1,4 @@
-﻿@model IEnumerable<greendoor.Models.EcoEvents>
+﻿@model IEnumerable<greendoor.Models.Shop>
     <head>
         <meta name="viewport" content="width=device-width" />
         <title>View Events</title>
@@ -55,37 +55,38 @@
         </style>
     </head>
     <body>
-        @if (Model.ToList().Count > 0)
-        {
+        
+            @if (Model.ToList().Count > 0)
+            {
+                <div class="container">
+                    <div class="row">
+                        
+                        @foreach (var item in Model)
+                        {
+                            <div class="card" style="width:300px; margin-top:5%; margin-left:3%;">
 
-            <div class="container">
-                <div class="row">
-                    @foreach (var item in Model)
-                    {
-                        <div class="card" style="width:300px; margin-top:5%; margin-left:3%;">
+                                <img class="card-img-top" src="https://picsum.photos/400/400" alt="Card image" style="width:100%">
+                                <div class="card-body">
+                                    <a asp-action="ShopDetails" asp-controller="Customer"
+                                       asp-route-ShopId="@item.ShopID">
+                                        <h4 class="card-title"> @item.ShopName</h4>
+                                    </a>
+                                </div>
+                                <div class="card-footer">
 
-                            <img class="card-img-top" src="https://picsum.photos/400/400" alt="Card image" style="width:100%">
-                            <div class="card-body">
-                                <a asp-action="Details" asp-controller="Events"
-                                   asp-route-id="@item.EventID">
-                                    <h4 class="card-title"> @item.EventName</h4>
-                                </a>
+                                </div>
+
                             </div>
-                            
-                               
-                            
+                            <br>
+                        }
 
-                        </div>
-                        <br>
-                    }
-
+                    </div>
                 </div>
-            </div>
 
-        }
+            }
 
-        else
-        {
-            <span style="color:red">No record found!</span>
-        }
+            else
+            {
+                <span style="color:red">No record found!</span>
+            }
 </body>

@@ -1,15 +1,18 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using Microsoft.AspNetCore.Http;
 
 namespace greendoor.Models
 {
-    public class RegisterShopViewModel
+    public class EditShopDetailsViewModel
     {
+        [Display(Name = "Profile Photo")]
+        [StringLength(255, ErrorMessage = "File name cannot exceed 255 characters!")]
+        public string ShopPicture { get; set; }
+
         [Required(ErrorMessage = "Please input a shop photo!")]
         public IFormFile PhotoFile { get; set; }
 
