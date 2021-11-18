@@ -100,7 +100,7 @@
         <h5>
             Add Review:
         </h5>
-        <form asp-action="_AddReviews">
+        <form asp-action="ShopDetails" asp-controller="Shops" asp-route-id="@Model.ShopID">
             <fieldset class="FormContent">
                 <div class="form-group review-row ">
                     <label asp-for="ShopID"
@@ -142,7 +142,7 @@
                                class="btn btn-primary" />
                     </div>
                 </div>
-                <span style="color:red">@ViewData["RankingError"]</span>
+                <span style="color:red">@ViewData["RatingError"]</span>
             </fieldset>
         </form>
     }

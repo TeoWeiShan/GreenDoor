@@ -33,5 +33,11 @@ namespace greendoor.Models
         [Display(Name = "Date Posted")]
         public DateTime DateTimePosted { get; set; }
 
+        public List<Reviews> reviewsList { get; set; }
+        public Reviews()
+        {
+            reviewsList = new List<Reviews>();
+        }
+
     }
 }

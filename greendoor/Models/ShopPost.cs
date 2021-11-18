@@ -27,5 +27,11 @@ namespace greendoor.Models
         [Display(Name ="Date Posted")]
         public DateTime DateTimePosted { get; set; }
 
+        public List<ShopPost> shopPostList { get; set; }
+        public ShopPost()
+        {
+            shopPostList = new List<ShopPost>();
+        }
+
     }
 }
