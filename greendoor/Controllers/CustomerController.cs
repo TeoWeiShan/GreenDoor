@@ -20,7 +20,6 @@ namespace greendoor.Controllers
         private CustomerDAL custCtx = new CustomerDAL();
         private ShopDAL shopContext = new ShopDAL();
         private ReviewsDAL reviewContext = new ReviewsDAL();
-        private ForumDAL forumPostContext = new ForumDAL();
         private EventDAL eContext = new EventDAL();
 
         public IActionResult Index()
