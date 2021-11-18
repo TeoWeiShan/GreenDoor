@@ -28,24 +28,35 @@ namespace greendoor.Controllers
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
             fpcVM.ShopPostIDList = forumCtx.ShopPostIDCheckList();
             fpcVM.CustomerPostIDList = forumCtx.CustPostIDCheckList();
-            foreach (var id in fpcVM.ShopPostIDList)
+            if(fpcVM.ShopPostIDList.Count!=0)
+            { 
+                foreach (var id in fpcVM.ShopPostIDList)
+                {
+                    if (ForumPostID == id.ForumPostID)
+                    {
+                        fpcVM = forumCtx.ShopPostDetails(ForumPostID);
+                        fpcVM.ForumPostID = ForumPostID;
+                        fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
+                        fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
+                        return View(fpcVM);
+                    }
+                    else
+                    {
+                        fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
+                        fpcVM.ForumPostID = ForumPostID;
+                        fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
+                        fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
+                        return View(fpcVM);
+                    }
+                }
+            }
+            else if(fpcVM.CustomerPostIDList.Count!=0)
             {
-                if (ForumPostID == id.ForumPostID)
-                {
-                    fpcVM = forumCtx.ShopPostDetails(ForumPostID);
-                    fpcVM.ForumPostID = ForumPostID;
-                    fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
-                    fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
-                    return View(fpcVM);
-                }
-                else
-                {
-                    fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
-                    fpcVM.ForumPostID = ForumPostID;
-                    fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
-                    fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
-                    return View(fpcVM);
-                }
+                fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
+                fpcVM.ForumPostID = ForumPostID;
+                fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
+                fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
+                return View(fpcVM);
             }
             return View();
         }
@@ -99,25 +110,37 @@ namespace greendoor.Controllers
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
             fpcVM.ShopPostIDList = forumCtx.ShopPostIDCheckList();
             fpcVM.CustomerPostIDList = forumCtx.CustPostIDCheckList();
-            foreach (var id in fpcVM.ShopPostIDList)
+            if (fpcVM.ShopPostIDList.Count != 0)
             {
-                if (ForumPostID == id.ForumPostID)
+                foreach (var id in fpcVM.ShopPostIDList)
                 {
-                    fpcVM = forumCtx.ShopPostDetails(ForumPostID);
-                    fpcVM.ForumPostID = ForumPostID;
-                    fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
-                    fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
-                    return View(fpcVM);
-                }
-                else
-                {
-                    fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
-                    fpcVM.ForumPostID = ForumPostID;
-                    fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
-                    fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
-                    return View(fpcVM);
+                    if (ForumPostID == id.ForumPostID)
+                    {
+                        fpcVM = forumCtx.ShopPostDetails(ForumPostID);
+                        fpcVM.ForumPostID = ForumPostID;
+                        fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
+                        fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
+                        return View(fpcVM);
+                    }
+                    else
+                    {
+                        fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
+                        fpcVM.ForumPostID = ForumPostID;
+                        fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
+                        fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
+                        return View(fpcVM);
+                    }
                 }
             }
+            else if (fpcVM.CustomerPostIDList.Count != 0)
+            {
+                fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
+                fpcVM.ForumPostID = ForumPostID;
+                fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
+                fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
+                return View(fpcVM);
+            }
+            return View();
             return View();
         }
 
@@ -131,25 +154,37 @@ namespace greendoor.Controllers
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
             fpcVM.ShopPostIDList = forumCtx.ShopPostIDCheckList();
             fpcVM.CustomerPostIDList = forumCtx.CustPostIDCheckList();
-            foreach (var id in fpcVM.ShopPostIDList)
+            if (fpcVM.ShopPostIDList.Count != 0)
             {
-                if (ForumPostID == id.ForumPostID)
+                foreach (var id in fpcVM.ShopPostIDList)
                 {
-                    fpcVM = forumCtx.ShopPostDetails(ForumPostID);
-                    fpcVM.ForumPostID = ForumPostID;
-                    fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
-                    fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
-                    return View(fpcVM);
-                }
-                else
-                {
-                    fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
-                    fpcVM.ForumPostID = ForumPostID;
-                    fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
-                    fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
-                    return View(fpcVM);
+                    if (ForumPostID == id.ForumPostID)
+                    {
+                        fpcVM = forumCtx.ShopPostDetails(ForumPostID);
+                        fpcVM.ForumPostID = ForumPostID;
+                        fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
+                        fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
+                        return View(fpcVM);
+                    }
+                    else
+                    {
+                        fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
+                        fpcVM.ForumPostID = ForumPostID;
+                        fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
+                        fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
+                        return View(fpcVM);
+                    }
                 }
             }
+            else if (fpcVM.CustomerPostIDList.Count != 0)
+            {
+                fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
+                fpcVM.ForumPostID = ForumPostID;
+                fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
+                fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
+                return View(fpcVM);
+            }
+            return View();
             return View();
         }
 
