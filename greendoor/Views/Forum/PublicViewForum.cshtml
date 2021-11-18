@@ -50,6 +50,7 @@
         font-family: raleway;
         background-color: #fff
     }
+
     .comments_HR {
         margin: 10px -50px;
         border: 0;
@@ -129,8 +130,8 @@
                     <p class="post-description">@item.PostDescription</p>
 
                     <div class="comment-section">
-@*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
-*@                      <a asp-action="CustomerViewDiscussion" asp-controller="Forum" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a> 
+                        @*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
+                        *@                      <a asp-action="CustomerViewDiscussion" asp-controller="Forum" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
                     </div>
 
                 </div>
@@ -154,6 +155,14 @@
     </div>
 </div>
 
+<div style="
+        height:60%;
+        width:60%;">
+
+    <img src="~/images/Team meeting_Two Color.png"
+         style="position: absolute; float: left; left: 0px; bottom: 0px; z-index: -1;">
+
+</div>
 
 <script async>
     //Function To Display Popup

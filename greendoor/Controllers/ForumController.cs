@@ -39,8 +39,9 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            List<ForumPost> forumPostList = forumCtx.GetAllForumPost();
-            return View(forumPostList);
+            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+            fpcVM.PostsList = forumCtx.GetAllForumPostVM();
+            return View(fpcVM);
         }
 
         // GET: ForumController/Create
@@ -80,6 +81,20 @@ namespace greendoor.Controllers
             return View(fpcVM);
         }
 
+        public ActionResult ShopViewDiscussion(int ForumPostID)
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Shop"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+            fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
+            fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
+            fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
+            return View(fpcVM);
+        }
+
         public ActionResult CustomerCreate()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -89,6 +104,20 @@ namespace greendoor.Controllers
             }
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
             fpcVM.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
+            fpcVM.CustomerName = (custCtx.GetDetails(fpcVM.CustomerID)).CustomerName;
+            return View(fpcVM);
+        }
+
+        public ActionResult CustomerCreateComment(int ForumPostID)
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+            fpcVM.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
+            fpcVM.ForumPostID = ForumPostID;
             fpcVM.CustomerName = (custCtx.GetDetails(fpcVM.CustomerID)).CustomerName;
             return View(fpcVM);
         }
@@ -118,6 +147,19 @@ namespace greendoor.Controllers
 
             //return to the Sucess view to display success message
             return RedirectToAction("CustomerViewForum", "Forum");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CustomerCreateComment(ForumPostCommentViewModel custComment, int ForumPostID)
+        {
+            custComment.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
+            custComment.DateTimePosted = DateTime.Now;
+            custComment.ForumPostID = ForumPostID;
+            //Add ForumPost record to database 
+            custComment.ForumCommentsID = forumCtx.CustomerAddComment(custComment);
+
+            return RedirectToAction("CustomerViewDiscussion", "Forum");
         }
     }
 }

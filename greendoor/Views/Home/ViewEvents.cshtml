@@ -18,12 +18,25 @@
 <body class="text-center">
     <div class="px-4 py-5 my-5 text-center">
         <h1 class="display-5 fw-bold">Events</h1>
-       
-            <p class="lead mb-4"> Find Out The Lastest Events</p>
 
-   
+        <p class="lead mb-4"> Find Out The Lastest Events</p>
+
+
 
         <partial name="~/Views/Events/_ViewEvents.cshtml" model="@Model" />
+        <div style="
+        height:60%;
+        width:60%;">
+
+            <img src="~/images/Map_Two Color.png"
+                 style="position:absolute;
+        float:right;
+        right:0px;
+        bottom:0px;
+        z-index:2;">
+
+        </div>
     </div>
+    
 </body>
 </html>

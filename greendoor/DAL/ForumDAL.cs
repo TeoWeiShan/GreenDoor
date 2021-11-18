@@ -30,45 +30,6 @@ namespace greendoor.DAL
             conn = new SqlConnection(strConn);
         }
 
-        //retrieve a list of forum post objects from database
-        public List<ForumPost> GetAllForumPost()
-        {
-            //Create a SqlCommand object from connection object
-            SqlCommand cmd = conn.CreateCommand();
-
-            //Specify the SELECT SQL statement
-            cmd.CommandText = @"SELECT * FROM ForumPost ORDER BY ForumPostID";
-
-            //Open a database connection
-            conn.Open();
-
-            //Execute the SELECT SQL through a DataReader
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            //Read all records until the end, save data into a list of forum post objects
-            List<ForumPost> forumPostList = new List<ForumPost>();
-
-            while (reader.Read())
-            {
-                forumPostList.Add(
-                    new ForumPost
-                    {
-                        CustomerID = reader.GetInt32(0),
-                        ForumPostID = reader.GetInt32(1),
-                        PostName = reader.GetString(2),
-                        PostDescription = reader.GetString(3),
-                        DateTimePosted = reader.GetDateTime(4)
-                    }
-                );
-            }
-
-            //Close DataReader
-            reader.Close();
-            //Close the database connection
-            conn.Close();
-            return forumPostList;
-        }
-
         //add area of forum post (C)
         public int CustomerAddPost(ForumPostCommentViewModel forumPost)
         {
@@ -170,7 +131,7 @@ namespace greendoor.DAL
             //Specify the SELECT SQL statement that
             //retrieves all attributes of a shop record.
 
-            cmd.CommandText = @"SELECT fc.ForumCommentsID, fc.CustomerID, c.CustomerName, fc.ForumPostID, fp.PostName, fc.DateTimePosted, fc.ForumCommentsID, fc.CommentsDescription
+            cmd.CommandText = @"SELECT fc.ForumCommentsID, fc.CustomerID, c.CustomerName, fc.ForumPostID, fp.PostName, fc.DateTimePosted, fc.CommentsDescription
                                 FROM ForumComment fc
                                 INNER JOIN Customer c
                                 ON c.CustomerID = fc.CustomerID
@@ -317,6 +278,31 @@ namespace greendoor.DAL
             conn.Close();
 
             return fpcVM;
+        }
+
+        public int CustomerAddComment(ForumPostCommentViewModel custComment)
+        {
+            //Create a SqlCommand object from connection object 
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify an INSERT SQL statement which will 
+            //return the auto-generated ForumPostID after insertion 
+            cmd.CommandText = @"INSERT INTO ForumComment (CustomerID, ForumPostID, CommentsDescription, DateTimePosted)
+                                OUTPUT INSERTED.ForumCommentsID 
+                                VALUES(@custID, @forumID, @desc, @date)";
+            //Define the parameters used in SQL statement, value for each parameter 
+            //is retrieved from respective class's property. 
+            cmd.Parameters.AddWithValue("@custID", custComment.CustomerID);
+            cmd.Parameters.AddWithValue("@forumID", custComment.ForumPostID);
+            cmd.Parameters.AddWithValue("@desc", custComment.CommentsDescription);
+            cmd.Parameters.AddWithValue("@date", DateTime.Now);
+            //A connection to database must be opened before any operations made. 
+            conn.Open();
+            //ExecuteScalar is used to retrieve the auto-generated 
+            //ForumPostID after executing the INSERT SQL statement 
+            custComment.ForumCommentsID = (int)cmd.ExecuteScalar();
+            //A connection should be closed after operations. 
+            conn.Close();
+            return custComment.ForumCommentsID;
         }
     }
 }

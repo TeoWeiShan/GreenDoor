@@ -19,12 +19,14 @@
         <div>
             @if (Context.Session.GetString("Role") == "Customer")
             {
-                <a asp-action="CustomerCreate" asp-controller="Forum">Add Discussion Topic</a>
+                <a asp-action="CustomerCreateComment" asp-controller="Forum" asp-route-ForumPostID="@Model.ForumPostID">Add Comments!</a>
             }
             else
             {
-                <p><a asp-action="Login" asp-controller="Home">Login </a> to add discussion topic!</p>
+                <p><a asp-action="Login" asp-controller="Home">Login </a> to comment!</p>
             }
+            <br />
+            <a asp-controller="Forum" asp-action="CustomerViewForum">Back to Forum</a>
         </div>
 
         <br /><br />
@@ -40,51 +42,51 @@
 
         </div><br />
 
-        @if (Model.ShopCommentsList.Count != 0)
-        {
-            @foreach (var item in Model.ShopCommentsList)
+              <div class="post border border-success rounded">
+                  <h1>COMMENTS</h1>
+                  <br />
+                  @if (Model.ShopCommentsList.Count != 0)
+                  {
+                      @foreach (var item in Model.ShopCommentsList)
+                      {
+
+                          <br />
+                          <div class="col-lg-12 mx-auto">
+                              <h5 class="post-name">Added by: Shop - @item.ShopName</h5>
+                              <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
+
+                              <p class="post-description">@item.CommentsDescription</p>
+                          </div>
+
+                          <br />
+                      }
+                  }
+                  else
+                  {
+
+                  }
+                  @if (Model.CustomerCommentsList.Count != 0)
+                  {
+                      @foreach (var item in Model.CustomerCommentsList)
+                      {
+                          <div class="col-lg-12 mx-auto">
+                              <h5 class="post-name">Added by: @item.CustomerName</h5>
+                              <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
+
+                              <p class="post-description">@item.CommentsDescription</p>
+                          </div>
+
+                          <br />
+                      }
+                  }
+                  else
+                  {
+
+                  }
+                  @if (Model.CustomerCommentsList.Count == 0 && Model.ShopCommentsList.Count == 0)
             {
-                <div class="post border border-success rounded">
-                    <br />
-                    <div class="col-lg-12 mx-auto">
-                        <h5 class="post-name">Added by: @item.ShopName</h5>
-                        <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
-
-                        <p class="post-description">@item.CommentsDescription</p>
-                    </div>
-
-                </div>
-
-                <br />
+                      <h4>No Comments Yet!!</h4>
             }
-        }
-        else
-        {
-
-        }
-        @if (Model.CustomerCommentsList.Count != 0)
-        {
-            @foreach (var item in Model.CustomerCommentsList)
-            {
-                <div class="post border border-success rounded">
-                    <br />
-                    <div class="col-lg-12 mx-auto">
-                        <h5 class="post-name">Added by: @item.CustomerName</h5>
-                        <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
-
-                        <p class="post-description">@item.CommentsDescription</p>
-                    </div>
-
-                </div>
-
-                <br />
-            }
-        }
-        else
-        {
-
-        }
-
-
-    </div>
+              </div>
+        </div>
 </body>

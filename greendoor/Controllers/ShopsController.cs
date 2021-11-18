@@ -235,7 +235,7 @@ namespace greendoor.Controllers
             {
                 //Update record to database
                 review.ReviewsID = reviewContext.Add(review);
-                return RedirectToAction("Details", "Shops", new { id = HttpContext.Session.GetString("ShopID") });
+                return RedirectToAction("ShopDetails", "Shops", new { id = HttpContext.Session.GetString("ShopID") });
                 //return RedirectToAction("Index");
             }
             else
@@ -252,5 +252,10 @@ namespace greendoor.Controllers
             return View(shopPostList);
         }
 
+        public ActionResult ViewReviews(int id) // customer and public
+        {
+            List<Reviews> reviewsList = reviewContext.GetAllReviews(id);
+            return View(reviewsList);
+        }
     }
 }
