@@ -17,16 +17,16 @@
         <p class="lead mb-4">Have friendly discussions and be kind!</p>
 
         <div>
-            @if (Context.Session.GetString("Role") == "Shop")
+            @if (Context.Session.GetString("Role") == "Customer")
             {
-                <a asp-action="ShopCreateComment" asp-controller="Forum" asp-route-ForumPostID="@Model.ForumPostID">Add Comments!</a>
+                <a asp-action="CustomerCreateComment" asp-controller="Forum" asp-route-ForumPostID="@Model.ForumPostID">Add Comments!</a>
             }
             else
             {
                 <p><a asp-action="Login" asp-controller="Home">Login </a> to comment!</p>
             }
             <br />
-            <a asp-controller="Forum" asp-action="ShopViewForum">Back to Forum</a>
+            <a asp-controller="Forum" asp-action="PublicViewForum">Back to Forum</a>
         </div>
 
         <br /><br />
