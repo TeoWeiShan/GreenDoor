@@ -263,6 +263,53 @@ namespace greendoor.Controllers
             return View();
         }
 
+        public ActionResult CommentDelete(int ForumCommentID)
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            AdminForumViewModel fpcVM = new AdminForumViewModel();
+            fpcVM.ShopCommentIDList = adCtx.ShopCommentIDCheckList(ForumCommentID);
+            fpcVM.CustomerCommentIDList = adCtx.CustCommentIDCheckList(ForumCommentID);
+            if (fpcVM.ShopCommentIDList.Count != 0)
+            {
+                foreach (var id in fpcVM.ShopCommentIDList)
+                {
+                    if (ForumCommentID == id.ForumCommentsID)
+                    {
+                        fpcVM = adCtx.ShopCommentsDetails(ForumCommentID);
+                        fpcVM.ForumPostID = id.ForumPostID;
+                        fpcVM.ForumCommentsID = ForumCommentID;
+                        fpcVM.ShopCheck = true;
+                        return View(fpcVM);
+                    }
+                }
+            }
+            else if (fpcVM.CustomerCommentIDList.Count != 0)
+            {
+                foreach(var id in fpcVM.CustomerCommentIDList)
+                {
+                    fpcVM = adCtx.CustomerCommentsDetails(ForumCommentID);
+                    fpcVM.ForumCommentsID = ForumCommentID;
+                    fpcVM.ForumPostID = id.ForumPostID;
+                    fpcVM.ShopCheck = false;
+                    return View(fpcVM);
+                }
+            }
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CommentDelete(AdminForumViewModel afVM)
+        {
+            //Add judge record to database
+            adCtx.CommentDelete(afVM);
+            //Redirect user to Judge/Create View
+            return RedirectToAction("ViewDiscussion", "Admin",afVM);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult PostDelete(AdminForumViewModel afVM)

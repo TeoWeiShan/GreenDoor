@@ -184,7 +184,6 @@ namespace greendoor.Controllers
                 return View(fpcVM);
             }
             return View();
-            return View();
         }
 
         public ActionResult CustomerCreate()

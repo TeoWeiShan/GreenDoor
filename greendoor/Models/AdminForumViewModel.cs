@@ -61,6 +61,9 @@ namespace greendoor.Models
 
         public List<AdminForumViewModel> CustomerPostIDList { get; set; }
 
+        public List<AdminForumViewModel> ShopCommentIDList { get; set; }
+
+        public List<AdminForumViewModel> CustomerCommentIDList { get; set; }
         public AdminForumViewModel()
         {
             CustomerCommentsList = new List<AdminForumViewModel>();
@@ -69,6 +72,8 @@ namespace greendoor.Models
             ShopPostsList = new List<AdminForumViewModel>();
             ShopPostIDList = new List<AdminForumViewModel>();
             CustomerPostIDList = new List<AdminForumViewModel>();
+            ShopCommentIDList = new List<AdminForumViewModel>();
+            CustomerCommentIDList = new List<AdminForumViewModel>();
         }
 
     }

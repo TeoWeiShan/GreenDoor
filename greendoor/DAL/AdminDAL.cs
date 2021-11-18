@@ -681,5 +681,211 @@ namespace greendoor.DAL
             //Close database connection
             conn.Close();
         }
+
+        public List<AdminForumViewModel> ShopCommentIDCheckList(int ForumCommentID)
+        {
+            AdminForumViewModel fpcVM = new AdminForumViewModel();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a shop record.
+
+            cmd.CommandText = @"SELECT fc.ForumPostID, fc.ForumCommentsID, fc.ShopID
+                                FROM ForumComment fc
+                                INNER JOIN Shop s
+                                ON s.ShopID = fc.ShopID
+								WHERE fc.ForumCommentsID = @selectedCommentID";
+
+            cmd.Parameters.AddWithValue("@selectedCommentID", ForumCommentID);
+            //Open a database connection
+            conn.Open();
+
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<AdminForumViewModel> ShopIDList = new List<AdminForumViewModel>();
+
+            while (reader.Read())
+            {
+                ShopIDList.Add(
+                    new AdminForumViewModel
+                    {
+                        ForumPostID = reader.GetInt32(0),
+                        ForumCommentsID = reader.GetInt32(1),
+                        ShopID = reader.GetInt32(2)
+                    }
+                );
+            }
+
+            //Close DataReader
+            reader.Close();
+
+            //Close the database connection
+            conn.Close();
+
+            return ShopIDList;
+        }
+
+        public List<AdminForumViewModel> CustCommentIDCheckList(int ForumCommentID)
+        {
+            AdminForumViewModel fpcVM = new AdminForumViewModel();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a shop record.
+
+            cmd.CommandText = @"SELECT fc.ForumPostID, fc.ForumCommentsID, fc.CustomerID
+                                FROM ForumComment fc
+                                INNER JOIN Customer c
+                                ON c.CustomerID = fc.CustomerID
+								WHERE fc.ForumCommentsID = @selectedCommentID";
+
+            cmd.Parameters.AddWithValue("@selectedCommentID", ForumCommentID);
+            //Open a database connection
+            conn.Open();
+
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<AdminForumViewModel> CustIDList = new List<AdminForumViewModel>();
+
+            while (reader.Read())
+            {
+                CustIDList.Add(
+                    new AdminForumViewModel
+                    {
+                        ForumPostID = reader.GetInt32(0),
+                        ForumCommentsID = reader.GetInt32(1),
+                        CustomerID = reader.GetInt32(2)
+                    }
+                );
+            }
+
+            //Close DataReader
+            reader.Close();
+
+            //Close the database connection
+            conn.Close();
+
+            return CustIDList;
+        }
+
+        public AdminForumViewModel ShopCommentsDetails(int ForumCommentsID)
+        {
+            AdminForumViewModel fpcVM = new AdminForumViewModel();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a shop record.
+
+            cmd.CommandText = @"SELECT fc.ForumCommentsID, fc.CommentsDescription,fc.ShopID, s.ShopName, fc.DateTimePosted
+                                FROM ForumComment fc
+                                INNER JOIN Shop s
+                                ON fc.ShopID = s.ShopID
+                                WHERE fc.ForumCommentsID = @selectedCommentID";
+
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “judgeId”.
+            cmd.Parameters.AddWithValue("@selectedCommentID", ForumCommentsID);
+
+            //Open a database connection
+            conn.Open();
+
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    // Fill judge object with values from the data reader
+                    fpcVM.ForumCommentsID = reader.GetInt32(0);
+                    fpcVM.CommentsDescription = reader.GetString(1);
+                    fpcVM.ShopID = reader.GetInt32(2);
+                    fpcVM.ShopName = reader.GetString(3);
+                    fpcVM.DateTimePosted = reader.GetDateTime(4);
+
+                }
+            }
+            //Close DataReader
+            reader.Close();
+
+            //Close the database connection
+            conn.Close();
+
+            return fpcVM;
+        }
+
+        public AdminForumViewModel CustomerCommentsDetails(int ForumCommentsID)
+        {
+            AdminForumViewModel fpcVM = new AdminForumViewModel();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a shop record.
+
+            cmd.CommandText = @"SELECT fc.ForumCommentsID, fc.CommentsDescription,fc.CustomerID, c.CustomerName, fc.DateTimePosted
+                                FROM ForumComment fc
+                                INNER JOIN Customer c
+                                ON fc.CustomerID = c.CustomerID
+                                WHERE fc.ForumCommentsID = @selectedCommentID";
+
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “judgeId”.
+            cmd.Parameters.AddWithValue("@selectedCommentID", ForumCommentsID);
+
+            //Open a database connection
+            conn.Open();
+
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    // Fill judge object with values from the data reader
+                    fpcVM.ForumCommentsID = reader.GetInt32(0);
+                    fpcVM.CommentsDescription = reader.GetString(1);
+                    fpcVM.CustomerID = reader.GetInt32(2);
+                    fpcVM.CustomerName = reader.GetString(3);
+                    fpcVM.DateTimePosted = reader.GetDateTime(4);
+
+                }
+            }
+            //Close DataReader
+            reader.Close();
+
+            //Close the database connection
+            conn.Close();
+
+            return fpcVM;
+        }
+
+        public void CommentDelete(AdminForumViewModel afVM)
+        {
+            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
+
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"DELETE FROM ForumComment
+                                WHERE ForumCommentsID = @selectedCommentID";
+            cmd.Parameters.AddWithValue("@selectedCommentID", afVM.ForumCommentsID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute the DELETE SQL to remove the staff record
+            cmd.ExecuteNonQuery();
+            //Close database connection
+            conn.Close();
+        }
+
     }
 }
