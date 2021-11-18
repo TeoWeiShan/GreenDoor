@@ -28,6 +28,11 @@ namespace greendoor.Controllers
             return View();
         }
 
+        public ActionResult About()
+        {
+            return View();
+        }
+
         // GET: ShopController/Details/5
         public ActionResult ShopDetails(int id)  // for customer and public
         {
