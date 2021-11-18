@@ -85,8 +85,8 @@ namespace greendoor.Controllers
             //Get details of competition
             shopreviewVM = custCtx.ShopDetails(ShopID);
             shopreviewVM.reviewsList = reviewContext.GetAllReviews(ShopID);
-            shopreviewVM.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
-            shopreviewVM.CustomerName = (custCtx.GetDetails(shopreviewVM.CustomerID)).CustomerName;
+            shopreviewVM.CustomerID = HttpContext.Session.GetInt32("LoginID");
+            //shopreviewVM.CustomerName = (custCtx.GetDetails(shopreviewVM.CustomerID)).CustomerName;
             return View(shopreviewVM);
         }
 

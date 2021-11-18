@@ -44,6 +44,7 @@ namespace greendoor.Controllers
             }
             ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
             shopreviewVM.reviewsList = reviewContext.GetAllReviews(id);
+            shopreviewVM.shopPostList = shopPostContext.GetLatestShopPost(id);
             //Get details of competition
             Shop shop = shopContext.GetDetails(id);
             shopreviewVM.ShopID = id;
@@ -102,6 +103,12 @@ namespace greendoor.Controllers
                 //to display error message
                 return View(review);
             }
+        }
+
+        public ActionResult ViewPosts(int id)
+        {
+            List<ShopPost> shopPostList = shopPostContext.GetAllShopPost(id);
+            return View(shopPostList);
         }
 
     }
