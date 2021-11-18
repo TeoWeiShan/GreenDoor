@@ -23,15 +23,11 @@ namespace greendoor.Controllers
             return View(shopList);
         }
 
-        public IActionResult HomePage()  // for shops login
+        public IActionResult Index()  // for shops login
         {
             return View();
         }
 
-        public ActionResult About()
-        {
-            return View();
-        }
 
         // GET: ShopController/Details/5
         public ActionResult ShopDetails(int id)  // for customer and public
