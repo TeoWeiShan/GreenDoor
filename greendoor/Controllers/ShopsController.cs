@@ -138,7 +138,8 @@ namespace greendoor.Controllers
             {
                 //Update record to database
                 review.ReviewsID = reviewContext.Add(review);
-                return RedirectToAction("Index");
+                return RedirectToAction("ShopDetails", "Shops", new { id = HttpContext.Session.GetString("ShopID") });
+                //return RedirectToAction("Index");
             }
             else
             {
