@@ -15,6 +15,23 @@ namespace greendoor.Controllers
         private ForumDAL forumPostContext = new ForumDAL();
         private CustomerDAL custCtx = new CustomerDAL();
 
+        public ActionResult PublicViewForum()
+        {
+            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+            fpcVM.PostsList = forumPostContext.GetAllForumPostVM();
+            return View(fpcVM);
+        }
+        public ActionResult PublicViewDiscussion()
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+            /*fpcVM = */
+            return View(fpcVM);
+        }
         public ActionResult ShopViewForum()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
