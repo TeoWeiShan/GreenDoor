@@ -53,16 +53,19 @@
 
     <section class="holder">
 
-        <div class="overflow-scroll col-4">
+        <div class=" col-xl-4 ">
 
             @if (Model.reviewsList.Count != 0)
             {
                 <br />
-                <h5 style="margin-bottom:15px; margin-left:3%;">
+                <hr />
+                <h5 style="margin-bottom:15px; ">
                     Reviews:
                 </h5>
                 <partial name="~/Views/Shops/_ViewReviews.cshtml"
                          model="@Model.reviewsList" />
+                <a style="margin-bottom: 15px; " asp-action="ViewReviews" asp-route-id="@Context.Session.GetString("ShopID")">View More Reviews</a>
+
             }
             else
             {
@@ -70,16 +73,17 @@
             }
         </div>
 
-        <div class="overflow-scroll col-8">
+        <div class="col-xl-8">
 
             @if (Model.shopPostList.Count != 0)
             {<br />
-                <h5 style="margin-bottom: 15px; margin-left:3%;">
+                <hr />
+                <h5 style="margin-bottom: 15px; ">
                     Shop Post:
                 </h5>
                 <partial name="~/Views/Shops/_Posts.cshtml"
                          model="@Model.shopPostList" />
-                <a style="margin-bottom: 15px; margin-left:3%;" asp-action="ViewPosts" asp-route-id="@Context.Session.GetString("ShopID")">View More Posts</a>
+                <a style="margin-bottom: 15px; margin-right: 3%;" asp-action="ViewPosts" asp-route-id="@Context.Session.GetString("ShopID")">View More Posts</a>
             }
             else
             {
@@ -87,21 +91,23 @@
             }
         </div>
     </section>
-    <div>
+<br />
+<div>
 
-        @if (Context.Session.GetString("Role") == "Customer")
-        {
-            <hr />
-            <h5>
-                Add Review:
-            </h5>
-            <partial name="~/Views/Shops/_AddReviews.cshtml" />
-        }
-        else
-        {
-            <p><a asp-action="Login" asp-controller="Home">Login </a> to leave a review!</p>
-        }
-    </div>
+    @if (Context.Session.GetString("Role") == "Customer")
+    {
+        <hr />
+        <h5>
+            Add Review:
+        </h5>
+        <partial name="~/Views/Shops/_AddReviews.cshtml" />
+    }
+    else
+    {
+        <hr />
+        <p><a asp-action="Login" asp-controller="Home">Login </a> to leave a review!</p>
+    }
+</div>
 
 
     @*<div class="form-group row">
