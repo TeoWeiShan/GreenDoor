@@ -177,6 +177,7 @@ namespace greendoor.DAL
                 //Read the record from database
                 while (reader.Read())
                 {
+                    ecoevent.EventID = reader.GetInt32(0);
                     ecoevent.ShopID = reader.GetInt32(1);
                     ecoevent.ShopName = reader.GetString(7);
                     ecoevent.EventName = reader.GetString(2);
@@ -616,6 +617,35 @@ namespace greendoor.DAL
             conn.Close();
 
             return CustIDList;
+        }
+        public void EventUpdate(AdminEventViewModel aeVM)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify an INSERT SQL statement which will
+            //return the auto-generated CriteriaID after insertion
+            cmd.CommandText = @"UPDATE EcoEvents
+                                SET EventName = @newEventName,
+                                EventDescription = @newDesc,
+                                StartDate = @newStart,
+                                EndDate = @newEnd
+                                WHERE EventID = @selectedEventID";
+
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@newEventName", aeVM.EventName);
+            cmd.Parameters.AddWithValue("@newDesc", aeVM.EventDescription);
+            cmd.Parameters.AddWithValue("@newStart", aeVM.StartDate);
+            cmd.Parameters.AddWithValue("@newEnd", aeVM.EndDate);
+            cmd.Parameters.AddWithValue("@selectedEventID", aeVM.EventID);
+            //A connection to database must be opened before any operations made.
+            conn.Open();
+
+            //ExecuteScalar is used to retrieve the auto-generated
+            cmd.ExecuteNonQuery();
+            //A connection should be closed after operations.
+            conn.Close();
         }
     }
 }

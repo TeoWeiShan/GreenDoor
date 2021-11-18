@@ -115,11 +115,10 @@ namespace greendoor.Controllers
             return View(aeVM);
         }
 
-        public ActionResult EventDetails(int eventID)
+        public ActionResult EventDetails(int eventId)
         {
             AdminEventViewModel aeVM = new AdminEventViewModel();
-            aeVM.EventID = eventID;
-            aeVM = adCtx.GetEventDetails(aeVM.EventID);
+            aeVM = adCtx.GetEventDetails(eventId);
             return View(aeVM);
         }
 
@@ -134,6 +133,16 @@ namespace greendoor.Controllers
             eventVM.EventID = eventID;
             eventVM = adCtx.GetEventDetails(eventVM.EventID);
             return View(eventVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EventUpdate(AdminEventViewModel aeVM)
+        {
+            //Add judge record to database
+            adCtx.EventUpdate(aeVM);
+            //Redirect user to Judge/Create View
+            return RedirectToAction("EventDetails", "Admin", aeVM);
         }
 
         public ActionResult EventDelete(int eventID)
