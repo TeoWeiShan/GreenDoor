@@ -98,7 +98,6 @@ namespace greendoor.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Update(Customer cust)
         {
-
             //Add judge record to database
             custCtx.Update(cust);
             //Redirect user to Judge/Create View
