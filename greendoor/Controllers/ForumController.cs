@@ -35,7 +35,7 @@ namespace greendoor.Controllers
         public ActionResult ShopViewForum()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Owner"))
+                (HttpContext.Session.GetString("Role") != "Shop"))
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -48,7 +48,7 @@ namespace greendoor.Controllers
         {
             // Stop accessing the action if not logged in or account not Admin role
             if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Owner"))
+                (HttpContext.Session.GetString("Role") != "Shop"))
             {
                 return RedirectToAction("Index", "Home");
             }

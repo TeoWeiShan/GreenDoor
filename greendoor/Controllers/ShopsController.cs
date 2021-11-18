@@ -74,40 +74,14 @@ namespace greendoor.Controllers
 
         public ActionResult ShopProfile(int id)  // for customer and public
         {
-            HttpContext.Session.SetString("ShopID", id.ToString());
-            //HttpContext.Session.SetString("LoginID", id.ToString());
-
-            int? customerID = HttpContext.Session.GetInt32("LoginID");
-            string shopID = HttpContext.Session.GetString("ShopID");
-            //int custID = Convert.ToInt32(customerID);
-            if (id == null)
-            { //Query string parameter not provided
-              //Return to listing page, not allowed to edit
-                return RedirectToAction("Index");
-            }
-            ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
-            shopreviewVM.reviewsList = reviewContext.GetAllReviews(id);
-            shopreviewVM.shopPostList = shopPostContext.GetLatestShopPost(id);
-            //Get details of competition
-            Shop shop = shopContext.GetDetails(id);
-            shopreviewVM.ShopID = id;
-            shopreviewVM.CustomerID = customerID;
-            shopreviewVM.ShopPicture = shop.ShopPicture;
-            shopreviewVM.ShopName = shop.ShopName;
-            shopreviewVM.ShopDescription = shop.ShopDescription;
-            shopreviewVM.Zone = shop.Zone;
-            shopreviewVM.ContactNumber = shop.ContactNumber;
-            shopreviewVM.Address = shop.Address;
-            shopreviewVM.PostalCode = shop.PostalCode;
-            shopreviewVM.SocialMediaLink = shop.SocialMediaLink;
-            shopreviewVM.WebsiteLink = shop.WebsiteLink;
-            //If query id not in db, redirect out
-            if (shop.ShopName == null)
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Shop"))
             {
-                //Return to listing page, not allowed to edit
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
-            return View(shopreviewVM);
+            Shop shop = new Shop();
+            shop = shopContext.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
+            return View(shop);
         }
 
         // GET: CompetitionController/Create
