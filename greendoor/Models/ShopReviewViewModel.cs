@@ -68,7 +68,7 @@ namespace greendoor.Models
         public string CustomerName { get; set; }
 
         [Display(Name = "Customer ID")]
-        public int? CustomerID { get; set; }
+        public int CustomerID { get; set; }
 
         [Display(Name = "Post ID")]
         public int ForumPostID { get; set; }
