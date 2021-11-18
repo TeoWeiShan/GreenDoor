@@ -15,6 +15,7 @@ namespace greendoor.Controllers
     {
         private AdminDAL adCtx = new AdminDAL();
         private ReviewsDAL reviewContext = new ReviewsDAL();
+        private ShopPostDAL shopPostContext = new ShopPostDAL();
         public IActionResult Index()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -51,9 +52,26 @@ namespace greendoor.Controllers
             AdminShopViewModel ShopVM = new AdminShopViewModel();
             ShopVM.ShopID = ShopID;
             ShopVM = adCtx.GetShopDetails(ShopVM.ShopID);
-            ShopVM.reviewsList = reviewContext.GetAllReviews(ShopID);
+            ShopVM.reviewsList = reviewContext.GetLatestReview(ShopID);
+            ShopVM.shopPostList = shopPostContext.GetLatestShopPost(ShopID);
             return View(ShopVM);
         }
+        public ActionResult ViewPosts(int id) // customer and public
+        {
+            AdminShopViewModel shopPost = new AdminShopViewModel();
+            shopPost.shopPostList = shopPostContext.GetAllShopPost(id);
+            shopPost.ShopID = id;
+            return View(shopPost);
+        }
+
+        public ActionResult ViewReviews(int id) // customer and public
+        {
+            AdminShopViewModel reviews = new AdminShopViewModel();
+            reviews.reviewsList = reviewContext.GetAllReviews(id);
+            reviews.ShopID = id;
+            return View(reviews);
+        }
+
 
         public ActionResult ShopUpdate(int ShopID)
         {
@@ -138,22 +156,13 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            AdminForumPostViewModel afpVM = new AdminForumPostViewModel();
-            afpVM.forumPostList = adCtx.GetAllForumPost();
-            if (afpVM.forumPostList.Count == 0)
-            {
-                ViewData["noPost"] = "No Post available";
-            }
+            AdminForumViewModel afpVM = new AdminForumViewModel();
+            afpVM.CustomerPostsList = adCtx.CustomerPostList();
+            afpVM.ShopPostsList = adCtx.ShopPostList();
             return View(afpVM);
         }
 
-        public ActionResult ForumPostDetails(int ForumPostID)
-        {
-            AdminForumPostViewModel FPDetails = new AdminForumPostViewModel();
-            FPDetails.ForumPostID= ForumPostID;
-            FPDetails = adCtx.GetForumPostDetails(FPDetails.ForumPostID);
-            return View(FPDetails);
-        }
+
 
         public ActionResult About()
         {

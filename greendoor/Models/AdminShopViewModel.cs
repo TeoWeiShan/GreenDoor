@@ -58,10 +58,13 @@ namespace greendoor.Models
 
         public List<AdminShopViewModel> shopList { get; set; }
         public List<Reviews> reviewsList { get; set; }
+
+        public List<ShopPost> shopPostList { get; set; }
         public AdminShopViewModel()
         {
             shopList = new List<AdminShopViewModel>();
             reviewsList = new List<Reviews>();
+            shopPostList = new List<ShopPost>();
         }
     }
 }

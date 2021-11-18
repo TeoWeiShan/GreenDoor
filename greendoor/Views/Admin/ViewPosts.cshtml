@@ -1,0 +1,32 @@
+﻿@model greendoor.Models.AdminShopViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <!-- Set the initial view zooming scale for mobile device -->
+    <meta name="viewport" content="width = device-width,
+ initial-scale = 1" />
+    <title>Shops</title>
+    <!-- Reference to customized styling for this website -->
+    <link rel="stylesheet" type="text/css" href="~/css/Site.css">
+
+</head>
+
+<body class="text-center">
+    <div class="px-4 py-5 my-5 text-center">
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4"> View Posts</p>
+
+        </div>
+
+
+
+        <partial name="~/Views/Admin/_Posts.cshtml"  />
+    </div>
+    <a asp-controller="Admin" asp-action="ShopDetails" asp-route-ShopID="@Model.ShopID">Back to Shop</a>
+</body>
+</html>
