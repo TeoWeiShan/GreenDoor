@@ -220,7 +220,7 @@ namespace greendoor.Controllers
             if (review.Rating > 5 || review.Rating<0)
             {
                 ViewData["RatingError"] = "Rating cannot be more than 5 or less than 0!";
-                return RedirectToAction("ShopDetails", "Shops", new { id = HttpContext.Session.GetString("ShopID") },review);
+                /*return RedirectToAction("ShopDetails", "Shops", new { id = HttpContext.Session.GetString("ShopID") },review);*/
             }
             if (ModelState.IsValid)
             {
