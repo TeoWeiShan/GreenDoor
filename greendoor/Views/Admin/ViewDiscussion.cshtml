@@ -29,26 +29,26 @@
                 <p> Date Posted by: <span class="date-posted">@Model.DateTimePosted</span> </p>
 
                 <p class="post-description">@Model.PostDescription</p>
+                <a asp-controller="Admin" asp-action="PostDelete" asp-route-ForumPostID="@Model.ForumPostID">Delete Post</a>
             </div><br />
 
         </div><br />
 
               <div class="post border border-success rounded">
                   <h1>COMMENTS</h1>
-                  <br />
                   @if (Model.ShopCommentsList.Count != 0)
                   {
                       @foreach (var item in Model.ShopCommentsList)
                       {
-
                           <br />
                           <div class="col-lg-12 mx-auto">
                               <h5 class="post-name">Added by: Shop - @item.ShopName</h5>
                               <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
 
                               <p class="post-description">@item.CommentsDescription</p>
+                              <a asp-controller="Admin" asp-action="CommentDelete">Delete Comment</a>
                           </div>
-
+                          <br />
                           <br />
                       }
                   }
@@ -60,13 +60,15 @@
                   {
                       @foreach (var item in Model.CustomerCommentsList)
                       {
+                          <br />
                           <div class="col-lg-12 mx-auto">
                               <h5 class="post-name">Added by: @item.CustomerName</h5>
                               <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
 
                               <p class="post-description">@item.CommentsDescription</p>
+                              <a asp-controller="Admin" asp-action="CommentDelete">Delete Comment</a>
                           </div>
-
+                          <br />
                           <br />
                       }
                   }
