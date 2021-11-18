@@ -162,6 +162,49 @@ namespace greendoor.Controllers
             return View(afpVM);
         }
 
+        public ActionResult ViewDiscussion(int ForumPostID)
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            AdminForumViewModel fpcVM = new AdminForumViewModel();
+            fpcVM.ShopPostIDList = adCtx.ShopPostIDCheckList();
+            fpcVM.CustomerPostIDList = adCtx.CustPostIDCheckList();
+            if (fpcVM.ShopPostIDList.Count != 0)
+            {
+                foreach (var id in fpcVM.ShopPostIDList)
+                {
+                    if (ForumPostID == id.ForumPostID)
+                    {
+                        fpcVM = adCtx.ShopPostDetails(ForumPostID);
+                        fpcVM.ForumPostID = ForumPostID;
+                        fpcVM.ShopCommentsList = adCtx.ShopComments(ForumPostID);
+                        fpcVM.CustomerCommentsList = adCtx.CustomerComments(ForumPostID);
+                        return View(fpcVM);
+                    }
+                    else
+                    {
+                        fpcVM = adCtx.CustomerPostDetails(ForumPostID);
+                        fpcVM.ForumPostID = ForumPostID;
+                        fpcVM.ShopCommentsList = adCtx.ShopComments(ForumPostID);
+                        fpcVM.CustomerCommentsList = adCtx.CustomerComments(ForumPostID);
+                        return View(fpcVM);
+                    }
+                }
+            }
+            else if (fpcVM.CustomerPostIDList.Count != 0)
+            {
+                fpcVM = adCtx.CustomerPostDetails(ForumPostID);
+                fpcVM.ForumPostID = ForumPostID;
+                fpcVM.ShopCommentsList = adCtx.ShopComments(ForumPostID);
+                fpcVM.CustomerCommentsList = adCtx.CustomerComments(ForumPostID);
+                return View(fpcVM);
+            }
+            return View();
+        }
+
 
 
         public ActionResult About()
