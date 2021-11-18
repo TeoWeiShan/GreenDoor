@@ -14,6 +14,8 @@ namespace greendoor.Controllers
     {
         private ShopDAL shopContext = new ShopDAL();
         private ReviewsDAL reviewContext = new ReviewsDAL();
+        private ShopPostDAL shopPostContext = new ShopPostDAL();
+
         public IActionResult Index()
         {
             List<Shop> shopList = shopContext.GetAllShop();
@@ -36,8 +38,10 @@ namespace greendoor.Controllers
             }
             ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
             shopreviewVM.reviewsList = reviewContext.GetAllReviews(id);
+            shopreviewVM.shopPostList = shopPostContext.GetLatestShopPost(id);
             //Get details of competition
             Shop shop = shopContext.GetDetails(id);
+
             shopreviewVM.ShopID = id;
             shopreviewVM.CustomerID = customerID;
             shopreviewVM.ShopPicture = shop.ShopPicture;
@@ -96,5 +100,10 @@ namespace greendoor.Controllers
             }
         }
 
+        public ActionResult ViewPosts(int id)
+        {
+            List<ShopPost> shopPostList = shopPostContext.GetAllShopPost(id);
+            return View(shopPostList);
+        }
     }
 }

@@ -56,6 +56,8 @@ namespace greendoor.Models
         public string Password { get; set; }
         public bool IsVerified { get; set; }
         public List<Reviews> reviewsList { get; set; }
+        public List<ShopPost> shopPostList { get; set; }
+
 
         [Display(Name = "Reviews ID")]
         public int ReviewsID { get; set; }

@@ -7,9 +7,9 @@
                 @foreach (var item in Model)
                 {
                 <tr>
-                    <td>@item.CustomerName</td>
-                    <td>@item.Description</td>
-                    <td>@item.DateTimePosted</td>
+                    <td>@item.CustomerName<small><br />@item.DateTimePosted</small><br />@item.Rating / 5 <br />@item.Description</td>
+                    @*<td>@item.Rating</td>
+                    <td>@item.Description</td>*@
                 </tr>
                 }
             </tbody>

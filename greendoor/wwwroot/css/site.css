@@ -114,9 +114,18 @@ body {
     display: flex
 }
 
+.shop-border {
+    background: black;
+}
+
+.image-padding {
+    justify-content: center ;
+        padding-right: 30px;
+}
+
 .split {
     margin: 10px;
-    flex-basis: 46%;
+    flex-basis: 75%;
     /*--flex: 1;
         padding: 1rem;*/
 }
