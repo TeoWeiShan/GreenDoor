@@ -49,6 +49,18 @@ namespace greendoor.Controllers
             return View(fpcVM);
         }
 
+        public ActionResult CustomerViewDiscussion(int ForumPostID)
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+            /*fpcVM = */
+            return View(fpcVM);
+        }
+
         public ActionResult CustomerCreate()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||

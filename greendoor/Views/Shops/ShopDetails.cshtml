@@ -5,83 +5,108 @@
 }
 <br>
 <h4 class="PageTitle">@Html.Display("ShopName")</h4>
-<hr />
+<section class="holder">
+    <hr />
+</section>
 
 <section class="holder">
 
-    <div class="split">
-        <fieldset class="FormContent">
-            <div class="form-group row">
-                <img src="https://picsum.photos/400/400" />
-            </div>
-            <div class="form-group row">
-                <a asp-action="Edit">Edit details</a>&nbsp;||&nbsp;
-                <a asp-action="Delete">Delete account</a>
-            </div>
-        </fieldset>
+    @*<div class="shop-border">*@
+    <div class=" ">
+        <img src="https://picsum.photos/250/250" class="justify-content-center image-padding" />
+
     </div>
-    
-        <div class="split">
-            <fieldset class="FormContent">
-                <div class="form-group row">
-                    <label asp-for="ShopName"
-                           class="col-sm-3 col-form-label"></label>
-                    <div class="col-sm-9 form-control-plaintext">
-                        @Html.Display("ShopName")
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label asp-for="ShopDescription" class="col-sm-3 col-form-label"></label>
-                    <div class="col-sm-9 form-control-plaintext">
-                        @Html.Display("ShopDescription")
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label asp-for="Zone"
-                           class="col-sm-3 col-form-label"></label>
-                    <div class="col-sm-9 form-control-plaintext">
-                        @Html.Display("Zone")
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label asp-for="ContactNumber"
-                           class="col-sm-3 col-form-label"></label>
-                    <div class="col-sm-9 form-control-plaintext">
-                        @Html.Display("ContactNumber")
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label asp-for="Address"
-                           class="col-sm-3 col-form-label"></label>
-                    <div class="col-sm-9 form-control-plaintext">
-                        @Html.Display("Address")
-                    </div>
+    <fieldset class="FormContent">
+        <div class="form-group row">
+            <label asp-for="ShopDescription" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.Display("ShopDescription")
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="ContactNumber"
+                   class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.Display("ContactNumber")
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Address"
+                   class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.Display("Address")
+            </div>
 
-                </div>
-                <div class="form-group row">
-                    <label asp-for="PostalCode"
-                           class="col-sm-3 col-form-label"></label>
-                    <div class="col-sm-9 form-control-plaintext">
-                        @Html.Display("PostalCode")
-                    </div>
-
-                </div>
-                <div class="form-group row">
-                    <label asp-for="WebsiteLink"
-                           class="col-sm-3 col-form-label"></label>
-                    <div class="col-sm-9 form-control-plaintext">
-                        @Html.Display("WebsiteLink")
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label asp-for="SocialMediaLink"
-                           class="col-sm-3 col-form-label"></label>
-                    <div class="col-sm-9 form-control-plaintext">
-                        @Html.Display("SocialMediaLink")
-                    </div>
-                </div>
-            </fieldset>
+        </div>
+        <div class="form-group row">
+            <label asp-for="WebsiteLink"
+                   class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.Display("WebsiteLink")
+            </div>
         </div>
 
+    </fieldset>
+    
+    
 
 </section>
+
+    <section class="holder">
+
+        <div class="overflow-scroll col-4">
+
+            @if (Model.reviewsList.Count != 0)
+            {
+                <br />
+                <h5 style="margin-bottom:15px; margin-left:3%;">
+                    Reviews:
+                </h5>
+                <partial name="~/Views/Shops/_ViewReviews.cshtml"
+                         model="@Model.reviewsList" />
+            }
+            else
+            {
+
+            }
+        </div>
+
+        <div class="overflow-scroll col-8">
+
+            @if (Model.shopPostList.Count != 0)
+            {<br />
+                <h5 style="margin-bottom: 15px; margin-left:3%;">
+                    Shop Post:
+                </h5>
+                <partial name="~/Views/Shops/_Posts.cshtml"
+                         model="@Model.shopPostList" />
+                <a style="margin-bottom: 15px; margin-left:3%;" asp-action="ViewPosts" asp-route-id="@Context.Session.GetString("ShopID")">View More Posts</a>
+            }
+            else
+            {
+
+            }
+        </div>
+    </section>
+    <div>
+
+        @if (Context.Session.GetString("Role") == "Customer")
+        {
+            <hr />
+            <h5>
+                Add Review:
+            </h5>
+            <partial name="~/Views/Shops/_AddReviews.cshtml" />
+        }
+        else
+        {
+            <p><a asp-action="Login" asp-controller="Home">Login </a> to leave a review!</p>
+        }
+    </div>
+
+
+    @*<div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+                <a asp-action="Add" asp-route-id="@Context.Session.GetString("ShopID")">Add Review</a>
+            </div>
+        </div>*@
