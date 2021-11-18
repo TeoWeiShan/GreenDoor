@@ -647,5 +647,22 @@ namespace greendoor.DAL
             //A connection should be closed after operations.
             conn.Close();
         }
+
+        public void EventDelete(AdminEventViewModel aeVM)
+        {
+            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
+
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"DELETE FROM EcoEvents
+                                WHERE EventID = @selectedEventID";
+            cmd.Parameters.AddWithValue("@selectedEventID", aeVM.EventID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute the DELETE SQL to remove the staff record
+            cmd.ExecuteNonQuery();
+            //Close database connection
+            conn.Close();
+        }
     }
 }

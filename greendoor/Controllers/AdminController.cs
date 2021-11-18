@@ -158,6 +158,16 @@ namespace greendoor.Controllers
             return View(eventVM);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EventDelete(AdminEventViewModel aeVM)
+        {
+            //Add judge record to database
+            adCtx.EventDelete(aeVM);
+            //Redirect user to Judge/Create View
+            return RedirectToAction("ManageEvents", "Admin");
+        }
+
         public ActionResult ManageForum()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
