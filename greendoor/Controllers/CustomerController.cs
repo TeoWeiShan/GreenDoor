@@ -62,33 +62,6 @@ namespace greendoor.Controllers
             return View(cust);
         }
 
-        public ActionResult ViewShops()
-        {
-            if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Customer"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            List<Shop> shopList = shopContext.GetAllShop();
-            return View(shopList);
-        }
-
-        public ActionResult ShopDetails(int ShopID)
-        {
-            if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Customer"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
-            //Get details of competition
-            shopreviewVM = custCtx.ShopDetails(ShopID);
-            shopreviewVM.reviewsList = reviewContext.GetAllReviews(ShopID);
-            shopreviewVM.CustomerID = HttpContext.Session.GetInt32("LoginID");
-            //shopreviewVM.CustomerName = (custCtx.GetDetails(shopreviewVM.CustomerID)).CustomerName;
-            return View(shopreviewVM);
-        }
-
         public ActionResult ViewEvents()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||

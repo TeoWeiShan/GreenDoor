@@ -5,99 +5,89 @@
 }
 <br>
 <h4 class="PageTitle">@Html.Display("ShopName")</h4>
-<hr />
+<section class="holder">
+    <hr />
+</section>
 
 <section class="holder">
 
-
-    <div class="split">
-        <img src="https://picsum.photos/400/400" />
+    @*<div class="shop-border">*@
+    <div class=" ">
+        <img src="~/images/@Model.ShopPicture" style="width:250px" class="justify-content-center image-padding" />
     </div>
+    <fieldset class="FormContent">
+        <div class="form-group row">
+            <label asp-for="ShopDescription" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.Display("ShopDescription")
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="ContactNumber"
+                   class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.Display("ContactNumber")
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Address"
+                   class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.Display("Address")
+            </div>
 
-    <div class="split">
-        <fieldset class="FormContent">
-            <div class="form-group row">
-                <label asp-for="ShopName"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Model.ShopName
-                </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="WebsiteLink"
+                   class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.Display("WebsiteLink")
             </div>
-            <div class="form-group row">
-                <label asp-for="ShopDescription" class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Model.ShopDescription
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="Zone"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Model.Zone
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="ContactNumber"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Model.ContactNumber
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="EmailAddr"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Model.EmailAddr
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="Address"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Model.Address
-                </div>
+        </div>
 
-            </div>
-            <div class="form-group row">
-                <label asp-for="PostalCode"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Model.PostalCode
-                </div>
+    </fieldset>
 
-            </div>
-            <div class="form-group row">
-                <label asp-for="WebsiteLink"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Model.WebsiteLink
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="SocialMediaLink"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 form-control-plaintext">
-                    @Model.SocialMediaLink
-                </div>
-            </div>
-        </fieldset>
-    </div>
 
 
 </section>
 
-<div class="overflow-scroll">
+<section class="holder">
 
-    @if (Model.reviewsList.Count != 0)
-    {
-        <h5>
-            Reviews:
-        </h5>
-        <partial name="~/Views/Shops/_ViewReviews.cshtml"
-                 model="@Model.reviewsList" />
-    }
-    else
-    {
-        <h5>No review for this shop yet!</h5>
-    }
-</div>
+    <div class=" col-xl-4 ">
+
+        @if (Model.reviewsList.Count != 0)
+        {
+            <br />
+            <hr />
+            <h5 style="margin-bottom:15px; ">
+                Reviews:
+            </h5>
+            <partial name="~/Views/Admin/_ViewReviews.cshtml" />
+            <a style="margin-bottom: 15px; " asp-action="ViewReviews" asp-controller="Admin" asp-route-id="@Model.ShopID">View More Reviews</a>
+
+        }
+        else
+        {
+
+        }
+    </div>
+
+    <div class="col-xl-8">
+
+        @if (Model.shopPostList.Count != 0)
+        {<br />
+            <hr />
+            <h5 style="margin-bottom: 15px; ">
+                Shop Post:
+            </h5>
+            <partial name="~/Views/Admin/_Posts.cshtml" />
+            <a style="margin-bottom: 15px; margin-right: 3%;" asp-action="ViewPosts" asp-controller="Admin" asp-route-id="@Model.ShopID">View More Posts</a>
+        }
+        else
+        {
+
+        }
+    </div>
+</section>
+<br />
+<div>
