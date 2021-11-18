@@ -62,8 +62,7 @@
                 <h5 style="margin-bottom:15px; ">
                     Reviews:
                 </h5>
-                <partial name="~/Views/Shops/_ViewReviews.cshtml"
-                         model="@Model.reviewsList" />
+                <partial name="~/Views/Shops/_ViewReviews.cshtml"/>
                 <a style="margin-bottom: 15px; " asp-action="ViewReviews" asp-route-id="@Context.Session.GetString("ShopID")">View More Reviews</a>
 
             }
@@ -81,8 +80,7 @@
                 <h5 style="margin-bottom: 15px; ">
                     Shop Post:
                 </h5>
-                <partial name="~/Views/Shops/_Posts.cshtml"
-                         model="@Model.shopPostList" />
+                <partial name="~/Views/Shops/_Posts.cshtml"/>
                 <a style="margin-bottom: 15px; margin-right: 3%;" asp-action="ViewPosts" asp-route-id="@Context.Session.GetString("ShopID")">View More Posts</a>
             }
             else
@@ -100,7 +98,7 @@
         <h5>
             Add Review:
         </h5>
-        <form asp-action="_AddReviews">
+        <form asp-action="ShopDetails" asp-controller="Shops" asp-route-id="@Model.ShopID">
             <fieldset class="FormContent">
                 <div class="form-group review-row ">
                     <label asp-for="ShopID"
@@ -142,7 +140,7 @@
                                class="btn btn-primary" />
                     </div>
                 </div>
-                <span style="color:red">@ViewData["RankingError"]</span>
+                <span style="color:red">@ViewData["RatingError"]</span>
             </fieldset>
         </form>
     }

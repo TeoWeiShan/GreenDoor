@@ -76,20 +76,11 @@ namespace greendoor.Controllers
         public ActionResult ShopProfile(int id)  // for shop
         {
             ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
+            shopreviewVM = shopContext.GetDetailsVM(id);
             shopreviewVM.reviewsList = reviewContext.GetAllReviews((int)HttpContext.Session.GetInt32("LoginID"));
             //Get details of competition
-            Shop shop = shopContext.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
-            shopreviewVM.ShopPicture = shop.ShopPicture;
-            shopreviewVM.ShopName = shop.ShopName;
-            shopreviewVM.ShopDescription = shop.ShopDescription;
-            shopreviewVM.Zone = shop.Zone;
-            shopreviewVM.ContactNumber = shop.ContactNumber;
-            shopreviewVM.Address = shop.Address;
-            shopreviewVM.PostalCode = shop.PostalCode;
-            shopreviewVM.SocialMediaLink = shop.SocialMediaLink;
-            shopreviewVM.WebsiteLink = shop.WebsiteLink;
             //If query id not in db, redirect out
-            if (shop.ShopName == null)
+            if (shopreviewVM.ShopName == null)
             {
                 //Return to listing page, not allowed to edit
                 return RedirectToAction("Index");
@@ -192,26 +183,11 @@ namespace greendoor.Controllers
             }
         }
 
-        // GET: CompetitionController/Create
-        public ActionResult _AddReviews(int id) // only for customer
-        {
-
-            //If not admin, cannot access
-            //if ((HttpContext.Session.GetString("Role") == null) || (HttpContext.Session.GetString("Role") != "Customer"))
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-            //Populate dropdown list
-            string customerID = HttpContext.Session.GetString("LoginID");
-            string shop = HttpContext.Session.GetString("ShopID");
-
-            return View();
-        }
 
         // POST: CompetitionController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult _AddReviews(ShopReviewViewModel review)
+        public ActionResult ShopDetails(ShopReviewViewModel review, int id)
         {
             //Populate list for drop-down list
             //in case of the need to return to Edit.cshtml view
@@ -221,32 +197,36 @@ namespace greendoor.Controllers
             {
                 ViewData["RatingError"] = "Rating cannot be more than 5 or less than 0!";
                 /*return RedirectToAction("ShopDetails", "Shops", new { id = HttpContext.Session.GetString("ShopID") },review);*/
+                ShopReviewViewModel shopVM = new ShopReviewViewModel();
+                shopVM = shopContext.GetDetailsVM(id);
+                shopVM.reviewsList = reviewContext.GetAllReviews((int)HttpContext.Session.GetInt32("LoginID"));
+                shopVM.shopPostList = shopPostContext.GetLatestShopPost(id);
+                return View(shopVM);
             }
-            if (ModelState.IsValid)
-            {
                 //Update record to database
-                review.ReviewsID = reviewContext.Add(review);
-                return RedirectToAction("ShopDetails", "Shops", new { id = HttpContext.Session.GetString("ShopID") });
-                //return RedirectToAction("Index");
-            }
-            else
-            {
-                //Input validation fails, return to the view
-                //to display error message
-                return View(review);
-            }
+                ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
+                shopreviewVM = shopContext.GetDetailsVM(id);
+                shopreviewVM.ReviewsID = reviewContext.Add(review);
+                shopreviewVM.reviewsList = reviewContext.GetAllReviews((int)HttpContext.Session.GetInt32("LoginID"));
+                shopreviewVM.shopPostList = shopPostContext.GetLatestShopPost(id);
+                return View(shopreviewVM);
+
         }
 
         public ActionResult ViewPosts(int id) // customer and public
         {
-            List<ShopPost> shopPostList = shopPostContext.GetAllShopPost(id);
-            return View(shopPostList);
+            ShopReviewViewModel shopPost = new ShopReviewViewModel();
+            shopPost.shopPostList = shopPostContext.GetAllShopPost(id);
+            shopPost.ShopID = (int)HttpContext.Session.GetInt32("LoginID");
+            return View(shopPost);
         }
 
         public ActionResult ViewReviews(int id) // customer and public
         {
-            List<Reviews> reviewsList = reviewContext.GetAllReviews(id);
-            return View(reviewsList);
+            ShopReviewViewModel reviews = new ShopReviewViewModel();
+            reviews.reviewsList = reviewContext.GetAllReviews(id);
+            reviews.ShopID = (int)HttpContext.Session.GetInt32("LoginID");
+            return View(reviews);
         }
     }
 }

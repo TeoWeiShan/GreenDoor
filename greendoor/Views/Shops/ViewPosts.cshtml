@@ -1,4 +1,4 @@
-﻿@model IEnumerable<greendoor.Models.ShopPost>
+﻿@model greendoor.Models.ShopReviewViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -27,5 +27,6 @@
 
         <partial name="~/Views/Shops/_Posts.cshtml"  />
     </div>
+    <a asp-controller="Shops" asp-action="ShopDetails" asp-route-id="@Model.ShopID">Back to Shop</a>
 </body>
 </html>

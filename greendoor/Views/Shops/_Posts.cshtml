@@ -1,11 +1,11 @@
-﻿@model IEnumerable<greendoor.Models.ShopPost>
+﻿@model greendoor.Models.ShopReviewViewModel
 
-@if (Model.ToList().Count > 0)
+@if (Model.shopPostList.Count > 0)
 {
 
     <div class="container">
         <div class="row">
-            @foreach (var item in Model)
+            @foreach (var item in Model.shopPostList)
             {
                 <div class="card" style="width:100%; margin-bottom:2%;">
 
@@ -14,8 +14,6 @@
                         <p class="card-title"><small>@item.DateTimePosted</small> </p>
                         <p class="card-title"> @item.PostDescription</p>
                     </div>
-
-
 
                 </div>
                 <br>
