@@ -1,45 +1,233 @@
-﻿<!--
-{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-}
--->
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-    <!-- Use Unicode character encoding - multi-language compatibity -->
-    <meta charset="utf-8">
-    <!-- Set the initial view zooming scale for mobile device -->
-    <meta name="viewport" content="width = device-width,
- initial-scale = 1" />
-    <title>GreenDoor</title>
-    <!-- Reference to customized styling for this website -->
-    <link rel="stylesheet" type="text/css" href="~/css/Site.css">
+    <title>Our Features Sections</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
 </head>
 
+<style>
+    .section-features {
+        padding-top: 94px;
+        padding-bottom: 100px;
+        font-family: "Poppins", sans-serif;
+        color: #8a8a8a;
+    }
+
+        .section-features .header-section {
+            margin-bottom: 40px;
+        }
+
+            .section-features .header-section .header-titles {
+                margin-bottom: 40px;
+            }
+
+        .section-features .header-titles .first-title {
+            font-size: 35px;
+            color: #416a59;
+        }
+
+        .section-features .header-titles .second-title {
+            margin-bottom: 24px;
+            font-size: 45px;
+            font-weight: 600;
+            color: #a9c25d;
+        }
+
+        .section-features .header-titles .third-title {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .section-features .header-titles span {
+            font-weight: 300;
+            color: #a9c25d;
+        }
+
+        .section-features .header-description {
+            font-size: 14px;
+            line-height: 2em;
+        }
+
+        .section-features .single-feature {
+            margin-bottom: 20px;
+        }
+
+            .section-features .single-feature img {
+                width: 100%;
+            }
+
+
+            .section-features .single-feature .infos {
+                position: relative;
+                padding: 45px 25px 23px;
+                transform: translateY(-30%);
+                background-color: #fff;
+                margin-right: 20px;
+                margin-left: 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 30px 0 rgba(0,0,0,.1);
+            }
+
+            .section-features .single-feature .icon-feature {
+                display: inline-block;
+                position: absolute;
+                transform: translate(-50%,-50%);
+                top: 0;
+                left: 50%;
+                border-radius: 50%;
+                background-color: #3b7ffe;
+                color: #fff;
+                width: 60px;
+                height: 60px;
+                line-height: 60px;
+                font-size: 22px;
+            }
+
+            .section-features .single-feature .title {
+                margin-bottom: 14px;
+                font-size: 18px;
+                font-weight: 600;
+                color: #222222;
+                line-height: 1.3em;
+            }
+
+            .section-features .single-feature .read-more {
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+                .section-features .single-feature .read-more i {
+                    margin-left: 5px;
+                    vertical-align: middle;
+                }
+
+        .section-features .feature1 .icon-feature {
+            background-color: #3b7ffe;
+        }
+
+        .section-features .feature1 .read-more {
+            color: #3b7ffe;
+        }
+
+        .section-features .feature2 .icon-feature {
+            background-color: #f76f03;
+        }
+
+        .section-features .feature2 .read-more {
+            color: #f76f03;
+        }
+
+        .section-features .feature3 .icon-feature {
+            background-color: #0355f9;
+        }
+
+        .section-features .feature3 .read-more {
+            color: #0355f9;
+        }
+
+        .section-features .feature4 .icon-feature {
+            background-color: #ef5b51;
+        }
+
+        .section-features .feature4 .read-more {
+            color: #ef5b51;
+        }
+</style>
+
 <body>
-    <div>You are logged in as a shop account</div>
-    <div class="px-4 py-5 my-5 text-center">
-        <h1 class="display-5 fw-bold">GreenDoor</h1>
-        <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4"> Welcome to GreenDoor</p>
-            <p>
-                Thank you for sigining up for a shop account with us.<br />
-                Here are a list of things that you can do with your shop account:<br />
-                1. Edit your account details<br />
-                2. Post shop details<br />
-                3. Post forum topics<br />
-                4. Post event<br />
-            </p>
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <a href="/Home/About" class="btn myButton">About Us</a>
+    <!-- ABOUT SECTION -->
+    <section class="section-features">
+        <div class="container">
+            <div class="row align-items-center header-section">
+                <div class="col-lg-6">
+                    <div class="header-titles">
+                        <h2 class="first-title">GreenDoor</h2>
+                        <h2 class="second-title">Find <span>Thrift Shops</span></h2>
+                        <h3 class="third-title">One Problem, One Earth, One Last Chance, Make the Right Choice Now</h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="header-description">
+                        Welcome to your one stop shop for sustainanle fashion! <br />
+                        Discover and promote your favourite establishments.
+                        Learn more about thrifting and its benefits.
+                        Discover and promote your favourite thrift shops.
+                        Meet and interact with dozens of other like-minded individuals. <br /><br />
+
+                        Why wait? Join our evergrowing community today!
+                    </p>
+
+                    <a href="Home/Login" type="button" class="btn btn-outline-success">Login</a>
+                    <a href="Home/About" type="button" class="btn btn-outline-success">About Us</a>
+                </div>
             </div>
         </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <div>
+        <div class="header-titles">
+            <h2 class="first-title">GreenDoor Features</h2>
+        </div>
+
+        <section class="section-features">
+            <div class="row text-center justify-content-around">
+                <!-- single featues -->
+                <br />
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="single-feature feature1">
+                        <div class="infos">
+                            <span class="icon-feature"><img class="menuicon" src="~/images/shop.png" style="width:43px"></span>
+                            <h3 class="title">Find Thrift Shops in SG</h3>
+                            <a href="/Shops/ViewShops" class="read-more">Explore <i class="fas fa-long-arrow-alt-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- / end single featues -->
+                <!-- single featues -->
+                <br />
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="single-feature feature2">
+                        <div class="infos">
+                            <span class="icon-feature"><img class="menuicon" src="~/images/chat.png" style="width:40px"></span>
+                            <h3 class="title">Leave a Thrift Shop Review</h3>
+                            <a href="/Shops/ViewShops" class="read-more">Take me <i class="fas fa-long-arrow-alt-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- / end single featues -->
+                <!-- single featues -->
+                <br />
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="single-feature feature3">
+                        <div class="infos">
+                            <span class="icon-feature"><img class="menuicon" src="~/images/calendar.png" style="width:30px"></span>
+                            <h3 class="title">Pop-Up Events</h3>
+                            <a href="/Home/ViewEvents" class="read-more">Let's Go <i class="fas fa-long-arrow-alt-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- / end single featues -->
+                <!-- single featues -->
+                <br />
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="single-feature feature4">
+                        <div class="infos">
+                            <span class="icon-feature"><img class="menuicon" src="~/images/chat.png" style="width:30px"></span>
+                            <h3 class="title">Forum</h3>
+                            <a href="Forum/ShopViewForum" class="read-more">Let's Go <i class="fas fa-long-arrow-alt-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- / end single featues -->
+            </div>
+        </section>
+
+        <!-- / END FEATURES SECTION -->
     </div>
 
 </body>

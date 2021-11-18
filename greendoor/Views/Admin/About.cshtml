@@ -1,52 +1,277 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>About</title>
+    <title>Our Features Sections</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
 </head>
-<body class="text-center">
-    <div class="px-4 py-5 my-5 text-center">
-        <h1 class="display-5 fw-bold">About Us</h1>
-        <sub>Learn more about our website!</sub>
 
-        <br /><br /><br />
+<style>
+    .section-features {
+        padding-top: 94px;
+        padding-bottom: 100px;
+        font-family: "Poppins", sans-serif;
+        color: #8a8a8a;
+    }
 
-        <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">GreenDoor's Goal</p>
-            <p>Save the earth by helping people make environmentally-informed buying choices​.</p><br />
+        .section-features .header-section {
+            margin-bottom: 40px;
+        }
+
+            .section-features .header-section .header-titles {
+                margin-bottom: 40px;
+            }
+
+        .section-features .header-titles .first-title {
+            font-size: 35px;
+            color: #416a59;
+        }
+
+        .section-features .header-titles .second-title {
+            margin-bottom: 24px;
+            font-size: 45px;
+            font-weight: 600;
+            color: #a9c25d;
+        }
+
+        .section-features .header-titles .third-title {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .section-features .header-titles span {
+            font-weight: 300;
+            color: #a9c25d;
+        }
+
+        .section-features .header-description {
+            font-size: 14px;
+            line-height: 2em;
+        }
+        /* body {
+        background-color: #f5eec2;
+    }*/
+        .section-features .single-feature {
+            margin-bottom: 20px;
+        }
+
+            .section-features .single-feature img {
+                width: 100%;
+            }
+
+
+            .section-features .single-feature .infos {
+                position: relative;
+                padding: 45px 25px 23px;
+                transform: translateY(-30%);
+                background-color: #fff;
+                margin-right: 20px;
+                margin-left: 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 30px 0 rgba(0,0,0,.1);
+            }
+
+            .section-features .single-feature .icon-feature {
+                display: inline-block;
+                position: absolute;
+                transform: translate(-50%,-50%);
+                top: 0;
+                left: 50%;
+                border-radius: 50%;
+                background-color: #3b7ffe;
+                color: #fff;
+                width: 60px;
+                height: 60px;
+                line-height: 60px;
+                font-size: 22px;
+            }
+
+            .section-features .single-feature .title {
+                margin-bottom: 14px;
+                font-size: 18px;
+                font-weight: 600;
+                color: #222222;
+                line-height: 1.3em;
+            }
+
+            .section-features .single-feature .read-more {
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+                .section-features .single-feature .read-more i {
+                    margin-left: 5px;
+                    vertical-align: middle;
+                }
+
+        .section-features .feature1 .icon-feature {
+            background-color: #3b7ffe;
+        }
+
+        .section-features .feature1 .read-more {
+            color: #3b7ffe;
+        }
+
+        .section-features .feature2 .icon-feature {
+            background-color: #f76f03;
+        }
+
+        .section-features .feature2 .read-more {
+            color: #f76f03;
+        }
+
+        .section-features .feature3 .icon-feature {
+            background-color: #0355f9;
+        }
+
+        .section-features .feature3 .read-more {
+            color: #0355f9;
+        }
+
+        .section-features .feature4 .icon-feature {
+            background-color: #ef5b51;
+        }
+
+        .section-features .feature4 .read-more {
+            color: #ef5b51;
+        }
+</style>
+
+<body>
+    <!-- ABOUT SECTION -->
+    <section class="section-features">
+        <div class="container">
+            <div class="row align-items-center header-section">
+                <div class="col-lg-6">
+                    <div class="header-titles">
+                        <h2 class="first-title">GreenDoor</h2>
+                        <h2 class="second-title">Find <span>Thrift Shops</span></h2>
+                        <h3 class="third-title">One Problem, One Earth, One Last Chance, Make the Right Choice Now</h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="header-description">
+                        Welcome to your one stop shop for sustainable fashion! <br />
+                        Discover and promote your favourite establishments.
+                        Learn more about thrifting and its benefits.
+                        Discover and promote your favourite thrift shops.
+                        Meet and interact with dozens of other like-minded individuals. <br /><br />
+
+                        Why wait? Join our evergrowing community today!
+                    </p>
+
+                    <a href="Home/Login" type="button" class="btn btn-outline-success">Login</a>
+                    <a href="Home/About" type="button" class="btn btn-outline-success">About Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <div>
+        <div class="header-titles">
+            <h2 class="first-title">GreenDoor's Features</h2>
         </div>
 
-        <br />
+        <section class="section-features">
+            <div class="row text-center justify-content-around">
+                <!-- single featues -->
+                <br />
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="single-feature feature1">
+                        <div class="infos">
+                            <span class="icon-feature"><img class="menuicon" src="~/images/shop.png" style="width:43px"></span>
+                            <h3 class="title">Find Thrift Shops in SG</h3>
+                            <a href="/Shops" class="read-more">Explore <i class="fas fa-long-arrow-alt-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- / end single featues -->
+                <!-- single featues -->
+                <br />
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="single-feature feature2">
+                        <div class="infos">
+                            <span class="icon-feature"><img class="menuicon" src="~/images/chat.png" style="width:40px"></span>
+                            <h3 class="title">Leave a Thrift Shop Review</h3>
+                            <a href="/Shops" class="read-more">Take me <i class="fas fa-long-arrow-alt-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- / end single featues -->
+                <!-- single featues -->
+                <br />
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="single-feature feature3">
+                        <div class="infos">
+                            <span class="icon-feature"><img class="menuicon" src="~/images/calendar.png" style="width:30px"></span>
+                            <h3 class="title">Pop-Up Events</h3>
+                            <a href="/Events" class="read-more">Let's Go <i class="fas fa-long-arrow-alt-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- / end single featues -->
+                <!-- single featues -->
+                <br />
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="single-feature feature4">
+                        <div class="infos">
+                            <span class="icon-feature"><img class="menuicon" src="~/images/chat.png" style="width:30px"></span>
+                            <h3 class="title">Forum</h3>
+                            <a href="/Forum" class="read-more">Let's Go <i class="fas fa-long-arrow-alt-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- / end single featues -->
+            </div>
+        </section>
 
-        <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">What is GreenDoor?</p>
-            <p>
-                GreenDoor is a website platform that educates and inspire people to buy only what they need,
-                and if they were to buy, they buy in Thrift Shops where clothes are pre-owned
-                so that they are worn again and not thrown away.
-                Unlike a Google search, GreenDoor encourages people to save the earth by reducing, reusing and recycling.
-            </p>
-        </div>
-
-        <br />
-
-        <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">Who GreenDoor is created for</p>
-            <ul class="text-left">
-                <li>For Thrift Shop Shoppers who are looking for thrift shops.</li>
-                <li>For People stepping into or already having an eco-friendly lifestyle who are looking for sustainable fashion choices.</li>
-                <li>For thrift shop owners who would like to connect and reach out to eco-friendly customers.</li>
-            </ul>
-        </div>
-
-        <br />
-
-        <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">Made by </p>
-            <p>Amos, Hannah, Juliana, Lay How, Wei Shan</p>
-        </div>
+        <!-- / END FEATURES SECTION -->
     </div>
+
+    <!-- FEATURES SECTION -->
+    <section id="benefits">
+        <div class="container">
+
+            <div class="header-titles">
+                <h2 class="first-title">Benefits of Thrift Shopping</h2>
+                <p>
+                    "Introducing Thrift Shopping: An Eco-Friendly Alternative to Buy Clothes
+                    Clothing production is the third biggest manufacturing industry after the automotive
+                    and technology industries. Textile production contributes more to climate change than
+                    international aviation and shipping combined" (House of Common Environmental
+                    Audit Committee, 2019)
+                </p><br />
+            </div>
+
+            <div class="row">
+                <div class="card col" style="margin-left:4px; margin-right:4px; width: 12rem;">
+                    <img src="~/images/Watering Plant_Monochromatic.png" class="card-img-top" style="width:100%; height:100%" alt="feature">
+                    <div class="card-body">
+                        <p class="card-text">Reduce the demand for fast fashion, lowering carbon emissions</p>
+                    </div>
+                </div>
+                <div class="card col" style="margin-left:4px; margin-right:4px; width: 12rem;">
+                    <img src="~/images/Recycling_Isometric.png" class="card-img-top" style="width:100%; height:100%" alt="feature">
+                    <div class="card-body">
+                        <p class="card-text">Energy used to produce clothing are reused and recycled, rather than being wasted and thrown away</p>
+                    </div>
+                </div>
+                <div class="card col" style="margin-left:4px; margin-right:4px; width: 12rem;">
+                    <img src="~/images/Global Warming_Two Color.png" class="card-img-top" style="width:100%; height:100%" alt="feature">
+                    <div class="card-body">
+                        <p class="card-text">
+                            Reduce clothes becoming trash and contributing to land and sea pollution
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /><br /><br />
+    </section>
 
 
 </body>
