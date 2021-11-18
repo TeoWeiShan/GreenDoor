@@ -17,16 +17,16 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 
-                <a class="nav-link" href="/Shops"><img class="menuicon" src="~/images/shop.png" style="width:30px">Shops</a>
+                <a class="nav-link" asp-controller="Shops" asp-action="ViewShops"><img class="menuicon" src="~/images/shop.png" style="width:30px">Shops</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/Events"><img class="menuicon" src="~/images/calendar.png" style="width:20px">Events</a>
+                <a class="nav-link" asp-controller="Home" asp-action="ViewEvents"><img class="menuicon" src="~/images/calendar.png" style="width:20px">Events</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/Forum"><img class="menuicon" src="~/images/chat.png" style="width:20px">Forum</a>
+                <a class="nav-link" asp-controller="Forum" asp-action="PublicViewForum"><img class="menuicon" src="~/images/chat.png" style="width:20px">Forum</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/Home/About"><img class="menuicon" src="~/images/info.png" style="width:20px">About</a>
+                <a class="nav-link" asp-controller="Home" asp-action="About"><img class="menuicon" src="~/images/info.png" style="width:20px">About</a>
             </li>
         </ul>
         <!-- Links that are aligned to the right,
@@ -37,8 +37,8 @@
                     <img class="menuicon" src="~/images/register.png" style="width:20px">  Register
                 </a>
                 <div class="dropdown-menu dropdown-menu-light dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" style="color: #f5eec2" href="/Home/RegisterShop">As Shop</a>
-                    <a class="dropdown-item" style="color: #f5eec2" href="/Home/RegisterCustomer">As Customer</a>
+                    <a class="dropdown-item" style="color: #f5eec2" asp-controller="Home" asp-action="RegisterShop">As Shop</a>
+                    <a class="dropdown-item" style="color: #f5eec2" asp-controller="Home" asp-action="RegisterCustomer">As Customer</a>
                 </div>
             </li>
             <li class="nav-item">

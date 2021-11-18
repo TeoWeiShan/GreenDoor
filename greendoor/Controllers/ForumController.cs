@@ -15,7 +15,7 @@ namespace greendoor.Controllers
         private ForumDAL forumPostContext = new ForumDAL();
         private CustomerDAL custCtx = new CustomerDAL();
 
-        public IActionResult ShopViewForum()
+        public ActionResult ShopViewForum()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
                 (HttpContext.Session.GetString("Role") != "Owner"))

@@ -22,6 +22,7 @@ namespace greendoor.Controllers
         private readonly ILogger<HomeController> _logger;
         private CustomerDAL customerContext = new CustomerDAL();
         private ShopDAL shopContext = new ShopDAL();
+        private EventDAL eContext = new EventDAL();
 
         public IActionResult Index()
         {
@@ -31,6 +32,23 @@ namespace greendoor.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public ActionResult ViewEvents()
+        {
+            List<EcoEvents> eList = eContext.GetAllEvent();
+            return View(eList);
+        }
+
+        public ActionResult EventDetails(int EventID)
+        {
+            EcoEvents e = eContext.GetDetails(EventID);
+            if (e.EventName == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            return View(e);
         }
 
         // GET: RegCust
