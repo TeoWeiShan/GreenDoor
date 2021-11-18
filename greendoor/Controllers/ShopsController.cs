@@ -215,7 +215,7 @@ namespace greendoor.Controllers
 
         public ActionResult ViewPosts(int id) // customer and public
         {
-            ShopPost shopPost = new ShopPost();
+            ShopReviewViewModel shopPost = new ShopReviewViewModel();
             shopPost.shopPostList = shopPostContext.GetAllShopPost(id);
             shopPost.ShopID = (int)HttpContext.Session.GetInt32("LoginID");
             return View(shopPost);
@@ -223,7 +223,7 @@ namespace greendoor.Controllers
 
         public ActionResult ViewReviews(int id) // customer and public
         {
-            Reviews reviews = new Reviews();
+            ShopReviewViewModel reviews = new ShopReviewViewModel();
             reviews.reviewsList = reviewContext.GetAllReviews(id);
             reviews.ShopID = (int)HttpContext.Session.GetInt32("LoginID");
             return View(reviews);
