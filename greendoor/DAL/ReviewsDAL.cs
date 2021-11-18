@@ -29,7 +29,7 @@ namespace greendoor.DAL
             //Connection String read.
             conn = new SqlConnection(strConn);
         }
-        public int Add(Reviews reviews)
+        public int Add(ShopReviewViewModel reviews)
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();

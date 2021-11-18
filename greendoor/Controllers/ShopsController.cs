@@ -73,7 +73,7 @@ namespace greendoor.Controllers
             return View(shopreviewVM);
         }
 
-        public ActionResult ShopProfile(int id)  // for customer and public
+        public ActionResult ShopProfile(int id)  // for shop
         {
             ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
             shopreviewVM.reviewsList = reviewContext.GetAllReviews((int)HttpContext.Session.GetInt32("LoginID"));
@@ -211,11 +211,17 @@ namespace greendoor.Controllers
         // POST: CompetitionController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult _AddReviews(Reviews review)
+        public ActionResult _AddReviews(ShopReviewViewModel review)
         {
             //Populate list for drop-down list
             //in case of the need to return to Edit.cshtml view
             //ViewData["InterestList"] = GetAllAreaInterests();
+            review.DateTimePosted = DateTime.Now;
+            if (review.Rating > 5 || review.Rating<0)
+            {
+                ViewData["RatingError"] = "Rating cannot be more than 5 or less than 0!";
+                return RedirectToAction("ShopDetails", "Shops", new { id = HttpContext.Session.GetString("ShopID") },review);
+            }
             if (ModelState.IsValid)
             {
                 //Update record to database

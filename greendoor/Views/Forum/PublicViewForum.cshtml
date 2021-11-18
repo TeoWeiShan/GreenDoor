@@ -111,34 +111,69 @@
 
                 <div class="comment-section">
                     @*                    <button id="commentsSection" onclick="comments_show()">Comments</button>
-                    *@                  <a asp-action="CustomerViewDiscussion" asp-controller="Forum">View Discussion</a>
+                    *@                  Comments
                 </div>
 
             </div><br />
 
         </div><br />
-
-        @foreach (var item in Model.PostsList)
+        @if (Model.ShopPostsList.Count == 0 && Model.CustomerPostsList.Count == 0)
+            {
+                <h5>No Post Available!</h5>
+            }
+        @if (Model.ShopPostsList.Count != 0)
         {
-            <div class="post border border-success rounded">
-                <br />
-                <div class="col-lg-12 mx-auto">
-                    <h5 class="post-name">@item.PostName</h5>
-                    <p> Added by: <span class="added-by">@item.CustomerName</span> </p>
-                    <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
+            @foreach (var item in Model.ShopPostsList)
+            {
+                <div class="post border border-success rounded">
+                    <br />
+                    <div class="col-lg-12 mx-auto">
+                        <h5 class="post-name">@item.PostName</h5>
+                        <p> Added by: <span class="added-by">@item.ShopName</span> </p>
+                        <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
 
-                    <p class="post-description">@item.PostDescription</p>
+                        <p class="post-description">@item.PostDescription</p>
 
-                    <div class="comment-section">
-                        @*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
-                        *@                      <a asp-action="CustomerViewDiscussion" asp-controller="Forum" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
+                        <div class="comment-section">
+                            @*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
+                            *@                      <a asp-action="PublicViewDiscussion" asp-controller="Forum" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
+                        </div>
+
                     </div>
 
                 </div>
 
-            </div>
+                <br />
+            }
+        }
+        @if (Model.CustomerPostsList.Count != 0)
+        {
+            @foreach (var item in Model.CustomerPostsList)
+            {
+                <div class="post border border-success rounded">
+                    <br />
+                    <div class="col-lg-12 mx-auto">
+                        <h5 class="post-name">@item.PostName</h5>
+                        <p> Added by: <span class="added-by">@item.CustomerName</span> </p>
+                        <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
 
-            <br />
+                        <p class="post-description">@item.PostDescription</p>
+
+                        <div class="comment-section">
+                            @*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
+                            *@                      <a asp-action="PublicViewDiscussion" asp-controller="Forum" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <br />
+            }
+        }
+        else
+        {
+
         }
 
     </div>

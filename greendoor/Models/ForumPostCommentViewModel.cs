@@ -51,13 +51,22 @@ namespace greendoor.Models
         public List<ForumPostCommentViewModel> CustomerCommentsList { get; set; }
 
         public List<ForumPostCommentViewModel> ShopCommentsList { get; set; }
-        public List<ForumPostCommentViewModel> PostsList { get; set; }
+        public List<ForumPostCommentViewModel> CustomerPostsList { get; set; }
+
+        public List<ForumPostCommentViewModel> ShopPostsList { get; set; }
+
+        public List<ForumPostCommentViewModel> ShopPostIDList { get; set; }
+
+        public List<ForumPostCommentViewModel> CustomerPostIDList { get; set; }
 
         public ForumPostCommentViewModel()
         {
             CustomerCommentsList = new List<ForumPostCommentViewModel>();
             ShopCommentsList = new List<ForumPostCommentViewModel>();
-            PostsList = new List<ForumPostCommentViewModel>();
+            CustomerPostsList = new List<ForumPostCommentViewModel>();
+            ShopPostsList = new List<ForumPostCommentViewModel>();
+            ShopPostIDList = new List<ForumPostCommentViewModel>();
+            CustomerPostIDList = new List<ForumPostCommentViewModel>();
         }
     }
 }
