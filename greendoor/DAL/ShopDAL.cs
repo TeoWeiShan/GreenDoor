@@ -189,5 +189,49 @@ namespace greendoor.DAL
 
             return emailFound;
         }
+
+        public void Update(Shop shop)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify an INSERT SQL statement which will
+            //return the auto-generated CriteriaID after insertion
+            cmd.CommandText = @"UPDATE Shop
+                                SET ShopName = @shopName,
+                                ShopDescription = @shopDescription,
+                                Zone = @zone,
+                                ContactNum = @contact,
+                                Address = @address,
+                                PostalCode = @postalCode,
+                                SocialMediaLink = @socialMedia,
+                                WebsiteLink = @website,
+                                EmailAddr = @emailAddr,
+                                Password = @password
+                                WHERE ShopID = @selectedShopID";
+
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@shopName", shop.ShopName);
+            cmd.Parameters.AddWithValue("@shopDescription", shop.ShopDescription);
+            cmd.Parameters.AddWithValue("@zone", shop.Zone);
+            cmd.Parameters.AddWithValue("@contact", shop.ContactNumber);
+            cmd.Parameters.AddWithValue("@address", shop.Address);
+            cmd.Parameters.AddWithValue("@postalCode", shop.PostalCode);
+            cmd.Parameters.AddWithValue("@socialMedia", shop.SocialMediaLink);
+            cmd.Parameters.AddWithValue("@website", shop.WebsiteLink);
+            cmd.Parameters.AddWithValue("@emailAddr", shop.EmailAddr);
+            cmd.Parameters.AddWithValue("@password", shop.Password);
+            cmd.Parameters.AddWithValue("@selectedShopID", shop.ShopID);
+
+            //A connection to database must be opened before any operations made.
+            conn.Open();
+
+            //ExecuteScalar is used to retrieve the auto-generated
+            cmd.ExecuteNonQuery();
+            //A connection should be closed after operations.
+            conn.Close();
+        }
+
     }
 }

@@ -1,0 +1,39 @@
+﻿@model greendoor.Models.EditPhotoViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<br>
+<h4 class="PageTitle">@Html.Display("ShopName")</h4>
+<hr />
+
+<section class="holder">
+
+    <div class="split">
+        <fieldset class="FormContent">
+            <div class="form-group row">
+                <img src="https://picsum.photos/400/400" />
+            </div>
+            <div class="form-group row">
+                <a asp-action="ShopProfile">Back to profile</a>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="split">
+        <fieldset class="FormContent">
+            <form>
+                <div class="form-group row">
+                    <label asp-for="PhotoFile" class="control-label">Shop Photo (jpg format):</label>&nbsp;&nbsp;&nbsp;
+                    <input asp-for="PhotoFile" required accept="image/jpeg" />
+                    <span asp-validation-for="PhotoFile" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-row">
+                    <input type="submit" value="Update" class="btn btn-primary" />
+                    <span style="color:red;">@ViewData["Message"]</span>
+                </div>
+            </form>
+        </fieldset>
+    </div>
+</section>

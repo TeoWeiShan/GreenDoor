@@ -97,6 +97,116 @@ namespace greendoor.Controllers
             return View(shopreviewVM);
         }
 
+        public ActionResult Edit()
+        {
+            List<SelectListItem> li = new List<SelectListItem>();
+            li.Add(new SelectListItem { Text = "Central", Value = "Central" });
+            li.Add(new SelectListItem { Text = "East", Value = "East" });
+            li.Add(new SelectListItem { Text = "North", Value = "North" });
+            li.Add(new SelectListItem { Text = "North-East", Value = "North-East" });
+            li.Add(new SelectListItem { Text = "West", Value = "West" });
+            li.Add(new SelectListItem { Text = "NA", Value = "NA" });
+            ViewData["zoneList"] = li;
+
+            EditShopDetailsViewModel shopDetails = new EditShopDetailsViewModel();
+
+            Shop shop = shopContext.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
+            shopDetails.ShopPicture = shop.ShopPicture;
+            shopDetails.ShopName = shop.ShopName;
+            shopDetails.ShopDescription = shop.ShopDescription;
+            shopDetails.Zone = shop.Zone;
+            shopDetails.ContactNumber = shop.ContactNumber;
+            shopDetails.Address = shop.Address;
+            shopDetails.PostalCode = shop.PostalCode;
+            shopDetails.SocialMediaLink = shop.SocialMediaLink;
+            shopDetails.WebsiteLink = shop.WebsiteLink;
+            shopDetails.EmailAddr = shop.EmailAddr;
+            shopDetails.Password = shop.Password;
+
+            return View(shopDetails);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditShopDetailsViewModel shopDetail)
+        {
+            List<SelectListItem> li = new List<SelectListItem>();
+            li.Add(new SelectListItem { Text = "Central", Value = "Central" });
+            li.Add(new SelectListItem { Text = "East", Value = "East" });
+            li.Add(new SelectListItem { Text = "North", Value = "North" });
+            li.Add(new SelectListItem { Text = "North-East", Value = "North-East" });
+            li.Add(new SelectListItem { Text = "West", Value = "West" });
+            li.Add(new SelectListItem { Text = "NA", Value = "NA" });
+            ViewData["zoneList"] = li;
+            if (ModelState.IsValid)
+            {
+                //Update shop record to database
+                return RedirectToAction("ShopProfile", "Shops");
+            }
+            else
+            {
+                //Input validation fails, return to the view
+                //to display error message
+                return View(shopDetail);
+            }
+        }
+
+        public ActionResult EditPhoto()
+        {
+            EditPhotoViewModel photoViewModel = new EditPhotoViewModel();
+
+            Shop shop = shopContext.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
+            photoViewModel.ShopPicture = shop.ShopPicture;
+            photoViewModel.ShopName = shop.ShopName;
+
+            //If query id not in db, redirect out
+            if (shop.ShopName == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            return View(photoViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPhoto(EditPhotoViewModel photoViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //Update shop record to database
+                return RedirectToAction("ShopProfile", "Shops");
+            }
+            else
+            {
+                //Input validation fails, return to the view to display error message
+                return View(photoViewModel);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(EditShopDetailsViewModel shopDetails)
+        {
+            Shop shop = new Shop();
+            shop.ShopID = (int)HttpContext.Session.GetInt32("LoginID");
+            shop.ShopName = shopDetails.ShopName;
+            shop.ShopDescription = shopDetails.ShopDescription;
+            shop.Zone = shopDetails.Zone;
+            shop.ContactNumber = shopDetails.ContactNumber;
+            shop.Address = shopDetails.Address;
+            shop.PostalCode = shopDetails.PostalCode;
+            shop.SocialMediaLink = shopDetails.SocialMediaLink;
+            shop.WebsiteLink = shopDetails.WebsiteLink;
+            shop.EmailAddr = shopDetails.EmailAddr;
+            shop.Password = shopDetails.Password;
+
+            // Update shop record to database
+            shopContext.Update(shop);
+            
+            return RedirectToAction("ShopProfile", "Shops");
+        }
+
         // GET: CompetitionController/Create
         public ActionResult _AddReviews(int id) // only for customer
         {
