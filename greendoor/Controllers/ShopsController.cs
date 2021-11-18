@@ -130,5 +130,10 @@ namespace greendoor.Controllers
             return View(shopPostList);
         }
 
+        public ActionResult ViewReviews(int id) // customer and public
+        {
+            List<Reviews> reviewsList = reviewContext.GetAllReviews(id);
+            return View(reviewsList);
+        }
     }
 }
