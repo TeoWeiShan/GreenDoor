@@ -26,7 +26,7 @@ namespace greendoor.Models
         public string PostDescription { get; set; }
         public DateTime DateTimePosted { get; set; }
 
-        [Display(Name = "Name")]
+        [Display(Name = "Customer Name")]
         [Required(ErrorMessage = "Please enter a name!")]
         [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
         public string CustomerName { get; set; }
@@ -47,6 +47,8 @@ namespace greendoor.Models
         [Required(ErrorMessage = "Please enter a name!")]
         [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
         public string ShopName { get; set; }
+
+        public bool ShopCheck { get; set; }
 
         public List<AdminForumViewModel> CustomerCommentsList { get; set; }
 

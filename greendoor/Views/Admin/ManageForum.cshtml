@@ -84,68 +84,68 @@
     <div class="px-4 py-5 my-5 text-center">
         <h1 class="display-5 fw-bold">Forum</h1>
         <p class="lead mb-4">Have friendly discussions and be kind!</p>
-        </div>
+    </div>
 
-        <br /><br />
+    <br /><br />
 
-        @if (Model.ShopPostsList.Count == 0 && Model.CustomerPostsList.Count == 0)
+    @if (Model.ShopPostsList.Count == 0 && Model.CustomerPostsList.Count == 0)
+    {
+        <h5>No Post Available!</h5>
+    }
+    @if (Model.ShopPostsList.Count != 0)
+    {
+        @foreach (var item in Model.ShopPostsList)
         {
-            <h5>No Post Available!</h5>
+            <div class="post border border-success rounded">
+                <br />
+                <div class="col-lg-12 mx-auto">
+                    <h5 class="post-name">@item.PostName</h5>
+                    <p> Added by: <span class="added-by">@item.ShopName</span> </p>
+                    <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
+
+                    <p class="post-description">@item.PostDescription</p>
+
+                    <div class="comment-section">
+                        @*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
+                        *@                      <a asp-action="ViewDiscussion" asp-controller="Admin" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
+                    </div>
+
+                </div>
+
+            </div>
+
         }
-        @if (Model.ShopPostsList.Count != 0)
+    }
+    <br /><br />
+    @if (Model.CustomerPostsList.Count != 0)
+    {
+        @foreach (var item in Model.CustomerPostsList)
         {
-            @foreach (var item in Model.ShopPostsList)
-            {
-                <div class="post border border-success rounded">
-                    <br />
-                    <div class="col-lg-12 mx-auto">
-                        <h5 class="post-name">@item.PostName</h5>
-                        <p> Added by: <span class="added-by">@item.ShopName</span> </p>
-                        <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
+            <br />
+            <div class="post border border-success rounded">
+                <br />
+                <div class="col-lg-12 mx-auto">
+                    <h5 class="post-name">@item.PostName</h5>
+                    <p> Added by: <span class="added-by">@item.CustomerName</span> </p>
+                    <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
 
-                        <p class="post-description">@item.PostDescription</p>
+                    <p class="post-description">@item.PostDescription</p>
 
-                        <div class="comment-section">
-                            @*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
-                            *@                      <a asp-action="ViewDiscussion" asp-controller="Admin" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
-                        </div>
-
+                    <div class="comment-section">
+                        @*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
+                        *@                      <a asp-action="ViewDiscussion" asp-controller="Admin" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
                     </div>
 
                 </div>
 
                 <br /><br />
-            }
+            </div>
         }
-        @if (Model.CustomerPostsList.Count != 0)
-        {
-            @foreach (var item in Model.CustomerPostsList)
-            {
-                <div class="post border border-success rounded">
-                    <br />
-                    <div class="col-lg-12 mx-auto">
-                        <h5 class="post-name">@item.PostName</h5>
-                        <p> Added by: <span class="added-by">@item.CustomerName</span> </p>
-                        <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
+    }
+    else
+    {
 
-                        <p class="post-description">@item.PostDescription</p>
-
-                        <div class="comment-section">
-                            @*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
-                            *@                      <a asp-action="ViewDiscussion" asp-controller="Admin" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
-                        </div>
-
-                    </div>
-
-                    <br /><br />
-                </div>
-
-            }
-        }
-        else
-        {
-
-        }
+    }
 
     </div>
 </body>

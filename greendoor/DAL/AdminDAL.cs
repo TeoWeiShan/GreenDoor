@@ -664,5 +664,22 @@ namespace greendoor.DAL
             //Close database connection
             conn.Close();
         }
+
+        public void PostDelete(AdminForumViewModel afVM)
+        {
+            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
+
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"DELETE FROM ForumPost
+                                WHERE ForumPostID = @selectedPostID";
+            cmd.Parameters.AddWithValue("@selectedPostID", afVM.ForumPostID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute the DELETE SQL to remove the staff record
+            cmd.ExecuteNonQuery();
+            //Close database connection
+            conn.Close();
+        }
     }
 }

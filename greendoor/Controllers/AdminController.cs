@@ -196,7 +196,7 @@ namespace greendoor.Controllers
                 foreach (var id in fpcVM.ShopPostIDList)
                 {
                     if (ForumPostID == id.ForumPostID)
-                    {
+                    {   
                         fpcVM = adCtx.ShopPostDetails(ForumPostID);
                         fpcVM.ForumPostID = ForumPostID;
                         fpcVM.ShopCommentsList = adCtx.ShopComments(ForumPostID);
@@ -242,12 +242,14 @@ namespace greendoor.Controllers
                     {
                         fpcVM = adCtx.ShopPostDetails(ForumPostID);
                         fpcVM.ForumPostID = ForumPostID;
+                        fpcVM.ShopCheck = true;
                         return View(fpcVM);
                     }
                     else
                     {
                         fpcVM = adCtx.CustomerPostDetails(ForumPostID);
                         fpcVM.ForumPostID = ForumPostID;
+                        fpcVM.ShopCheck = false;
                         return View(fpcVM);
                     }
                 }
@@ -259,6 +261,16 @@ namespace greendoor.Controllers
                 return View(fpcVM);
             }
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PostDelete(AdminForumViewModel afVM)
+        {
+            //Add judge record to database
+            adCtx.PostDelete(afVM);
+            //Redirect user to Judge/Create View
+            return RedirectToAction("ManageForum", "Admin");
         }
 
 
