@@ -960,7 +960,7 @@ namespace greendoor.DAL
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"DELETE FROM Reviews
                                 WHERE ReviewsID = @selectedReviewsID";
-            cmd.Parameters.AddWithValue("@selectedReviewsID", asVM.re);
+            cmd.Parameters.AddWithValue("@selectedReviewsID", asVM.ReviewsID);
 
             //Open a database connection
             conn.Open();

@@ -44,6 +44,7 @@ namespace greendoor.Models
         [Display(Name = "Reviews ID")]
         public int ReviewsID { get; set; }
 
+        [Display(Name = "Rating / 5")]
         public int? Rating { get; set; }
 
         [Display(Name = "E-mail Address")]
