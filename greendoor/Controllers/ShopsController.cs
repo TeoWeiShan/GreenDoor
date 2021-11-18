@@ -75,14 +75,26 @@ namespace greendoor.Controllers
 
         public ActionResult ShopProfile(int id)  // for customer and public
         {
-            if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Shop"))
+            ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
+            shopreviewVM.reviewsList = reviewContext.GetAllReviews((int)HttpContext.Session.GetInt32("LoginID"));
+            //Get details of competition
+            Shop shop = shopContext.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
+            shopreviewVM.ShopPicture = shop.ShopPicture;
+            shopreviewVM.ShopName = shop.ShopName;
+            shopreviewVM.ShopDescription = shop.ShopDescription;
+            shopreviewVM.Zone = shop.Zone;
+            shopreviewVM.ContactNumber = shop.ContactNumber;
+            shopreviewVM.Address = shop.Address;
+            shopreviewVM.PostalCode = shop.PostalCode;
+            shopreviewVM.SocialMediaLink = shop.SocialMediaLink;
+            shopreviewVM.WebsiteLink = shop.WebsiteLink;
+            //If query id not in db, redirect out
+            if (shop.ShopName == null)
             {
-                return RedirectToAction("Index", "Home");
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
             }
-            Shop shop = new Shop();
-            shop = shopContext.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
-            return View(shop);
+            return View(shopreviewVM);
         }
 
         // GET: CompetitionController/Create

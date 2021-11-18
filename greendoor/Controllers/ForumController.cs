@@ -12,13 +12,13 @@ namespace greendoor.Controllers
 {
     public class ForumController : Controller
     {
-        private ForumDAL forumPostContext = new ForumDAL();
+        private ForumDAL forumCtx = new ForumDAL();
         private CustomerDAL custCtx = new CustomerDAL();
 
         public ActionResult PublicViewForum()
         {
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
-            fpcVM.PostsList = forumPostContext.GetAllForumPostVM();
+            fpcVM.PostsList = forumCtx.GetAllForumPostVM();
             return View(fpcVM);
         }
         public ActionResult PublicViewDiscussion()
@@ -39,7 +39,7 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            List<ForumPost> forumPostList = forumPostContext.GetAllForumPost();
+            List<ForumPost> forumPostList = forumCtx.GetAllForumPost();
             return View(forumPostList);
         }
 
@@ -62,7 +62,7 @@ namespace greendoor.Controllers
                 return RedirectToAction("Index", "Home");
             }
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
-            fpcVM.PostsList = forumPostContext.GetAllForumPostVM();
+            fpcVM.PostsList = forumCtx.GetAllForumPostVM();
             return View(fpcVM);
         }
 
@@ -74,7 +74,9 @@ namespace greendoor.Controllers
                 return RedirectToAction("Index", "Home");
             }
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
-            /*fpcVM = */
+            fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
+            fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
+            fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
             return View(fpcVM);
         }
 
@@ -99,7 +101,7 @@ namespace greendoor.Controllers
             forumPost.ShopID = (int)HttpContext.Session.GetInt32("LoginID");
             forumPost.DateTimePosted = DateTime.Now;
             //Add ForumPost record to database 
-            forumPost.ForumPostID = forumPostContext.ShopAddPost(forumPost);
+            forumPost.ForumPostID = forumCtx.ShopAddPost(forumPost);
 
             //return to the Sucess view to display success message
             return RedirectToAction("ShopViewForum", "Forum");
@@ -112,7 +114,7 @@ namespace greendoor.Controllers
             forumPost.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
             forumPost.DateTimePosted = DateTime.Now;
             //Add ForumPost record to database 
-            forumPost.ForumPostID = forumPostContext.CustomerAddPost(forumPost);
+            forumPost.ForumPostID = forumCtx.CustomerAddPost(forumPost);
 
             //return to the Sucess view to display success message
             return RedirectToAction("CustomerViewForum", "Forum");

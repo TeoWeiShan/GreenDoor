@@ -11,6 +11,8 @@ namespace greendoor.Models
         public int CustomerID { get; set; }
         public int ForumPostID { get; set; }
 
+        public int ForumCommentsID { get; set; }
+
         public int ShopID { get; set; }
 
         [Display(Name = "Post Name")]
@@ -36,13 +38,25 @@ namespace greendoor.Models
         [StringLength(50, ErrorMessage = "Email cannot exceed 50 characters!")]
         public string EmailAddr { get; set; }
 
-        public List<ForumPostCommentViewModel> CommentsList { get; set; }
+        [Display(Name = "Comments Description")]
+        [Required(ErrorMessage = "Please enter a comment!")]
+        [StringLength(2000, ErrorMessage = "Comments must not exceed 2000 characters")]
+        public string CommentsDescription { get; set; }
 
+        [Display(Name = "Shop Name")]
+        [Required(ErrorMessage = "Please enter a name!")]
+        [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
+        public string ShopName { get; set; }
+
+        public List<ForumPostCommentViewModel> CustomerCommentsList { get; set; }
+
+        public List<ForumPostCommentViewModel> ShopCommentsList { get; set; }
         public List<ForumPostCommentViewModel> PostsList { get; set; }
 
         public ForumPostCommentViewModel()
         {
-            CommentsList = new List<ForumPostCommentViewModel>();
+            CustomerCommentsList = new List<ForumPostCommentViewModel>();
+            ShopCommentsList = new List<ForumPostCommentViewModel>();
             PostsList = new List<ForumPostCommentViewModel>();
         }
     }
