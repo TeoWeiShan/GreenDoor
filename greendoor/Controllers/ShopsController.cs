@@ -48,10 +48,11 @@ namespace greendoor.Controllers
                 return RedirectToAction("Index");
             }
             ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
-            shopreviewVM.reviewsList = reviewContext.GetAllReviews(id);
+            shopreviewVM.reviewsList = reviewContext.GetLatestReview(id);
             shopreviewVM.shopPostList = shopPostContext.GetLatestShopPost(id);
             //Get details of competition
             Shop shop = shopContext.GetDetails(id);
+            TempData["ShopPicture"] = shop.ShopPicture;
             shopreviewVM.ShopID = id;
             shopreviewVM.CustomerID = customerID;
             shopreviewVM.ShopPicture = shop.ShopPicture;
@@ -138,7 +139,7 @@ namespace greendoor.Controllers
             {
                 //Update record to database
                 review.ReviewsID = reviewContext.Add(review);
-                return RedirectToAction("ShopDetails", "Shops", new { id = HttpContext.Session.GetString("ShopID") });
+                return RedirectToAction("Details", "Shops", new { id = HttpContext.Session.GetString("ShopID") });
                 //return RedirectToAction("Index");
             }
             else
