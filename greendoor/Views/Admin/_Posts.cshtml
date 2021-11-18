@@ -13,6 +13,7 @@
                         <h4 class="card-title"> @item.PostName</h4>
                         <p class="card-title"><small>@item.DateTimePosted</small> </p>
                         <p class="card-title"> @item.PostDescription</p>
+                        <a asp-controller="Admin" asp-action="ShopPostDelete" asp-route-ShopPostID="@item.ShopPostID">Delete Post</a>
                     </div>
 
                 </div>

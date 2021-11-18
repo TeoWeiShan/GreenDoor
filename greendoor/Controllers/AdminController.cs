@@ -99,6 +99,50 @@ namespace greendoor.Controllers
             return View(ShopVM);
         }
 
+        public ActionResult ShopPostDelete(int ShopPostID)
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            AdminShopViewModel asVM = new AdminShopViewModel();
+            asVM = adCtx.InShopPostDetails(ShopPostID);
+            return View(asVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ShopPostDelete(AdminShopViewModel asVM)
+        {
+            //Add judge record to database
+            adCtx.InShopPostDelete(asVM);
+            //Redirect user to Judge/Create View
+            return RedirectToAction("ShopDetails", "Admin",asVM);
+        }
+
+        public ActionResult ShopReviewDelete(int ReviewsID)
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            AdminShopViewModel asVM = new AdminShopViewModel();
+            asVM = adCtx.InShopReviewDetails(ReviewsID);
+            return View(asVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ShopReviewDelete(AdminShopViewModel asVM)
+        {
+            //Add judge record to database
+            adCtx.InShopReviewsDelete(asVM);
+            //Redirect user to Judge/Create View
+            return RedirectToAction("ShopDetails", "Admin", asVM);
+        }
+
         public ActionResult ManageEvents()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||

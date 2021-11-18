@@ -8,9 +8,8 @@
                 @foreach (var item in Model.reviewsList)
                 {
                 <tr>
-                    <td>@item.CustomerName<small><br />@item.DateTimePosted</small><br />@item.Rating / 5 <br />@item.Description</td>
-                    @*<td>@item.Rating</td>
-                    <td>@item.Description</td>*@
+                    <td>@item.CustomerName<small><br />@item.DateTimePosted</small><br />@item.Rating / 5 <br />@item.Description <br /> <a asp-controller="Admin" asp-action="ShopReviewDelete" asp-route-ReviewsID="@item.ReviewsID">Delete Reviews</a></td>
+                    
                 </tr>
                 }
             </tbody>

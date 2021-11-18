@@ -887,5 +887,141 @@ namespace greendoor.DAL
             conn.Close();
         }
 
+        public AdminShopViewModel InShopPostDetails(int ShopPostID)
+        {
+            AdminShopViewModel asVM = new AdminShopViewModel();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a shop record.
+
+            cmd.CommandText = @"SELECT sp.ShopPostID, sp.PostName, sp.PostDescription, sp.DateTimePosted, sp.ShopID, s.ShopName
+                                FROM ShopPost sp
+                                INNER JOIN Shop s
+                                ON sp.ShopID = s.ShopID
+                                WHERE sp.ShopPostID = @selectedPostID";
+
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “judgeId”.
+            cmd.Parameters.AddWithValue("@selectedPostID", ShopPostID);
+
+            //Open a database connection
+            conn.Open();
+
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    // Fill judge object with values from the data reader
+                    asVM.ShopPostID = reader.GetInt32(0);
+                    asVM.PostName = reader.GetString(1);
+                    asVM.PostDescription = reader.GetString(2);
+                    asVM.DateTimePosted = reader.GetDateTime(3);
+                    asVM.ShopID = reader.GetInt32(4);
+                    asVM.ShopName = reader.GetString(5);
+
+                }
+            }
+            //Close DataReader
+            reader.Close();
+
+            //Close the database connection
+            conn.Close();
+
+            return asVM;
+        }
+
+        public void InShopPostDelete(AdminShopViewModel asVM)
+        {
+            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
+
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"DELETE FROM ShopPost
+                                WHERE ShopPostID = @selectedPostID";
+            cmd.Parameters.AddWithValue("@selectedPostID", asVM.ShopPostID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute the DELETE SQL to remove the staff record
+            cmd.ExecuteNonQuery();
+            //Close database connection
+            conn.Close();
+        }
+
+        public void InShopReviewsDelete(AdminShopViewModel asVM)
+        {
+            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
+
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"DELETE FROM Reviews
+                                WHERE ReviewsID = @selectedReviewsID";
+            cmd.Parameters.AddWithValue("@selectedReviewsID", asVM.re);
+
+            //Open a database connection
+            conn.Open();
+            //Execute the DELETE SQL to remove the staff record
+            cmd.ExecuteNonQuery();
+            //Close database connection
+            conn.Close();
+        }
+
+        public AdminShopViewModel InShopReviewDetails(int ReviewsID)
+        {
+            AdminShopViewModel asVM = new AdminShopViewModel();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a shop record.
+
+            cmd.CommandText = @"SELECT r.ReviewsID, r.Rating, r.Description, r.DateTimePosted, r.CustomerID,c.CustomerName, r.ShopID,s.ShopName
+                                FROM Reviews r
+                                INNER JOIN Shop s
+                                ON r.ShopID = s.ShopID
+								INNER JOIN Customer c
+								ON c.CustomerID = r.CustomerID
+								WHERE r.ReviewsID = @selectedReviewID";
+
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “judgeId”.
+            cmd.Parameters.AddWithValue("@selectedReviewID", ReviewsID);
+
+            //Open a database connection
+            conn.Open();
+
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    // Fill judge object with values from the data reader
+                    asVM.ReviewsID = reader.GetInt32(0);
+                    asVM.Rating = !reader.IsDBNull(1) ? reader.GetInt32(1) : (int?)null;
+                    asVM.Description = reader.GetString(2);
+                    asVM.DateTimePosted = reader.GetDateTime(3);
+                    asVM.CustomerID = reader.GetInt32(4);
+                    asVM.CustomerName = reader.GetString(5);
+                    asVM.ShopID = reader.GetInt32(6);
+                    asVM.ShopName = reader.GetString(7);
+
+                }
+            }
+            //Close DataReader
+            reader.Close();
+
+            //Close the database connection
+            conn.Close();
+
+            return asVM;
+        }
+
     }
 }

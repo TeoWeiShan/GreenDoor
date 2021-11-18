@@ -86,8 +86,6 @@
         <p class="lead mb-4">Have friendly discussions and be kind!</p>
     </div>
 
-    <br /><br />
-
     @if (Model.ShopPostsList.Count == 0 && Model.CustomerPostsList.Count == 0)
     {
         <h5>No Post Available!</h5>
@@ -113,10 +111,10 @@
                 </div>
 
             </div>
-
+            <br /><br />
         }
     }
-    <br /><br />
+    <br />
     @if (Model.CustomerPostsList.Count != 0)
     {
         @foreach (var item in Model.CustomerPostsList)

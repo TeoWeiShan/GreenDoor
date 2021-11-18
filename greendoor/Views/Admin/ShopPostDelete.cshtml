@@ -1,0 +1,66 @@
+﻿@model greendoor.Models.AdminShopViewModel
+@{
+    ViewData["Title"] = "Delete Post";
+}
+
+<body>
+    @*<h4 class="PageTitle">Add Event</h4>
+    <hr />*@
+    <div class="d-flex align-content-center justify-content-center">
+        <div class="card my-5 shadow" style="width:1000px">
+            <h2 class="card-title card-header bg-custom navbar-dark mb-3 text-center" style="color:#f5eec2">
+                Delete Post
+            </h2>
+            <div class="card-body">
+                <form asp-action="ShopPostDelete" asp-controller="Admin" asp-route-ShopID="@Model.ShopID" >
+                    @Html.ValidationSummary(true)
+                    <fieldset class="FormContent">
+                        <div class="form-group row">
+                            <label asp-for="ShopPostID"
+                                   class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="ShopPostID" class="form-control form-control-plaintext" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="PostName"
+                                   class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="PostName" class="form-control form-control-plaintext" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="PostDescription"
+                                   class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="PostDescription" class="form-control-plaintext" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="DateTimePosted"
+                                   class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="DateTimePosted" class="form-control-plaintext"  readonly/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-9 offset-sm-3">
+                                <input type="submit" value="Delete" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <div>
+                            <a asp-action="ViewPosts" asp-controller="Admin" asp-route-id="@Model.ShopID">Back to Shop Post</a>
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>

@@ -1,0 +1,82 @@
+﻿@model greendoor.Models.AdminShopViewModel
+@{
+    ViewData["Title"] = "Delete Review";
+}
+
+<body>
+    @*<h4 class="PageTitle">Add Event</h4>
+    <hr />*@
+    <div class="d-flex align-content-center justify-content-center">
+        <div class="card my-5 shadow" style="width:1000px">
+            <h2 class="card-title card-header bg-custom navbar-dark mb-3 text-center" style="color:#f5eec2">
+                Delete Review
+            </h2>
+            <div class="card-body">
+                <form asp-action="ShopReviewDelete" asp-controller="Admin" asp-route-ShopID="@Model.ShopID" >
+                    @Html.ValidationSummary(true)
+                    <fieldset class="FormContent">
+                        <div class="form-group row">
+                            <label asp-for="ReviewsID"
+                                   class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="ReviewsID" class="form-control form-control-plaintext" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="Rating"
+                                   class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="Rating" class="form-control form-control-plaintext" readonly /> / 5
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="CustomerID"
+                                   class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="CustomerID" class="form-control-plaintext" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="CustomerName"
+                                   class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="CustomerName" class="form-control-plaintext" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="Description"
+                                   class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="Description" class="form-control-plaintext" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="DateTimePosted"
+                                   class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="DateTimePosted" class="form-control-plaintext" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-9 offset-sm-3">
+                                <input type="submit" value="Delete" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <div>
+                            <a asp-action="ViewReviews" asp-controller="Admin" asp-route-id="@Model.ShopID">Back to Shop Reviews</a>
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
