@@ -62,13 +62,18 @@
                 <h5 style="margin-bottom:15px; ">
                     Reviews:
                 </h5>
-                <partial name="~/Views/Shops/_ViewReviews.cshtml"/>
+                <partial name="~/Views/Shops/_ViewReviews.cshtml" />
                 <a style="margin-bottom: 15px; " asp-action="ViewReviews" asp-route-id="@Context.Session.GetString("ShopID")">View More Reviews</a>
 
             }
             else
             {
-
+                <br />
+                <hr />
+                <h5 style="margin-bottom:15px; ">
+                    Reviews:
+                </h5>
+                <h4>No reviews yet</h4>
             }
         </div>
 
@@ -80,12 +85,17 @@
                 <h5 style="margin-bottom: 15px; ">
                     Shop Post:
                 </h5>
-                <partial name="~/Views/Shops/_Posts.cshtml"/>
+                <partial name="~/Views/Shops/_Posts.cshtml" />
                 <a style="margin-bottom: 15px; margin-right: 3%;" asp-action="ViewPosts" asp-route-id="@Context.Session.GetString("ShopID")">View More Posts</a>
             }
             else
             {
-
+                <br />
+                <hr />
+                <h5 style="margin-bottom:15px; ">
+                    Shop Post:
+                </h5>
+                <h4>No Post yet</h4>
             }
         </div>
     </section>
