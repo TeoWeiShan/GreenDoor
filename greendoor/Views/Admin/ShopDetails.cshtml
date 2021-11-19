@@ -71,11 +71,15 @@
             </h5>
             <partial name="~/Views/Admin/_ViewReviews.cshtml" />
             <a style="margin-bottom: 15px; " asp-action="ViewReviews" asp-controller="Admin" asp-route-id="@Model.ShopID">View More Reviews</a>
-
         }
         else
         {
-
+            <br />
+            <hr />
+            <h5 style="margin-bottom:15px; ">
+                Reviews:
+            </h5>
+            <h4>No reviews yet</h4>
         }
     </div>
 
@@ -92,9 +96,13 @@
         }
         else
         {
-
+            <br />
+            <hr />
+            <h5 style="margin-bottom:15px; ">
+                Shop Post:
+            </h5>
+            <h4>No post yet</h4>
         }
     </div>
 </section>
 <br />
-<div>
