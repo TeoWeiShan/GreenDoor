@@ -170,6 +170,14 @@ namespace greendoor.Controllers
             }
             else
             {
+                List<SelectListItem> li = new List<SelectListItem>();
+                li.Add(new SelectListItem { Text = "Central", Value = "Central" });
+                li.Add(new SelectListItem { Text = "East", Value = "East" });
+                li.Add(new SelectListItem { Text = "North", Value = "North" });
+                li.Add(new SelectListItem { Text = "North-East", Value = "North-East" });
+                li.Add(new SelectListItem { Text = "West", Value = "West" });
+                li.Add(new SelectListItem { Text = "NA", Value = "NA" });
+                ViewData["zoneList"] = li;
                 return View(shopModel);
             }
         }
