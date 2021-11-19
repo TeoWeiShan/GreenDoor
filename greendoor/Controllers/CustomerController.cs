@@ -34,7 +34,8 @@ namespace greendoor.Controllers
                 return RedirectToAction("Index", "Home");
             }
             Customer cust = new Customer();
-            cust = custCtx.GetDetails((int)HttpContext.Session.GetInt32("LoginID"));
+            cust.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
+            cust = custCtx.GetDetails(cust.CustomerID);
             return View(cust);
         }
 

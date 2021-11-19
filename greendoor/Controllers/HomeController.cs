@@ -67,7 +67,7 @@ namespace greendoor.Controllers
                 // Add customer record to database
                 customer.CustomerID = customerContext.Add(customer);
                 // Store Login ID in session with the key “LoginID”
-                HttpContext.Session.SetString("LoginID", customer.CustomerID.ToString());
+                HttpContext.Session.SetInt32("LoginID", customer.CustomerID);
                 // Store user role “Customer” as a string in session with the key “Role” 
                 HttpContext.Session.SetString("Role", "Customer");
                 //Redirect user to Home/Index view

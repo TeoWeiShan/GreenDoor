@@ -196,17 +196,17 @@ namespace greendoor.Controllers
                 /*return RedirectToAction("ShopDetails", "Shops", new { id = HttpContext.Session.GetString("ShopID") },review);*/
                 ShopReviewViewModel shopVM = new ShopReviewViewModel();
                 shopVM = shopContext.GetDetailsVM(id);
-                shopVM.reviewsList = reviewContext.GetAllReviews((int)HttpContext.Session.GetInt32("LoginID"));
+                shopVM.reviewsList = reviewContext.GetAllReviews(id);
                 shopVM.shopPostList = shopPostContext.GetLatestShopPost(id);
                 return View(shopVM);
             }
-                //Update record to database
-                ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
-                shopreviewVM = shopContext.GetDetailsVM(id);
-                shopreviewVM.ReviewsID = reviewContext.Add(review);
-                shopreviewVM.reviewsList = reviewContext.GetAllReviews((int)HttpContext.Session.GetInt32("LoginID"));
-                shopreviewVM.shopPostList = shopPostContext.GetLatestShopPost(id);
-                return View(shopreviewVM);
+            //Update record to database
+            ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
+            shopreviewVM = shopContext.GetDetailsVM(id);
+            shopreviewVM.ReviewsID = reviewContext.Add(review);
+            shopreviewVM.reviewsList = reviewContext.GetAllReviews(id);
+            shopreviewVM.shopPostList = shopPostContext.GetLatestShopPost(id);
+            return View(shopreviewVM);
 
         }
 
