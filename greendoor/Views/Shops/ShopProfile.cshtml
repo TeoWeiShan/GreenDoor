@@ -14,10 +14,7 @@
         <div class="form-group row">
             <img src="https://picsum.photos/400/400" />
         </div>
-        <div class="form-group row">
-            <a asp-action="Edit" asp-controller="Shops">Edit details</a>
         </div>
-    </div>
 
     <div class="split">
         <fieldset class="FormContent">
@@ -76,6 +73,12 @@
                        class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-9 form-control-plaintext">
                     @Html.Display("SocialMediaLink")
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label"><a asp-action="Edit" asp-controller="Shops">Edit</a></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    <a asp-action="Delete" asp-controller="Shops">Delete </a>
                 </div>
             </div>
         </fieldset>

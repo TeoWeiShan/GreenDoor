@@ -79,6 +79,31 @@ namespace greendoor.Controllers
             return View(shopreviewVM);
         }
 
+        public ActionResult Delete() //for shop
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Shop"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
+            shopreviewVM.ShopID = (int)HttpContext.Session.GetInt32("LoginID");
+            shopreviewVM = shopContext.GetDetailsVM(shopreviewVM.ShopID);
+
+            return View(shopreviewVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(ShopReviewViewModel srVM)
+        {
+            //Add judge record to database
+            shopContext.ShopDelete(srVM);
+            HttpContext.Session.Remove("Role");
+            HttpContext.Session.Remove("LoginID");
+            //Redirect user to Judge/Create View
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult Edit()
         {
             List<SelectListItem> li = new List<SelectListItem>();
@@ -112,6 +137,18 @@ namespace greendoor.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditShopDetailsViewModel shopDetail)
         {
+            if(shopDetail.PostalCode.ToString().Length != 6)
+            {
+                List<SelectListItem> Li = new List<SelectListItem>();
+                Li.Add(new SelectListItem { Text = "Central", Value = "Central" });
+                Li.Add(new SelectListItem { Text = "East", Value = "East" });
+                Li.Add(new SelectListItem { Text = "North", Value = "North" });
+                Li.Add(new SelectListItem { Text = "North-East", Value = "North-East" });
+                Li.Add(new SelectListItem { Text = "West", Value = "West" });
+                Li.Add(new SelectListItem { Text = "NA", Value = "NA" });
+                ViewData["zoneList"] = Li;
+                return View(shopDetail);
+            }
             List<SelectListItem> li = new List<SelectListItem>();
             li.Add(new SelectListItem { Text = "Central", Value = "Central" });
             li.Add(new SelectListItem { Text = "East", Value = "East" });

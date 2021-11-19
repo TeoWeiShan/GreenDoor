@@ -110,6 +110,7 @@ namespace greendoor.Controllers
         {
             custCtx.Delete(cust);
             HttpContext.Session.Remove("Role");
+            HttpContext.Session.Remove("LoginID");
             //Redirect user to Judge/ Create View
             return RedirectToAction("Index", "Home");
         }
