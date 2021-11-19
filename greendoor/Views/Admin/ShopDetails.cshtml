@@ -12,8 +12,11 @@
 <section class="holder">
 
     @*<div class="shop-border">*@
-    <div class=" ">
+    <div class="">
         <img src="~/images/@Model.ShopPicture" style="width:250px" class="justify-content-center image-padding" />
+        <br />
+        <br />
+        <a asp-controller="Admin" asp-action="ManageShops">Back to Shops Page</a>
     </div>
     <fieldset class="FormContent">
         <div class="form-group row">
@@ -46,7 +49,7 @@
         </div>
         <div class="form-group row">
             @*<label class="col-sm-3 col-form-label"><a asp-controller="Admin" asp-action="ShopUpdate">Update Details</a></label>*@
-            <label class="col-sm-3 col-form-label"></label>
+            <label class="col-sm-3 col-form-label"><a asp-controller="Admin" asp-action="ManageShops">Back to Shops Page</a></label>
             <div class="col-sm-9 form-control-plaintext">
                 <a asp-controller="Admin" asp-action="ShopDelete" asp-route-ShopID="@Model.ShopID">Delete Shop</a>
             </div>

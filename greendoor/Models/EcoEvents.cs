@@ -14,6 +14,8 @@ namespace greendoor.Models
         [Display(Name ="Shop ID")]
         public int ShopID { get; set; }
 
+        public int CheckShopID { get; set; }
+
         [Display(Name ="Event Name")]
         [Required(ErrorMessage = "Please enter a name!")]
         [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
@@ -32,5 +34,9 @@ namespace greendoor.Models
 
         [Display(Name ="End Date")]
         public DateTime EndDate { get; set; }
+
+        public bool isShop { get; set; }
+
+        public string ShopName { get; set; }
     }
 }

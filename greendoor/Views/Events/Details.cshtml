@@ -13,6 +13,9 @@
 
     <div class="split">
         <img src="https://picsum.photos/400/400" />
+        <br />
+        <br />
+        <a asp-controller="Events" asp-action="Index">Back to Events Page</a>
     </div>
 
     <div class="split">
@@ -51,7 +54,20 @@
                     @Html.Display("EndDate")
                 </div>
             </div>
-            <a asp-controller="Events" asp-action="Index">Back to Events</a>
+            @if (Model.isShop == true)
+            {
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label"> <a asp-controller="Events" asp-action="EventUpdate" asp-route-eventID="@Model.EventID">Update Event</a></label>
+                    <div class="col-sm-9 form-control-plaintext">
+                        <a asp-controller="Events" asp-action="EventDelete" asp-route-eventID="@Model.EventID">Delete Event</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+
+            }
+
         </fieldset>
     </div>
 

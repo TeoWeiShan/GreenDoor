@@ -25,9 +25,18 @@ namespace greendoor.Controllers
         public ActionResult Details(int id)
         {
             HttpContext.Session.SetString("ShopID", id.ToString());
-
-            EcoEvents e = eContext.GetDetails(id);
-            string shopID = HttpContext.Session.GetString("ShopID");
+            EcoEvents e = new EcoEvents();
+            e.EventID = id;
+            e = eContext.GetDetails(e.EventID);
+            e.CheckShopID = (int)HttpContext.Session.GetInt32("LoginID");
+            if(HttpContext.Session.GetString("Role")=="Shop" && e.CheckShopID == e.ShopID)
+            {
+                e.isShop = true;
+            }
+            else
+            {
+                e.isShop = false;
+            }
             if (e.EventName == null)
             {
                 //Return to listing page, not allowed to edit
@@ -82,48 +91,37 @@ namespace greendoor.Controllers
             }
         }
 
-        // GET: EventsController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult EventUpdate(int eventID)
         {
-            return View();
+            EcoEvents e = eContext.GetDetails(eventID);
+            return View(e);
         }
 
-        // POST: EventsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult EventUpdate(EcoEvents ee)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            //Add judge record to database
+            eContext.EventUpdate(ee);
+            //Redirect user to Judge/Create View
+            return RedirectToAction("Details", "Events", ee);
         }
 
-        // GET: EventsController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult EventDelete(int eventID)
         {
-            return View();
+            EcoEvents e = eContext.GetDetails(eventID);
+            return View(e);
         }
 
-        // POST: EventsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult EventDelete(EcoEvents ee)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            //Add judge record to database
+            eContext.EventDelete(ee);
+            //Redirect user to Judge/Create View
+            return RedirectToAction("Index", "Events");
         }
-        // GET: EventController/Details/5
-        
+
     }
 }

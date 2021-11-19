@@ -29,7 +29,6 @@ namespace greendoor.Models
         public string Address { get; set; }
 
         [Display(Name = "Postal Code")]
-        [DataType(DataType.PostalCode)]
         [Required(ErrorMessage = "Please enter the postal code")]
         [RegularExpression(@"^[0-9]{6}$", ErrorMessage = "Please enter a 6-digit Postal Code")]
         public int PostalCode { get; set; }

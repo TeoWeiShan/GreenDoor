@@ -72,7 +72,11 @@ namespace greendoor.DAL
             //Specify the SELECT SQL statement that
             //retrieves all attributes of a shop record.
 
-            cmd.CommandText = @"SELECT * FROM EcoEvents WHERE EventID = @selectedEventID";
+            cmd.CommandText = @"SELECT ee.EventID, ee.ShopID, ee.EventName, ee.EventDescription, ee.DateTimePosted, ee.StartDate, ee.EndDate, s.ShopName
+                                FROM EcoEvents ee
+                                INNER JOIN Shop s
+                                ON ee.ShopID = s.ShopID
+                                WHERE ee.EventID =  @selectedEventID";
 
             //Define the parameter used in SQL statement, value for the
             //parameter is retrieved from the method parameter “judgeId”.
@@ -96,6 +100,7 @@ namespace greendoor.DAL
                     e.DateTimePosted = reader.GetDateTime(4);
                     e.StartDate = reader.GetDateTime(5);
                     e.EndDate = reader.GetDateTime(6);
+                    e.ShopName = reader.GetString(7);
                     
                 }
             }
@@ -138,6 +143,53 @@ namespace greendoor.DAL
             conn.Close();
             //Return id when no error occurs.
             return e.EventID;
+        }
+
+        public void EventUpdate(EcoEvents ee)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify an INSERT SQL statement which will
+            //return the auto-generated CriteriaID after insertion
+            cmd.CommandText = @"UPDATE EcoEvents
+                                SET EventName = @newEventName,
+                                EventDescription = @newDesc,
+                                StartDate = @newStart,
+                                EndDate = @newEnd
+                                WHERE EventID = @selectedEventID";
+
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@newEventName", ee.EventName);
+            cmd.Parameters.AddWithValue("@newDesc", ee.EventDescription);
+            cmd.Parameters.AddWithValue("@newStart", ee.StartDate);
+            cmd.Parameters.AddWithValue("@newEnd", ee.EndDate);
+            cmd.Parameters.AddWithValue("@selectedEventID", ee.EventID);
+            //A connection to database must be opened before any operations made.
+            conn.Open();
+
+            //ExecuteScalar is used to retrieve the auto-generated
+            cmd.ExecuteNonQuery();
+            //A connection should be closed after operations.
+            conn.Close();
+        }
+
+        public void EventDelete(EcoEvents ee)
+        {
+            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
+
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"DELETE FROM EcoEvents
+                                WHERE EventID = @selectedEventID";
+            cmd.Parameters.AddWithValue("@selectedEventID", ee.EventID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute the DELETE SQL to remove the staff record
+            cmd.ExecuteNonQuery();
+            //Close database connection
+            conn.Close();
         }
 
     }

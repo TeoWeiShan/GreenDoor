@@ -259,6 +259,16 @@ namespace greendoor.DAL
                                 Password = @password
                                 WHERE ShopID = @selectedShopID";
 
+            string web = " ";
+            string social = " ";
+            if (shop.SocialMediaLink != null)
+            {
+                web = shop.WebsiteLink;
+            }
+            if (shop.WebsiteLink != null)
+            {
+                social = shop.SocialMediaLink;
+            }
             //Define the parameters used in SQL statement, value for each parameter
             //is retrieved from respective class's property.
             cmd.Parameters.AddWithValue("@shopName", shop.ShopName);
@@ -267,8 +277,8 @@ namespace greendoor.DAL
             cmd.Parameters.AddWithValue("@contact", shop.ContactNumber);
             cmd.Parameters.AddWithValue("@address", shop.Address);
             cmd.Parameters.AddWithValue("@postalCode", shop.PostalCode);
-            cmd.Parameters.AddWithValue("@socialMedia", shop.SocialMediaLink);
-            cmd.Parameters.AddWithValue("@website", shop.WebsiteLink);
+            cmd.Parameters.AddWithValue("@socialMedia", social);
+            cmd.Parameters.AddWithValue("@website", web);
             cmd.Parameters.AddWithValue("@emailAddr", shop.EmailAddr);
             cmd.Parameters.AddWithValue("@password", shop.Password);
             cmd.Parameters.AddWithValue("@selectedShopID", shop.ShopID);

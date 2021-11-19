@@ -38,17 +38,11 @@ namespace greendoor.Controllers
             int? customerID = HttpContext.Session.GetInt32("LoginID");
             string shopID = HttpContext.Session.GetString("ShopID");
             //int custID = Convert.ToInt32(customerID);
-            if (id == null)
-            { //Query string parameter not provided
-              //Return to listing page, not allowed to edit
-                return RedirectToAction("Index");
-            }
             ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
             shopreviewVM.reviewsList = reviewContext.GetLatestReview(id);
             shopreviewVM.shopPostList = shopPostContext.GetLatestShopPost(id);
             //Get details of competition
             Shop shop = shopContext.GetDetails(id);
-            TempData["ShopPicture"] = shop.ShopPicture;
             shopreviewVM.ShopID = id;
             shopreviewVM.CustomerID = customerID;
             shopreviewVM.ShopPicture = shop.ShopPicture;

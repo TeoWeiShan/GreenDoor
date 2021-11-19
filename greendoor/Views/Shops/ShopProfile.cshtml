@@ -15,7 +15,7 @@
             <img src="https://picsum.photos/400/400" />
         </div>
         <div class="form-group row">
-            <a asp-action="Edit">Edit details</a>
+            <a asp-action="Edit" asp-controller="Shops">Edit details</a>
         </div>
     </div>
 
@@ -91,10 +91,15 @@
         <h5>
             Reviews:
         </h5>
-        <partial name="~/Views/Shops/_ViewReviews.cshtml"/>
+        <partial name="~/Views/Shops/_ViewReviews.cshtml" />
     }
     else
     {
-
+        <br />
+        <hr />
+        <h5 style="margin-bottom:15px; ">
+            Reviews:
+        </h5>
+        <h4>No reviews yet</h4>
     }
 </div>
