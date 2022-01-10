@@ -48,8 +48,9 @@ namespace greendoor.DAL
                 {
                     CustomerID = reader.GetInt32(0), //0: 1st column
                     CustomerName = reader.GetString(1), //1: 2nd column
-                    EmailAddr = reader.GetString(2),
-                    Password = reader.GetString(3)
+                    Credibility = reader.GetInt32(2),
+                    EmailAddr = reader.GetString(3),
+                    Password = reader.GetString(4)
                 }
                 );
             }
@@ -146,8 +147,9 @@ namespace greendoor.DAL
                     // Fill judge object with values from the data reader
                     cust.CustomerID = reader.GetInt32(0);
                     cust.CustomerName = reader.GetString(1);
-                    cust.EmailAddr = reader.GetString(2);
-                    cust.Password = reader.GetString(3);
+                    cust.Credibility = reader.GetInt32(2);
+                    cust.EmailAddr = reader.GetString(3);
+                    cust.Password = reader.GetString(4);
                 }
             }
 

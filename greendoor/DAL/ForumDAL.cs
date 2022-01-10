@@ -37,14 +37,15 @@ namespace greendoor.DAL
             SqlCommand cmd = conn.CreateCommand();
             //Specify an INSERT SQL statement which will 
             //return the auto-generated ForumPostID after insertion 
-            cmd.CommandText = @"INSERT INTO ForumPost (CustomerID, PostName, PostDescription, DateTimePosted)
+            cmd.CommandText = @"INSERT INTO ForumPost (CustomerID, PostName, PostDescription, PostCategory, DateTimePosted)
                                 OUTPUT INSERTED.ForumPostID 
-                                VALUES(@cust, @name, @desc, @date)";
+                                VALUES(@cust, @name, @desc, @cat, @date)";
             //Define the parameters used in SQL statement, value for each parameter 
             //is retrieved from respective class's property. 
             cmd.Parameters.AddWithValue("@cust", forumPost.CustomerID);
             cmd.Parameters.AddWithValue("@name", forumPost.PostName);
             cmd.Parameters.AddWithValue("@desc", forumPost.PostDescription);
+            cmd.Parameters.AddWithValue("@cat", forumPost.PostCategory);
             cmd.Parameters.AddWithValue("@date", DateTime.Now);
             //A connection to database must be opened before any operations made. 
             conn.Open();
@@ -62,14 +63,15 @@ namespace greendoor.DAL
             SqlCommand cmd = conn.CreateCommand();
             //Specify an INSERT SQL statement which will 
             //return the auto-generated ForumPostID after insertion 
-            cmd.CommandText = @"INSERT INTO ForumPost (ShopID, PostName, PostDescription, DateTimePosted)
+            cmd.CommandText = @"INSERT INTO ForumPost (ShopID, PostName, PostDescription, PostCategory, DateTimePosted)
                                 OUTPUT INSERTED.ForumPostID 
-                                VALUES(@shop, @name, @desc, @date)";
+                                VALUES(@shop, @name, @desc, @cat, @date)";
             //Define the parameters used in SQL statement, value for each parameter 
             //is retrieved from respective class's property. 
             cmd.Parameters.AddWithValue("@shop", forumPost.ShopID);
             cmd.Parameters.AddWithValue("@name", forumPost.PostName);
             cmd.Parameters.AddWithValue("@desc", forumPost.PostDescription);
+            cmd.Parameters.AddWithValue("@cat", forumPost.PostCategory);
             cmd.Parameters.AddWithValue("@date", DateTime.Now);
             //A connection to database must be opened before any operations made. 
             conn.Open();
@@ -87,7 +89,7 @@ namespace greendoor.DAL
             SqlCommand cmd = conn.CreateCommand();
 
             //Specify the SELECT SQL statement
-            cmd.CommandText = @"SELECT fp.ForumPostID, fp.CustomerID, c.CustomerName, fp.PostName, fp.PostDescription, fp.DateTimePosted
+            cmd.CommandText = @"SELECT fp.ForumPostID, fp.CustomerID, c.CustomerName, fp.PostName, fp.PostDescription, fp.DateTimePosted, fp.PostCategory
                                 FROM ForumPost fp
                                 INNER JOIN Customer c
                                 ON fp.CustomerID = c.CustomerID";
@@ -111,7 +113,8 @@ namespace greendoor.DAL
                         CustomerName = reader.GetString(2),
                         PostName = reader.GetString(3),
                         PostDescription = reader.GetString(4),
-                        DateTimePosted = reader.GetDateTime(5)
+                        DateTimePosted = reader.GetDateTime(5),
+                        PostCategory = reader.GetString(6)
                     }
                 );
             }
@@ -129,7 +132,7 @@ namespace greendoor.DAL
             SqlCommand cmd = conn.CreateCommand();
 
             //Specify the SELECT SQL statement
-            cmd.CommandText = @"SELECT fp.ForumPostID, fp.ShopID, s.ShopName, fp.PostName, fp.PostDescription, fp.DateTimePosted
+            cmd.CommandText = @"SELECT fp.ForumPostID, fp.ShopID, s.ShopName, fp.PostName, fp.PostDescription, fp.DateTimePosted, fp.PostCategory
                                 FROM ForumPost fp
                                 INNER JOIN Shop s
                                 ON fp.ShopID = s.ShopID";
@@ -153,7 +156,8 @@ namespace greendoor.DAL
                         ShopName = reader.GetString(2),
                         PostName = reader.GetString(3),
                         PostDescription = reader.GetString(4),
-                        DateTimePosted = reader.GetDateTime(5)
+                        DateTimePosted = reader.GetDateTime(5),
+                        PostCategory = reader.GetString(6)
                     }
                 );
             }
@@ -283,7 +287,7 @@ namespace greendoor.DAL
             //Specify the SELECT SQL statement that
             //retrieves all attributes of a shop record.
 
-            cmd.CommandText = @"SELECT fp.ForumPostID, fp.PostName, fp.PostDescription,fp.DateTimePosted, fp.CustomerID, c.CustomerName
+            cmd.CommandText = @"SELECT fp.ForumPostID, fp.PostName, fp.PostDescription,fp.DateTimePosted, fp.CustomerID, c.CustomerName, fp.PostCategory
                                 FROM ForumPost fp
                                 INNER JOIN Customer c
                                 ON fp.CustomerID = c.CustomerID
@@ -310,6 +314,7 @@ namespace greendoor.DAL
                     fpcVM.DateTimePosted = reader.GetDateTime(3);
                     fpcVM.CustomerID = reader.GetInt32(4);
                     fpcVM.CustomerName = reader.GetString(5);
+                    fpcVM.PostCategory = reader.GetString(6);
 
                 }
             }
@@ -332,7 +337,7 @@ namespace greendoor.DAL
             //Specify the SELECT SQL statement that
             //retrieves all attributes of a shop record.
 
-            cmd.CommandText = @"SELECT fp.ForumPostID, fp.PostName, fp.PostDescription,fp.DateTimePosted, fp.ShopID, s.ShopName
+            cmd.CommandText = @"SELECT fp.ForumPostID, fp.PostName, fp.PostDescription,fp.DateTimePosted, fp.ShopID, s.ShopName, fp.PostCategory
                                 FROM ForumPost fp
                                 INNER JOIN Shop s
                                 ON fp.ShopID = s.ShopID
@@ -359,6 +364,7 @@ namespace greendoor.DAL
                     fpcVM.DateTimePosted = reader.GetDateTime(3);
                     fpcVM.ShopID = reader.GetInt32(4);
                     fpcVM.ShopName = reader.GetString(5);
+                    fpcVM.PostCategory = reader.GetString(6);
 
                 }
             }

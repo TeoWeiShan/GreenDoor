@@ -15,7 +15,19 @@ namespace greendoor.Controllers
         private ForumDAL forumCtx = new ForumDAL();
         private CustomerDAL custCtx = new CustomerDAL();
         private ShopDAL shopCtx = new ShopDAL();
-
+        private List<string> postCatList = new List<string> { "Upcycling", "Discussion", "Lobang", "Exchange", "Sharing", "Request" };
+        private List<SelectListItem> postCatDropDownList = new List<SelectListItem>();
+        public ForumController()
+        {
+            foreach(string postCat in postCatList)
+            {
+                postCatDropDownList.Add(
+                    new SelectListItem
+                    {
+                        Text = postCat,
+                    });
+            }
+        }
         public ActionResult PublicViewForum()
         {
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
@@ -82,6 +94,7 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            ViewData["PostCategory"] = postCatDropDownList;
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
             fpcVM.ShopID = (int)HttpContext.Session.GetInt32("LoginID");
             fpcVM.ShopName = (shopCtx.GetDetails(fpcVM.ShopID)).ShopName;
@@ -193,6 +206,7 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            ViewData["PostCategory"] = postCatDropDownList;
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
             fpcVM.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
             fpcVM.CustomerName = (custCtx.GetDetails(fpcVM.CustomerID)).CustomerName;
