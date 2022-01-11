@@ -99,15 +99,23 @@
 
         <br />
 
-        <p><a asp-action="PublicViewSearchResults" asp-controller="Forum">Search </a> post with keyword</p>
+        <form asp-action="PublicViewSearchResults" asp-controller="Forum">
+            <div class="form-actions no-color">
+                <p>
+                    Find by keyword: <input asp-for="searchQuery" />
+                    <input type="submit" value="Search" class="btn btn-default" /> |
+                    <a asp-action="PublicViewForum" asp-controller="Forum">Back to full list</a>
+                </p>
+            </div>
+        </form>
 
-        @if (Model.ShopPostsList.Count == 0 && Model.CustomerPostsList.Count == 0)
+        @if (Model.searchShopPostList.Count == 0 && Model.searchCustPostList.Count == 0)
         {
-            <h5>No Post Available!</h5>
+            <h5>No Post Available! Check your keyword again! </h5>
         }
-        @if (Model.ShopPostsList.Count != 0)
+        @if (Model.searchShopPostList.Count != 0)
         {
-            @foreach (var item in Model.ShopPostsList)
+            @foreach (var item in Model.searchShopPostList)
             {
                 <div class="post border border-success rounded">
                     <br />
@@ -131,9 +139,9 @@
                 <br /><br />
             }
         }
-        @if (Model.CustomerPostsList.Count != 0)
+        @if (Model.searchCustPostList.Count != 0)
         {
-            @foreach (var item in Model.CustomerPostsList)
+            @foreach (var item in Model.searchCustPostList)
             {
                 <div class="post border border-success rounded">
                     <br />

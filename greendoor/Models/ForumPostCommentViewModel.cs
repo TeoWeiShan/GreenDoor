@@ -52,6 +52,8 @@ namespace greendoor.Models
         [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
         public string ShopName { get; set; }
 
+        public string searchQuery { get; set; }
+
         public List<ForumPostCommentViewModel> CustomerCommentsList { get; set; }
 
         public List<ForumPostCommentViewModel> ShopCommentsList { get; set; }
@@ -63,6 +65,9 @@ namespace greendoor.Models
 
         public List<ForumPostCommentViewModel> CustomerPostIDList { get; set; }
 
+        public List<ForumPostCommentViewModel> searchShopPostList { get; set; }
+        public List<ForumPostCommentViewModel> searchCustPostList { get; set; }
+
         public ForumPostCommentViewModel()
         {
             CustomerCommentsList = new List<ForumPostCommentViewModel>();
@@ -71,6 +76,8 @@ namespace greendoor.Models
             ShopPostsList = new List<ForumPostCommentViewModel>();
             ShopPostIDList = new List<ForumPostCommentViewModel>();
             CustomerPostIDList = new List<ForumPostCommentViewModel>();
+            searchCustPostList = new List<ForumPostCommentViewModel>();
+            searchShopPostList = new List<ForumPostCommentViewModel>();
         }
     }
 }
