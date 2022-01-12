@@ -2,13 +2,14 @@
 @{
     ViewData["Title"] = "Forum";
 }
-
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GreenDoor</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    
 </head>
 
 <body class="text-center">
@@ -30,17 +31,22 @@
         </div>
 
         <br /><br />
-        <div class="post border border-success rounded">
-            <br />
-            <div class="col-lg-12 mx-auto">
-                <h5 class="post-name">@Model.PostName</h5>
-                <p> Added by: <span class="added-by">@Model.CustomerName @Model.ShopName</span> </p>
-                <p> Date Posted by: <span class="date-posted">@Model.DateTimePosted</span> </p>
+              <div class="post border border-success rounded">
+                  <br />
+                  <div class="col-lg-12 mx-auto">
+                      <h5 class="post-name">@Model.PostName</h5>
+                      <p> Added by: <span class="added-by">@Model.CustomerName @Model.ShopName</span> </p>
+                      <p> Date Posted by: <span class="date-posted">@Model.DateTimePosted</span> </p>
 
-                <p class="post-description">@Model.PostDescription</p>
-            </div><br />
+                      <p class="post-description">@Model.PostDescription</p>
 
-        </div><br />
+                  </div><br />
+                  <!-- LikeBtn -->
+
+                  <span class="likebtn-wrapper" data-theme="custom" data-icon_l_c="#869188" data-icon_l_c_v="#13a30c" data-icon_d_c_v="#f7033f" data-f_family="Comic Sans MS" data-ef_voting="grow" data-identifier="item_1"></span>
+                  <script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+                  <!-- LikeBtn -->
+              </div><br />
 
               <div class="post border border-success rounded">
                   <h1>COMMENTS</h1>
@@ -56,6 +62,7 @@
                               <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
 
                               <p class="post-description">@item.CommentsDescription</p>
+
                           </div>
 
                           <br />
@@ -77,7 +84,9 @@
                               <p class="post-description">@item.CommentsDescription</p>
                           </div>
 
+
                           <br />
+                          
                       }
                   }
                   else
@@ -85,9 +94,11 @@
 
                   }
                   @if (Model.CustomerCommentsList.Count == 0 && Model.ShopCommentsList.Count == 0)
-            {
+                  {
                       <h4>No Comments Yet!!</h4>
-            }
+                  }
               </div>
-        </div>
+    </div>
+
 </body>
+</html>
