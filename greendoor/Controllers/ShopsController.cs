@@ -60,6 +60,18 @@ namespace greendoor.Controllers
                 //Return to listing page, not allowed to edit
                 return RedirectToAction("Index");
             }
+            int count = 0;
+            int totalScore = 0;
+            foreach (Reviews r in reviewContext.GetLatestReview(id))
+            {
+                totalScore += (int)r.Rating;
+                count++;
+            }
+            int averageScore = totalScore / count;
+            if (count != 0)
+            {
+                ViewData["avgScore"] = "Average review score: " + averageScore;
+            }
             return View(shopreviewVM);
         }
 

@@ -240,7 +240,7 @@ namespace greendoor.Controllers
             fpcVM.ShopName = (shopCtx.GetDetails(fpcVM.ShopID)).ShopName;
             return View(fpcVM);
         }
-        public ActionResult PublicViewSearchResults(string searchQuery)
+       /* public ActionResult PublicViewSearchResults(string searchQuery)
         {
             ViewData["Keyword"] = searchQuery;
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
@@ -250,7 +250,7 @@ namespace greendoor.Controllers
                 fpcVM.searchShopPostList = forumCtx.searchShopPostList(searchQuery);
             }
             return View(fpcVM);
-        }
+        }*/
 
         // POST: ForumController/Create
         [HttpPost]

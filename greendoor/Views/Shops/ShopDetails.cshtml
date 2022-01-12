@@ -65,6 +65,7 @@
                 <h5 style="margin-bottom:15px; ">
                     Reviews:
                 </h5>
+                <p>@ViewData["avgScore"]</p>
                 <partial name="~/Views/Shops/_ViewReviews.cshtml" />
                 <a style="margin-bottom: 15px; " asp-action="ViewReviews" asp-route-id="@Context.Session.GetString("ShopID")">View More Reviews</a>
 
