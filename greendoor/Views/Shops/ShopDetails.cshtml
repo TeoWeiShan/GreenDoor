@@ -16,7 +16,27 @@
         <img src="~/images/@Model.ShopPicture" style="width:250px" class="justify-content-center image-padding" />
         <br />
         <br />
-        <a asp-controller="Shops" asp-action="ViewShops">Back to Shops Page</a>
+
+        @if (Context.Session.GetString("Role") == "Customer")
+        {
+            if (Model.FavBool == false)
+            {
+                
+                <a asp-controller="Shops" asp-action="ViewShops" type="button" class="btn btn-outline-success" id="fav">Add to Favorites</a>
+            }
+            else
+            {
+                
+                <a asp-controller="Shops" asp-action="ViewShops" type="button" class="btn btn-outline-danger" id="fav">Remove from Favorites</a>
+            }
+
+        }
+
+        else
+        {
+            <hr />
+            <p><a asp-action="Login" asp-controller="Home">Login </a> to favorite this shop!</p>
+        }
     </div>
     <fieldset class="FormContent">
         <div class="form-group row">
@@ -65,6 +85,7 @@
                 <h5 style="margin-bottom:15px; ">
                     Reviews:
                 </h5>
+                <p>@ViewData["avgScore"]</p>
                 <partial name="~/Views/Shops/_ViewReviews.cshtml" />
                 <a style="margin-bottom: 15px; " asp-action="ViewReviews" asp-route-id="@Context.Session.GetString("ShopID")">View More Reviews</a>
 
