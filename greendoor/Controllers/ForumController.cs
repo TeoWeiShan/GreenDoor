@@ -246,8 +246,8 @@ namespace greendoor.Controllers
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
             if (!String.IsNullOrEmpty(searchQuery))
             {
-                fpcVM.searchCustPostList = forumCtx.searchCustPostList(searchQuery);
-                fpcVM.searchShopPostList = forumCtx.searchShopPostList(searchQuery);
+                //fpcVM.searchCustPostList = forumCtx.searchCustPostList(searchQuery);
+                //fpcVM.searchShopPostList = forumCtx.searchShopPostList(searchQuery);
             }
             return View(fpcVM);
         }*/

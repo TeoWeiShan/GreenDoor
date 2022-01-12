@@ -16,6 +16,7 @@ namespace greendoor.Controllers
         private ShopDAL shopContext = new ShopDAL();
         private ReviewsDAL reviewContext = new ReviewsDAL();
         private ShopPostDAL shopPostContext = new ShopPostDAL();
+        private FavouriteDAL favouriteContext = new FavouriteDAL();
 
         public IActionResult ViewShops() // shop lsit for customer and public
         {
@@ -41,6 +42,14 @@ namespace greendoor.Controllers
             ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
             shopreviewVM.reviewsList = reviewContext.GetLatestReview(id);
             shopreviewVM.shopPostList = shopPostContext.GetLatestShopPost(id);
+            if (customerID != null)
+            {
+                shopreviewVM.FavBool = favouriteContext.GetDetails(customerID, Convert.ToInt32(shopID));
+            }
+            else
+            {
+                shopreviewVM.FavBool = false;
+            }            
             //Get details of competition
             Shop shop = shopContext.GetDetails(id);
             shopreviewVM.ShopID = id;
