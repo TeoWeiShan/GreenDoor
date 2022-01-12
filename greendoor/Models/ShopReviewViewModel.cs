@@ -80,5 +80,9 @@ namespace greendoor.Models
 
         [Display(Name = "Date Posted")]
         public DateTime DateTimePosted { get; set; }
+
+        public bool FavBool { get; set; }
+
+
     }
 }
