@@ -76,9 +76,10 @@ namespace greendoor.Controllers
                 totalScore += (int)r.Rating;
                 count++;
             }
-            int averageScore = totalScore / count;
+
             if (count != 0)
             {
+                int averageScore = totalScore / count;
                 ViewData["avgScore"] = "Average review score: " + averageScore;
             }
             return View(shopreviewVM);
