@@ -21,6 +21,61 @@ namespace greendoor.Controllers
         public IActionResult ViewShops() // shop lsit for customer and public
         {
             List<Shop> shopList = shopContext.GetAllShop();
+            // Calculating top 3 shops in terms of number of reviews
+            Dictionary<string, int> shopReviewList = new Dictionary<string, int>();
+            foreach (Shop shop in shopList)
+            {
+                int i = reviewContext.GetNumberOfReviews(shop.ShopID);
+                shopReviewList.Add(shop.ShopName, i);
+            }
+
+            int j = shopReviewList.Count();
+            if (j > 3)
+            {
+                j = 3;
+            }
+            var sortedDict = (from pair in shopReviewList
+                              orderby pair.Value descending
+                              select pair).Take(j).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            if (j == 3)
+            {
+                var first = sortedDict.First();
+                ViewData["topNumberReviews1a"] = first.Key;
+                ViewData["topNumberReviews1b"] = first.Value;
+                sortedDict.Remove(first.Key);
+
+                var second = sortedDict.First();
+                ViewData["topNumberReviews2a"] = second.Key;
+                ViewData["topNumberReviews2b"] = second.Value;
+                sortedDict.Remove(second.Key);
+
+                var third = sortedDict.First();
+                ViewData["topNumberReviews3a"] = third.Key;
+                ViewData["topNumberReviews3b"] = third.Value;
+                sortedDict.Remove(third.Key);
+            }
+            else if (j == 2)
+            {
+                var first = sortedDict.First();
+                ViewData["topNumberReviews1a"] = first.Key;
+                ViewData["topNumberReviews1b"] = first.Value;
+                sortedDict.Remove(first.Key);
+
+                var second = sortedDict.First();
+                ViewData["topNumberReviews2a"] = second.Key;
+                ViewData["topNumberReviews2b"] = second.Value;
+                sortedDict.Remove(second.Key);
+            }
+            else if (j == 1)
+            {
+                var first = sortedDict.First();
+                ViewData["topNumberReviews1a"] = first.Key;
+                ViewData["topNumberReviews1b"] = first.Value;
+                sortedDict.Remove(first.Key);
+            }
+
+      
             return View(shopList);
         }
 

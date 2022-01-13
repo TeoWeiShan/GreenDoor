@@ -17,6 +17,39 @@
 </head>
 
 <body class="text-center">
+    @if (ViewData["topNumberReviews1a"] != null)
+            {
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Top Shops for Number of Reviews</th>
+                    <th>Number of Reviews</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>@ViewData["topNumberReviews1a"]</th>
+                    <th>@ViewData["topNumberReviews1b"]</th>
+                </tr>
+                @if (ViewData["topNumberReviews2a"] != null)
+                {
+                    <tr>
+                        <th>@ViewData["topNumberReviews2a"]</th>
+                        <th>@ViewData["topNumberReviews2b"]</th>
+                    </tr>
+                }
+                @if (ViewData["topNumberReviews3a"] != null)
+                {
+                    <tr>
+                        <th>@ViewData["topNumberReviews3a"]</th>
+                        <th>@ViewData["topNumberReviews3b"]</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+            }
     <div class="px-4 py-5 my-5 text-center">
         <h1 class="display-5 fw-bold">Shops</h1>
 
@@ -36,6 +69,6 @@
 
         </div>
     </div>
-   
+
 </body>
 </html>
