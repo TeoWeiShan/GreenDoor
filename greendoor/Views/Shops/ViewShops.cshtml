@@ -18,38 +18,71 @@
 
 <body class="text-center">
     @if (ViewData["topNumberReviews1a"] != null)
-            {
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Top Shops for Number of Reviews</th>
-                    <th>Number of Reviews</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>@ViewData["topNumberReviews1a"]</th>
-                    <th>@ViewData["topNumberReviews1b"]</th>
-                </tr>
-                @if (ViewData["topNumberReviews2a"] != null)
-                {
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
                     <tr>
-                        <th>@ViewData["topNumberReviews2a"]</th>
-                        <th>@ViewData["topNumberReviews2b"]</th>
+                        <th>Top Shops for number of reviews</th>
+                        <th>Number of Reviews</th>
                     </tr>
-                }
-                @if (ViewData["topNumberReviews3a"] != null)
-                {
+                </thead>
+                <tbody>
                     <tr>
-                        <th>@ViewData["topNumberReviews3a"]</th>
-                        <th>@ViewData["topNumberReviews3b"]</th>
+                        <th>@ViewData["topNumberReviews1a"]</th>
+                        <th>@ViewData["topNumberReviews1b"]</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-            }
+                    @if (ViewData["topNumberReviews2a"] != null)
+                    {
+                        <tr>
+                            <th>@ViewData["topNumberReviews2a"]</th>
+                            <th>@ViewData["topNumberReviews2b"]</th>
+                        </tr>
+                    }
+                    @if (ViewData["topNumberReviews3a"] != null)
+                    {
+                        <tr>
+                            <th>@ViewData["topNumberReviews3a"]</th>
+                            <th>@ViewData["topNumberReviews3b"]</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    @if (ViewData["topAverageReviews1a"] != null)
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Top Shops for average review score</th>
+                        <th>Average Review Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>@ViewData["topAverageReviews1a"]</th>
+                        <th>@ViewData["topAverageReviews1b"]</th>
+                    </tr>
+                    @if (ViewData["topAverageReviews2a"] != null)
+                    {
+                        <tr>
+                            <th>@ViewData["topAverageReviews2a"]</th>
+                            <th>@ViewData["topAverageReviews2b"]</th>
+                        </tr>
+                    }
+                    @if (ViewData["topAverageReviews3a"] != null)
+                    {
+                        <tr>
+                            <th>@ViewData["topAverageReviews3a"]</th>
+                            <th>@ViewData["topAverageReviews3b"]</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
     <div class="px-4 py-5 my-5 text-center">
         <h1 class="display-5 fw-bold">Shops</h1>
 
