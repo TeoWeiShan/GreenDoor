@@ -31,7 +31,7 @@ namespace greendoor.DAL
 
 
         }
-        public int Add(int custID, int shopID)
+        public bool Add(int? custID, int shopID)
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
@@ -45,10 +45,12 @@ namespace greendoor.DAL
 
             //A connection to database must be opened before any operations made.
             conn.Open();
+            cmd.ExecuteNonQuery();
             //A connection should be closed after operations.
             conn.Close();
             //Return id when no error occurs.
-            return shopID;
+            bool favbool = true;
+            return favbool;
         }
 
         public bool GetDetails(int? custID, int? shopID)
@@ -86,15 +88,15 @@ namespace greendoor.DAL
             return favbool;
         }
 
-        public void Delete(Favourite favourite)
+        public bool Delete(int? custID, int shopID)
         {
             //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
 
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"DELETE FROM Favourite
-                                WHERE ShopID = @selectedShopID AND CustID = @selectedCustID";
-            cmd.Parameters.AddWithValue("@selectedShopID", favourite.ShopID);
-            cmd.Parameters.AddWithValue("@selectedCustID", favourite.CustomerID);
+                                WHERE ShopID = @selectedShopID AND CustomerID = @selectedCustID";
+            cmd.Parameters.AddWithValue("@selectedShopID", shopID);
+            cmd.Parameters.AddWithValue("@selectedCustID", custID);
 
             //Open a database connection
             conn.Open();
@@ -102,6 +104,8 @@ namespace greendoor.DAL
             cmd.ExecuteNonQuery();
             //Close database connection
             conn.Close();
+            bool favbool = false;
+            return favbool;
         }
     }
 }

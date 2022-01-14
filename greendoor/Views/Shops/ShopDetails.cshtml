@@ -5,6 +5,25 @@
 }
 <br>
 <h4 class="PageTitle">@Html.Display("ShopName")</h4>
+@if (Context.Session.GetString("Role") == "Customer")
+{
+    if (Model.FavBool == false)
+    {
+        <a asp-controller="Shops" asp-action="AddFav" asp-route-id="@Context.Session.GetString("ShopID")" type="button" class="btn btn-outline-success" style="margin-top: 10px;" id="fav">Add to Favorites</a>
+    }
+    else
+    {
+
+        <a asp-controller="Shops" asp-action="RemoveFav" asp-route-id="@Context.Session.GetString("ShopID")" type="button" class="btn btn-outline-danger" style="margin-top: 10px; " id="fav">Remove from Favorites</a>
+    }
+
+}
+
+else
+{
+    <hr />
+    <p><a asp-action="Login" asp-controller="Home">Login </a> to favorite this shop!</p>
+}
 <section class="holder">
     <hr />
 </section>
@@ -17,26 +36,7 @@
         <br />
         <br />
 
-        @if (Context.Session.GetString("Role") == "Customer")
-        {
-            if (Model.FavBool == false)
-            {
-                
-                <a asp-controller="Shops" asp-action="ViewShops" type="button" class="btn btn-outline-success" id="fav">Add to Favorites</a>
-            }
-            else
-            {
-                
-                <a asp-controller="Shops" asp-action="ViewShops" type="button" class="btn btn-outline-danger" id="fav">Remove from Favorites</a>
-            }
 
-        }
-
-        else
-        {
-            <hr />
-            <p><a asp-action="Login" asp-controller="Home">Login </a> to favorite this shop!</p>
-        }
     </div>
     <fieldset class="FormContent">
         <div class="form-group row">
@@ -69,60 +69,60 @@
         </div>
 
     </fieldset>
-    
-    
+
+
 
 </section>
 
-    <section class="holder">
+<section class="holder">
 
-        <div class=" col-xl-4 ">
+    <div class=" col-xl-4 ">
 
-            @if (Model.reviewsList.Count != 0)
-            {
-                <br />
-                <hr />
-                <h5 style="margin-bottom:15px; ">
-                    Reviews:
-                </h5>
-                <p>@ViewData["avgScore"]</p>
-                <partial name="~/Views/Shops/_ViewReviews.cshtml" />
-                <a style="margin-bottom: 15px; " asp-action="ViewReviews" asp-route-id="@Context.Session.GetString("ShopID")">View More Reviews</a>
+        @if (Model.reviewsList.Count != 0)
+        {
+            <br />
+            <hr />
+            <h5 style="margin-bottom:15px; ">
+                Reviews:
+            </h5>
+            <p>@ViewData["avgScore"]</p>
+            <partial name="~/Views/Shops/_ViewReviews.cshtml" />
+            <a style="margin-bottom: 15px; " asp-action="ViewReviews" asp-route-id="@Context.Session.GetString("ShopID")">View More Reviews</a>
 
-            }
-            else
-            {
-                <br />
-                <hr />
-                <h5 style="margin-bottom:15px; ">
-                    Reviews:
-                </h5>
-                <h4>No reviews yet</h4>
-            }
-        </div>
+        }
+        else
+        {
+            <br />
+            <hr />
+            <h5 style="margin-bottom:15px; ">
+                Reviews:
+            </h5>
+            <h4>No reviews yet</h4>
+        }
+    </div>
 
-        <div class="col-xl-8">
+    <div class="col-xl-8">
 
-            @if (Model.shopPostList.Count != 0)
-            {<br />
-                <hr />
-                <h5 style="margin-bottom: 15px; ">
-                    Shop Post:
-                </h5>
-                <partial name="~/Views/Shops/_Posts.cshtml" />
-                <a style="margin-bottom: 15px; margin-right: 3%;" asp-action="ViewPosts" asp-route-id="@Context.Session.GetString("ShopID")">View More Posts</a>
-            }
-            else
-            {
-                <br />
-                <hr />
-                <h5 style="margin-bottom:15px; ">
-                    Shop Post:
-                </h5>
-                <h4>No Post yet</h4>
-            }
-        </div>
-    </section>
+        @if (Model.shopPostList.Count != 0)
+        {<br />
+            <hr />
+            <h5 style="margin-bottom: 15px; ">
+                Shop Post:
+            </h5>
+            <partial name="~/Views/Shops/_Posts.cshtml" />
+            <a style="margin-bottom: 15px; margin-right: 3%;" asp-action="ViewPosts" asp-route-id="@Context.Session.GetString("ShopID")">View More Posts</a>
+        }
+        else
+        {
+            <br />
+            <hr />
+            <h5 style="margin-bottom:15px; ">
+                Shop Post:
+            </h5>
+            <h4>No Post yet</h4>
+        }
+    </div>
+</section>
 <br />
 <div>
 
@@ -179,9 +179,9 @@
         </form>
     }
     else if (Context.Session.GetString("Role") == "Shop")
-            {
+    {
 
-            }
+    }
     else
     {
         <hr />
@@ -190,8 +190,8 @@
 </div>
 
 
-    @*<div class="form-group row">
-            <div class="col-sm-9 offset-sm-3">
-                <a asp-action="Add" asp-route-id="@Context.Session.GetString("ShopID")">Add Review</a>
-            </div>
-        </div>*@
+@*<div class="form-group row">
+        <div class="col-sm-9 offset-sm-3">
+            <a asp-action="Add" asp-route-id="@Context.Session.GetString("ShopID")">Add Review</a>
+        </div>
+    </div>*@
