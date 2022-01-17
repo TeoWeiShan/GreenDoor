@@ -3,18 +3,17 @@
 @{
     ViewData["Title"] = "Profile";
 }
+
 <br>
 <h4 class="PageTitle">Profile</h4>
 <hr />
 
+<!-- details -->
 <section class="holder">
-
-
     <div class="split">
         <img src="https://picsum.photos/400/400" />
     </div>
 
-    <!-- details -->
     <div class="split">
         <fieldset class="FormContent">
             <div class="form-group row">
@@ -51,18 +50,27 @@
                     @Model.Password
                 </div>
             </div>
-            <br />
-            <br />
-            <br />
+            <br /><br /><br />
             <div>
                 <a asp-action="UpdateProfile" asp-controller="Customer">Update Profile</a>&nbsp&nbsp&nbsp&nbsp||&nbsp&nbsp&nbsp&nbsp
                 <a asp-action="DeleteProfile" asp-controller="Customer">Delete Profile</a>
             </div>
         </fieldset>
     </div>
+</section>
 
-    <!-- liked shops -->
+<!-- liked shops -->
+<section class="holder">
+    <div class=" col-xl-4 ">
+        @if (Context.Session.GetString("Role") == "Customer") 
+        {
+            <hr />
+            <h5 style="margin-bottom: 15px; ">
+                Favourite Shops:
+            </h5>
 
+        }
 
+   </div>
 
 </section>
