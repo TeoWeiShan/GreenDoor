@@ -107,5 +107,53 @@ namespace greendoor.DAL
             bool favbool = false;
             return favbool;
         }
+
+        public List<Shop> GetAllFavShop(int? custID)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a shop record.
+            cmd.CommandText = @"SELECT * FROM Shop 
+                INNER JOIN Favourite ON Favourite.ShopID = Shop.ShopID 
+                    WHERE Favourite.CustomerID = @selectedCustID";
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “judgeId”.
+            cmd.Parameters.AddWithValue("@selectedCustID", custID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            //Read all records until the end, save data into a list
+            List<Shop> favShopList = new List<Shop>();
+            while (reader.Read())
+            {
+                favShopList.Add(
+                new Shop
+                {
+                    ShopID = reader.GetInt32(0),
+                    ShopPicture = reader.GetString(1),
+                    ShopName = reader.GetString(2),
+                    ShopDescription = reader.GetString(3),
+                    Zone = reader.GetString(4),
+                    ContactNumber = reader.GetInt32(5),
+                    Address = reader.GetString(6),
+                    PostalCode = reader.GetInt32(7),
+                    SocialMediaLink = reader.GetString(8),
+                    WebsiteLink = reader.GetString(9),
+                    EmailAddr = reader.GetString(10),
+                    Password = reader.GetString(11)
+                }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+            return favShopList;
+        }
+
     }
 }

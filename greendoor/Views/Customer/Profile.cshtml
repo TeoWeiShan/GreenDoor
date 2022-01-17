@@ -1,4 +1,4 @@
-﻿@model greendoor.Models.Customer
+﻿@model greendoor.Models.FavouriteShopViewModel
 
 @{
     ViewData["Title"] = "Profile";
@@ -50,9 +50,9 @@
                     @Model.Password
                 </div>
             </div>
-            <br /><br /><br />
+            <br />
             <div>
-                <a asp-action="UpdateProfile" asp-controller="Customer">Update Profile</a>&nbsp&nbsp&nbsp&nbsp||&nbsp&nbsp&nbsp&nbsp
+                <a asp-action="UpdateProfile" asp-controller="Customer">Update Profile</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp
                 <a asp-action="DeleteProfile" asp-controller="Customer">Delete Profile</a>
             </div>
         </fieldset>
@@ -62,15 +62,43 @@
 <!-- liked shops -->
 <section class="holder">
     <div class=" col-xl-4 ">
-        @if (Context.Session.GetString("Role") == "Customer") 
+        @if (Context.Session.GetString("Role") == "Customer")
         {
             <hr />
             <h5 style="margin-bottom: 15px; ">
                 Favourite Shops:
             </h5>
 
+            <div class="table-responsive">
+                <table id="viewFavShop" class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Shop Name</th>
+                            <th>Description</th>
+                            <th>Website</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            @foreach (var item in Model.ShopList)
+                            {
+
+                                <td>@item.ShopName</td>
+                                <td>@item.ShopDescription</td>
+                                <td><a>@item.WebsiteLink</a></td>
+                                <td>
+                                    <a asp-action="ShopDetails" asp-controller="Shops"
+                                       asp-route-id="@item.ShopID">Details</a>
+                                </td>
+                                <br />
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         }
 
-   </div>
-
+        </div>
 </section>

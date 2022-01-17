@@ -21,11 +21,13 @@ namespace greendoor.Controllers
         private ShopDAL shopContext = new ShopDAL();
         private ReviewsDAL reviewContext = new ReviewsDAL();
         private EventDAL eContext = new EventDAL();
+        private FavouriteDAL favouriteContext = new FavouriteDAL();
 
         public IActionResult Index()
         {
             return View();
         }
+
         public ActionResult Profile()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -33,10 +35,21 @@ namespace greendoor.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            
             Customer cust = new Customer();
             cust.CustomerID = (int)HttpContext.Session.GetInt32("LoginID");
             cust = custCtx.GetDetails(cust.CustomerID);
-            return View(cust);
+
+            FavouriteShopViewModel favShopVM = new FavouriteShopViewModel();
+            favShopVM.ShopList = favouriteContext.GetAllFavShop(cust.CustomerID);
+            favShopVM.CustomerID = cust.CustomerID;
+            favShopVM.CustomerName = cust.CustomerName;
+            favShopVM.Credibility = cust.Credibility;
+            favShopVM.EmailAddr = cust.EmailAddr;
+            favShopVM.Password = cust.Password;
+
+
+            return View(favShopVM);
         }
 
         public ActionResult UpdateProfile()
