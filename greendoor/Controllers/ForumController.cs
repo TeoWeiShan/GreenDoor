@@ -28,14 +28,14 @@ namespace greendoor.Controllers
                     });
             }
         }
-        public ActionResult PublicViewForum(string searchString)
+        public ActionResult ViewForum(string searchString)
         {
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
             fpcVM.CustomerPostsList = forumCtx.CustomerPostList();
             fpcVM.ShopPostsList = forumCtx.ShopPostList();
             return View(fpcVM);
         }
-        public ActionResult PublicViewDiscussion(int ForumPostID)
+        public ActionResult ViewDiscussion(int ForumPostID)
         {
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
             fpcVM.ShopPostIDList = forumCtx.ShopPostIDCheckList();
@@ -72,18 +72,6 @@ namespace greendoor.Controllers
             }
             return View();
         }
-        public ActionResult ShopViewForum()
-        {
-            if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Shop"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
-            fpcVM.CustomerPostsList = forumCtx.CustomerPostList();
-            fpcVM.ShopPostsList = forumCtx.ShopPostList();
-            return View(fpcVM);
-        }
 
         // GET: ForumController/Create
         public ActionResult ShopCreate()
@@ -100,105 +88,6 @@ namespace greendoor.Controllers
             fpcVM.ShopName = (shopCtx.GetDetails(fpcVM.ShopID)).ShopName;
             return View(fpcVM);
         }
-        public ActionResult CustomerViewForum()
-        {
-            if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Customer"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
-            fpcVM.CustomerPostsList = forumCtx.CustomerPostList();
-            fpcVM.ShopPostsList = forumCtx.ShopPostList();
-            return View(fpcVM);
-        }
-
-        public ActionResult CustomerViewDiscussion(int ForumPostID)
-        {
-            if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Customer"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
-            fpcVM.ShopPostIDList = forumCtx.ShopPostIDCheckList();
-            fpcVM.CustomerPostIDList = forumCtx.CustPostIDCheckList();
-            if (fpcVM.ShopPostIDList.Count != 0)
-            {
-                foreach (var id in fpcVM.ShopPostIDList)
-                {
-                    if (ForumPostID == id.ForumPostID)
-                    {
-                        fpcVM = forumCtx.ShopPostDetails(ForumPostID);
-                        fpcVM.ForumPostID = ForumPostID;
-                        fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
-                        fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
-                        return View(fpcVM);
-                    }
-                    else
-                    {
-                        fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
-                        fpcVM.ForumPostID = ForumPostID;
-                        fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
-                        fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
-                        return View(fpcVM);
-                    }
-                }
-            }
-            else if (fpcVM.CustomerPostIDList.Count != 0)
-            {
-                fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
-                fpcVM.ForumPostID = ForumPostID;
-                fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
-                fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
-                return View(fpcVM);
-            }
-            return View();
-        }
-
-        public ActionResult ShopViewDiscussion(int ForumPostID)
-        {
-            if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Shop"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
-            fpcVM.ShopPostIDList = forumCtx.ShopPostIDCheckList();
-            fpcVM.CustomerPostIDList = forumCtx.CustPostIDCheckList();
-            if (fpcVM.ShopPostIDList.Count != 0)
-            {
-                foreach (var id in fpcVM.ShopPostIDList)
-                {
-                    if (ForumPostID == id.ForumPostID)
-                    {
-                        fpcVM = forumCtx.ShopPostDetails(ForumPostID);
-                        fpcVM.ForumPostID = ForumPostID;
-                        fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
-                        fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
-                        return View(fpcVM);
-                    }
-                    else
-                    {
-                        fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
-                        fpcVM.ForumPostID = ForumPostID;
-                        fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
-                        fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
-                        return View(fpcVM);
-                    }
-                }
-            }
-            else if (fpcVM.CustomerPostIDList.Count != 0)
-            {
-                fpcVM = forumCtx.CustomerPostDetails(ForumPostID);
-                fpcVM.ForumPostID = ForumPostID;
-                fpcVM.ShopCommentsList = forumCtx.ShopComments(ForumPostID);
-                fpcVM.CustomerCommentsList = forumCtx.CustomerComments(ForumPostID);
-                return View(fpcVM);
-            }
-            return View();
-        }
-
         public ActionResult CustomerCreate()
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -243,7 +132,7 @@ namespace greendoor.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AllViewSearchResults(string searchQuery)
+        public ActionResult ViewSearchResults(string searchQuery)
         {
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
             fpcVM.searchCustPostList = forumCtx.searchCustPostList(searchQuery);
@@ -263,7 +152,7 @@ namespace greendoor.Controllers
             forumPost.ForumPostID = forumCtx.ShopAddPost(forumPost);
 
             //return to the Sucess view to display success message
-            return RedirectToAction("ShopViewForum", "Forum");
+            return RedirectToAction("ViewForum", "Forum");
         }
 
         [HttpPost]
@@ -276,7 +165,7 @@ namespace greendoor.Controllers
             forumPost.ForumPostID = forumCtx.CustomerAddPost(forumPost);
 
             //return to the Sucess view to display success message
-            return RedirectToAction("CustomerViewForum", "Forum");
+            return RedirectToAction("ViewForum", "Forum");
         }
 
         [HttpPost]
@@ -289,7 +178,7 @@ namespace greendoor.Controllers
             //Add ForumPost record to database 
             custComment.ForumCommentsID = forumCtx.CustomerAddComment(custComment);
 
-            return RedirectToAction("CustomerViewDiscussion", "Forum", custComment);
+            return RedirectToAction("ViewDiscussion", "Forum", custComment);
         }
 
         [HttpPost]
@@ -302,7 +191,7 @@ namespace greendoor.Controllers
             //Add ForumPost record to database 
             shopComment.ForumCommentsID = forumCtx.ShopAddComment(shopComment);
 
-            return RedirectToAction("ShopViewDiscussion", "Forum", shopComment);
+            return RedirectToAction("ViewDiscussion", "Forum", shopComment);
         }
     }
 }

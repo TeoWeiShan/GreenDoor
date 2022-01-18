@@ -91,6 +91,10 @@
             {
                 <a asp-action="CustomerCreate" asp-controller="Forum">Add Discussion Topic</a>
             }
+            else if (Context.Session.GetString("Role") == "Shop")
+            {
+                <a asp-action="ShopCreate" asp-controller="Forum">Add Discussion Topic</a>
+            }
             else
             {
                 <p><a asp-action="Login" asp-controller="Home">Login </a> to add discussion topic!</p>
@@ -99,7 +103,7 @@
 
         <br />
 
-        @using (Html.BeginForm("PublicViewSearchResults", "Forum", FormMethod.Post))
+        @using (Html.BeginForm("ViewSearchResults", "Forum", FormMethod.Post))
         {
             <p>Search using keyword : <input type="text" name="searchQuery"></p>
             <p><input type="submit" value="Submit"></p>
@@ -126,7 +130,7 @@
 
                         <div class="comment-section">
                             @*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
-                            *@                      <a asp-action="PublicViewDiscussion" asp-controller="Forum" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
+                            *@                      <a asp-action="ViewDiscussion" asp-controller="Forum" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
                         </div>
 
                     </div>
@@ -152,7 +156,7 @@
 
                         <div class="comment-section">
                             @*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
-                            *@                      <a asp-action="PublicViewDiscussion" asp-controller="Forum" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
+                            *@                      <a asp-action="ViewDiscussion" asp-controller="Forum" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
                         </div>
 
                     </div>

@@ -2,14 +2,13 @@
 @{
     ViewData["Title"] = "Forum";
 }
-<html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GreenDoor</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    
 </head>
 
 <body class="text-center">
@@ -22,12 +21,16 @@
             {
                 <a asp-action="CustomerCreateComment" asp-controller="Forum" asp-route-ForumPostID="@Model.ForumPostID">Add Comments!</a>
             }
+            else if (Context.Session.GetString("Role") == "Shop")
+            {
+                <a asp-action="ShopCreateComment" asp-controller="Forum" asp-route-ForumPostID="@Model.ForumPostID">Add Comments!</a>
+            }
             else
             {
                 <p><a asp-action="Login" asp-controller="Home">Login </a> to comment!</p>
             }
             <br />
-            <a asp-controller="Forum" asp-action="CustomerViewForum">Back to Forum</a>
+            <a asp-controller="Forum" asp-action="ViewForum">Back to Forum</a>
         </div>
 
         <br /><br />
@@ -39,10 +42,9 @@
                       <p> Date Posted by: <span class="date-posted">@Model.DateTimePosted</span> </p>
 
                       <p class="post-description">@Model.PostDescription</p>
-
                   </div><br />
                   <!-- LikeBtn -->
-
+                  
                   <span class="likebtn-wrapper" data-theme="custom" data-icon_l_c="#869188" data-icon_l_c_v="#13a30c" data-icon_d_c_v="#f7033f" data-f_family="Comic Sans MS" data-ef_voting="grow" data-identifier="item_1"></span>
                   <script>(function (d, e, s) { if (d.getElementById("likebtn_wjs")) return; a = d.createElement(e); m = d.getElementsByTagName(e)[0]; a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m) })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
                   <!-- LikeBtn -->
@@ -62,10 +64,10 @@
                               <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
 
                               <p class="post-description">@item.CommentsDescription</p>
-
                           </div>
 
                           <br />
+                          
                       }
                   }
                   else
@@ -76,7 +78,6 @@
                   {
                       @foreach (var item in Model.CustomerCommentsList)
                       {
-                          <br />
                           <div class="col-lg-12 mx-auto">
                               <h5 class="post-name">Added by: @item.CustomerName</h5>
                               <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
@@ -84,9 +85,8 @@
                               <p class="post-description">@item.CommentsDescription</p>
                           </div>
 
-
                           <br />
-                          
+
                       }
                   }
                   else
@@ -99,6 +99,4 @@
                   }
               </div>
     </div>
-
 </body>
-</html>
