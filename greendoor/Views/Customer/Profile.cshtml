@@ -61,7 +61,7 @@
 
 <!-- liked shops -->
 <section class="holder">
-    <div class=" col-xl-4 ">
+    <div class=" col-xl-12">
         @if (Context.Session.GetString("Role") == "Customer")
         {
             <hr />
@@ -81,20 +81,19 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            @foreach (var item in Model.ShopList)
-                            {
-
+                        @foreach (var item in Model.ShopList)
+                        {
+                            <tr>
                                 <td>@item.ShopName</td>
                                 <td>@item.ShopDescription</td>
                                 <td><a>@item.WebsiteLink</a></td>
                                 <td>
                                     <a asp-action="ShopDetails" asp-controller="Shops"
-                                       asp-route-id="@item.ShopID">Details</a>
+                                        asp-route-id="@item.ShopID">Details</a>
                                 </td>
-                                <br />
-                            }
-                        </tr>
+                            </tr>
+
+                        }
                     </tbody>
                 </table>
             </div>
