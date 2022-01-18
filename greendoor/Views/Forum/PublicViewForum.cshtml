@@ -99,7 +99,12 @@
 
         <br />
 
-        <p><a asp-action="PublicViewSearchResults" asp-controller="Forum">Search </a> post with keyword</p>
+        @using (Html.BeginForm("PublicViewSearchResults", "Forum", FormMethod.Post))
+        {
+            <p>Search using keyword : <input type="text" name="searchQuery"></p>
+            <p><input type="submit" value="Submit"></p>
+        }
+
 
         @if (Model.ShopPostsList.Count == 0 && Model.CustomerPostsList.Count == 0)
         {

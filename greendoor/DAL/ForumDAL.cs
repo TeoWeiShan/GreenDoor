@@ -511,7 +511,7 @@ namespace greendoor.DAL
             return CustIDList;
         }
 
-        public List<ForumPostCommentViewModel> searchCustPostList(ForumPostCommentViewModel searchQuery)
+        public List<ForumPostCommentViewModel> searchCustPostList(string searchQuery)
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
@@ -521,12 +521,11 @@ namespace greendoor.DAL
                                 FROM ForumPost fp
                                 INNER JOIN Customer c
                                 ON fp.CustomerID = c.CustomerID
-                                WHERE PostDescription like '%@search%' or PostName like '%@search%'";
+                                WHERE PostDescription like '%"+searchQuery+"%' or PostName like '%"+searchQuery+"%'";
 
-            cmd.Parameters.AddWithValue("@search", searchQuery.searchQuery);
+            /*cmd.Parameters.AddWithValue("@search", searchQuery);*/
             //Open a database connection
             conn.Open();
-
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -556,7 +555,7 @@ namespace greendoor.DAL
             return forumPostList;
         }
 
-        public List<ForumPostCommentViewModel> searchShopPostList(ForumPostCommentViewModel searchQuery)
+        public List<ForumPostCommentViewModel> searchShopPostList(string searchQuery)
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
@@ -568,7 +567,7 @@ namespace greendoor.DAL
                                 ON fp.ShopID = s.ShopID
                                 WHERE PostDescription like '%@search%' or PostName like '%@search%'";
 
-            cmd.Parameters.AddWithValue("@search", searchQuery.searchQuery);
+            cmd.Parameters.AddWithValue("@search", searchQuery);
             //Open a database connection
             conn.Open();
 

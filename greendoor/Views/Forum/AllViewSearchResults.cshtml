@@ -91,6 +91,10 @@
             {
                 <a asp-action="CustomerCreate" asp-controller="Forum">Add Discussion Topic</a>
             }
+            else if (Context.Session.GetString("Role") == "Shop")
+            {
+                <a asp-action="ShopCreate" asp-controller="Forum">Add Discussion Topic</a>
+            }
             else
             {
                 <p><a asp-action="Login" asp-controller="Home">Login </a> to add discussion topic!</p>
@@ -99,19 +103,18 @@
 
         <br />
 
-        <form asp-action="PublicViewSearchResults" asp-controller="Forum">
-            <div class="form-actions no-color">
-                <p>
-                    Find by keyword: <input asp-for="searchQuery" />
-                    <input type="submit" value="Search" class="btn btn-default" /> |
-                    <a asp-action="PublicViewForum" asp-controller="Forum">Back to full list</a>
-                </p>
-            </div>
-        </form>
+        @using (Html.BeginForm("AllViewSearchResults", "Forum", FormMethod.Post))
+        {
+            <p>Search using keyword : <input type="text" name="searchQuery"></p>
+            <p><input type="submit" value="Submit"></p>
+        }
+
+        <a asp-controller="Forum" asp-action="PublicViewForum">Back to Main List</a>
 
         @if (Model.searchShopPostList.Count == 0 && Model.searchCustPostList.Count == 0)
         {
             <h5>No Post Available! Check your keyword again! </h5>
+            <h5>@Model.searchQuery</h5>
         }
         @if (Model.searchShopPostList.Count != 0)
         {
