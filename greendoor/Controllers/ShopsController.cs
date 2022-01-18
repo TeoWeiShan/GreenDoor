@@ -16,10 +16,120 @@ namespace greendoor.Controllers
         private ShopDAL shopContext = new ShopDAL();
         private ReviewsDAL reviewContext = new ReviewsDAL();
         private ShopPostDAL shopPostContext = new ShopPostDAL();
+        private FavouriteDAL favouriteContext = new FavouriteDAL();
 
         public IActionResult ViewShops() // shop lsit for customer and public
         {
             List<Shop> shopList = shopContext.GetAllShop();
+            // Calculating top 3 shops in terms of number of reviews
+            Dictionary<string, int> shopReviewList = new Dictionary<string, int>();
+            foreach (Shop shop in shopList)
+            {
+                int i = reviewContext.GetNumberOfReviews(shop.ShopID);
+                shopReviewList.Add(shop.ShopName, i);
+            }
+
+            int j = shopReviewList.Count();
+            if (j > 3)
+            {
+                j = 3;
+            }
+            var sortedDict = (from pair in shopReviewList
+                              orderby pair.Value descending
+                              select pair).Take(j).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            if (j == 3)
+            {
+                var first = sortedDict.First();
+                ViewData["topNumberReviews1a"] = first.Key;
+                ViewData["topNumberReviews1b"] = first.Value;
+                sortedDict.Remove(first.Key);
+
+                var second = sortedDict.First();
+                ViewData["topNumberReviews2a"] = second.Key;
+                ViewData["topNumberReviews2b"] = second.Value;
+                sortedDict.Remove(second.Key);
+
+                var third = sortedDict.First();
+                ViewData["topNumberReviews3a"] = third.Key;
+                ViewData["topNumberReviews3b"] = third.Value;
+                sortedDict.Remove(third.Key);
+            }
+            else if (j == 2)
+            {
+                var first = sortedDict.First();
+                ViewData["topNumberReviews1a"] = first.Key;
+                ViewData["topNumberReviews1b"] = first.Value;
+                sortedDict.Remove(first.Key);
+
+                var second = sortedDict.First();
+                ViewData["topNumberReviews2a"] = second.Key;
+                ViewData["topNumberReviews2b"] = second.Value;
+                sortedDict.Remove(second.Key);
+            }
+            else if (j == 1)
+            {
+                var first = sortedDict.First();
+                ViewData["topNumberReviews1a"] = first.Key;
+                ViewData["topNumberReviews1b"] = first.Value;
+                sortedDict.Remove(first.Key);
+            }
+
+            // Calculating top 3 shops in terms of number of reviews
+            Dictionary<string, int> shop2ReviewList = new Dictionary<string, int>();
+            foreach (Shop shop in shopList)
+            {
+                int i = reviewContext.GetAverageReviewScore(shop.ShopID);
+                shop2ReviewList.Add(shop.ShopName, i);
+            }
+
+            int l = shop2ReviewList.Count();
+            if (l > 3)
+            {
+                l = 3;
+            }
+            var sortedDict2 = (from pair in shop2ReviewList
+                               orderby pair.Value descending
+                               select pair).Take(l).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            if (l == 3)
+            {
+                var first = sortedDict2.First();
+                ViewData["topAverageReviews1a"] = first.Key;
+                ViewData["topAverageReviews1b"] = first.Value;
+                sortedDict2.Remove(first.Key);
+
+                var second = sortedDict2.First();
+                ViewData["topAverageReviews2a"] = second.Key;
+                ViewData["topAverageReviews2b"] = second.Value;
+                sortedDict2.Remove(second.Key);
+
+                var third = sortedDict2.First();
+                ViewData["topAverageReviews3a"] = third.Key;
+                ViewData["topAverageReviews3b"] = third.Value;
+                sortedDict2.Remove(third.Key);
+            }
+            else if (l == 2)
+            {
+                var first = sortedDict2.First();
+                ViewData["topAverageReviews1a"] = first.Key;
+                ViewData["topAverageReviews1b"] = first.Value;
+                sortedDict2.Remove(first.Key);
+
+                var second = sortedDict2.First();
+                ViewData["topAverageReviews2a"] = second.Key;
+                ViewData["topAverageReviews2b"] = second.Value;
+                sortedDict2.Remove(second.Key);
+            }
+            else if (l == 1)
+            {
+                var first = sortedDict2.First();
+                ViewData["topAverageReviews1a"] = first.Key;
+                ViewData["topAverageReviews1b"] = first.Value;
+                sortedDict2.Remove(first.Key);
+            }
+
+
             return View(shopList);
         }
 
@@ -41,6 +151,14 @@ namespace greendoor.Controllers
             ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
             shopreviewVM.reviewsList = reviewContext.GetLatestReview(id);
             shopreviewVM.shopPostList = shopPostContext.GetLatestShopPost(id);
+            if (customerID != null)
+            {
+                shopreviewVM.FavBool = favouriteContext.GetDetails(customerID, Convert.ToInt32(shopID));
+            }
+            else
+            {
+                shopreviewVM.FavBool = false;
+            }
             //Get details of competition
             Shop shop = shopContext.GetDetails(id);
             shopreviewVM.ShopID = id;
@@ -60,7 +178,114 @@ namespace greendoor.Controllers
                 //Return to listing page, not allowed to edit
                 return RedirectToAction("Index");
             }
+            int count = 0;
+            int totalScore = 0;
+            foreach (Reviews r in reviewContext.GetLatestReview(id))
+            {
+                totalScore += (int)r.Rating;
+                count++;
+            }
+
+            if (count != 0)
+            {
+                int averageScore = totalScore / count;
+                ViewData["avgScore"] = "Average review score: " + averageScore;
+            }
             return View(shopreviewVM);
+        }
+
+        public ActionResult AddFav(int id) //for shop
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            HttpContext.Session.SetString("ShopID", id.ToString());
+
+            int? customerID = HttpContext.Session.GetInt32("LoginID");
+            //string shopID = HttpContext.Session.GetString("ShopID");
+            int custID = Convert.ToInt32(customerID);
+            ShopFav shopfav = new ShopFav();
+            Shop shop = shopContext.GetDetails(id);
+            shopfav.CustomerID = custID;
+            shopfav.ShopID = id;
+            shopfav.ShopPicture = shop.ShopPicture;
+            shopfav.ShopName = shop.ShopName;
+            shopfav.ShopDescription = shop.ShopDescription;
+            shopfav.Zone = shop.Zone;
+            shopfav.ContactNumber = shop.ContactNumber;
+            shopfav.Address = shop.Address;
+            shopfav.PostalCode = shop.PostalCode;
+            shopfav.SocialMediaLink = shop.SocialMediaLink;
+            shopfav.WebsiteLink = shop.WebsiteLink;
+            shopfav.FavBool = false;
+
+            return View(shopfav);
+        }
+        // POST: CompetitionController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddFav(ShopReviewViewModel fav, int id)
+        {
+            int? customerID = HttpContext.Session.GetInt32("LoginID");
+            //Populate list for drop-down list
+            //in case of the need to return to Edit.cshtml view
+            //ViewData["InterestList"] = GetAllAreaInterests();
+           
+            //Update record to database
+            ShopFav shopfav = new ShopFav();
+            shopfav.FavBool = favouriteContext.Add(customerID, id);
+            
+            return RedirectToAction("ShopDetails", "Shops", new { id });
+
+        }
+
+        public ActionResult RemoveFav(int id) //for shop
+        {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Customer"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            HttpContext.Session.SetString("ShopID", id.ToString());
+
+            int? customerID = HttpContext.Session.GetInt32("LoginID");
+            //string shopID = HttpContext.Session.GetString("ShopID");
+            int custID = Convert.ToInt32(customerID);
+            ShopFav shopfav = new ShopFav();
+            Shop shop = shopContext.GetDetails(id);
+            shopfav.CustomerID = custID;
+            shopfav.ShopID = id;
+            shopfav.ShopPicture = shop.ShopPicture;
+            shopfav.ShopName = shop.ShopName;
+            shopfav.ShopDescription = shop.ShopDescription;
+            shopfav.Zone = shop.Zone;
+            shopfav.ContactNumber = shop.ContactNumber;
+            shopfav.Address = shop.Address;
+            shopfav.PostalCode = shop.PostalCode;
+            shopfav.SocialMediaLink = shop.SocialMediaLink;
+            shopfav.WebsiteLink = shop.WebsiteLink;
+            shopfav.FavBool = false;
+
+            return View(shopfav);
+        }
+        // POST: CompetitionController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RemoveFav(ShopReviewViewModel fav, int id)
+        {
+            int? customerID = HttpContext.Session.GetInt32("LoginID");
+            //Populate list for drop-down list
+            //in case of the need to return to Edit.cshtml view
+            //ViewData["InterestList"] = GetAllAreaInterests();
+
+            //Update record to database
+            ShopFav shopfav = new ShopFav();
+            shopfav.FavBool = favouriteContext.Delete(customerID, id);
+
+            return RedirectToAction("ShopDetails", "Shops", new { id });
+
         }
 
         public ActionResult ShopProfile()  // for shop
@@ -217,6 +442,7 @@ namespace greendoor.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ShopDetails(ShopReviewViewModel review, int id)
         {
+            int? customerID = HttpContext.Session.GetInt32("LoginID");
             //Populate list for drop-down list
             //in case of the need to return to Edit.cshtml view
             //ViewData["InterestList"] = GetAllAreaInterests();
@@ -231,9 +457,20 @@ namespace greendoor.Controllers
                 shopVM.shopPostList = shopPostContext.GetLatestShopPost(id);
                 return View(shopVM);
             }
+            else if(review.Rating == null || review.Description == null)
+            {
+                ViewData["RatingError"] = "Missing values!";
+                /*return RedirectToAction("ShopDetails", "Shops", new { id = HttpContext.Session.GetString("ShopID") },review);*/
+                ShopReviewViewModel shopVM = new ShopReviewViewModel();
+                shopVM = shopContext.GetDetailsVM(id);
+                shopVM.reviewsList = reviewContext.GetAllReviews(id);
+                shopVM.shopPostList = shopPostContext.GetLatestShopPost(id);
+                return View(shopVM);
+            }
             //Update record to database
             ShopReviewViewModel shopreviewVM = new ShopReviewViewModel();
             shopreviewVM = shopContext.GetDetailsVM(id);
+            shopreviewVM.FavBool = favouriteContext.Add(customerID, id);
             shopreviewVM.ReviewsID = reviewContext.Add(review);
             shopreviewVM.reviewsList = reviewContext.GetAllReviews(id);
             shopreviewVM.shopPostList = shopPostContext.GetLatestShopPost(id);

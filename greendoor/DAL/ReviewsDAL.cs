@@ -131,5 +131,86 @@ INNER JOIN Reviews ON Reviews.CustomerID = Customer.CustomerID WHERE ShopID = @s
             conn.Close();
             return reviewsList;
         }
+
+        public int GetNumberOfReviews(int shopID)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement
+            //CHANGE SQL QUERY (Name)
+            cmd.CommandText = @"SELECT * FROM Reviews WHERE ShopID = @selectedShopID";
+            cmd.Parameters.AddWithValue("@selectedShopID", shopID);
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            //Read all records until the end, save data into a list
+            List<Reviews> reviewsList = new List<Reviews>();
+            while (reader.Read())
+            {
+                reviewsList.Add(
+                new Reviews
+                {
+                    //CHANGE RELAVANT DETAILS
+                    ReviewsID = reader.GetInt32(0),
+                    Rating = !reader.IsDBNull(1) ? reader.GetInt32(1) : (int?)null,
+
+                    ShopID = reader.GetInt32(3),
+                    Description = reader.GetString(4),
+                    DateTimePosted = reader.GetDateTime(5),
+                }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+            return reviewsList.Count();
+        }
+        public int GetAverageReviewScore(int shopID)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement
+            //CHANGE SQL QUERY (Name)
+            cmd.CommandText = @"SELECT * FROM Reviews WHERE ShopID = @selectedShopID";
+            cmd.Parameters.AddWithValue("@selectedShopID", shopID);
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            //Read all records until the end, save data into a list
+            List<Reviews> reviewsList = new List<Reviews>();
+            while (reader.Read())
+            {
+                reviewsList.Add(
+                new Reviews
+                {
+                    //CHANGE RELAVANT DETAILS
+                    ReviewsID = reader.GetInt32(0),
+                    Rating = !reader.IsDBNull(1) ? reader.GetInt32(1) : (int?)null,
+
+                    ShopID = reader.GetInt32(3),
+                    Description = reader.GetString(4),
+                    DateTimePosted = reader.GetDateTime(5),
+                }
+                );
+            }
+            int i = 0;
+            foreach (Reviews r in reviewsList)
+            {
+                i += (int)r.Rating;
+            }
+            if (i != 0)
+            {
+                i = i / reviewsList.Count();
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+            return i;
+        }
     }
+
 }

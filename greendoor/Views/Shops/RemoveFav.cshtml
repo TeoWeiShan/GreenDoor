@@ -1,0 +1,102 @@
+﻿@model greendoor.Models.ShopFav
+
+@{
+    ViewData["Title"] = "Remove Favourite";
+}
+<br>
+<h4 class="PageTitle">Remove @Html.Display("ShopName") from Favourites?</h4>
+<section class="holder">
+    <hr />
+</section>
+
+<section class="holder">
+
+    @*<div class="shop-border">*@
+    <div class="">
+        <img src="~/images/@Model.ShopPicture" style="width:250px" class="justify-content-center image-padding" />
+        <br />
+        <br />
+
+        @if (Context.Session.GetString("Role") == "Customer")
+        {
+            if (Model.FavBool == false)
+            {
+                <form asp-action="RemoveFav" asp-controller="Shops">
+                    <fieldset class="FormContent">
+                        <div class="form-group review-row ">
+                            <label asp-for="ShopID"
+                                   class="col-sm-3 col-form-label sr-only"></label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="ShopID" readonly
+                                       class="form-control-plaintext sr-only" />
+                            </div>
+                        </div>
+                        <div class="form-group review-row">
+                            <label asp-for="CustomerID"
+                                   class="col-sm-3 col-form-label sr-only"></label>
+                            <div class="col-sm-9 col-md-5">
+                                <input asp-for="CustomerID" readonly
+                                       class="form-control-plaintext sr-only" />
+                            </div>
+                        </div>
+                        <div class="form-group review-row">
+                            <div class="row-sm-9">
+                                <a asp-controller="Shops" asp-action="ShopDetails" asp-route-id="@Context.Session.GetString("ShopID")" type="button" class="btn btn-outline-primary" id="fav">Back</a>
+                                <input type="submit" value="Remove"
+                                       class="btn btn-outline-danger" />
+                            </div>
+                        </div>
+                        @*<span style="color:red">@ViewData["RatingError"]</span>*@
+                    </fieldset>
+                </form>
+                @*<a asp-controller="Shops" asp-action="AddFav" type="button" class="btn btn-outline-success" id="fav">Add to Favorites</a>*@
+            }
+            else
+            {
+
+                @*<a asp-controller="Shops" asp-action="ViewShops" type="button" class="btn btn-outline-danger" id="fav">Remove from Favorites</a>*@
+            }
+
+        }
+
+        else
+        {
+            <p><a asp-action="Login" asp-controller="Home">Login </a> to remove from favourites!</p>
+        }
+    </div>
+    <fieldset class="FormContent">
+        <div class="form-group row">
+            <label asp-for="ShopDescription" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.Display("ShopDescription")
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="ContactNumber"
+                   class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.Display("ContactNumber")
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Address"
+                   class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.Display("Address")
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <label asp-for="WebsiteLink"
+                   class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.Display("WebsiteLink")
+            </div>
+        </div>
+
+    </fieldset>
+
+
+
+</section>
+

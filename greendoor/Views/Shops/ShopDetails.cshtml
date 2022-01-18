@@ -5,19 +5,35 @@
 }
 <br>
 <h4 class="PageTitle">@Html.Display("ShopName")</h4>
-<section class="holder">
-    <hr />
-</section>
+
+@if (Context.Session.GetString("Role") == "Customer")
+{
+    if (Model.FavBool == false)
+    {
+        <a asp-controller="Shops" asp-action="AddFav" asp-route-id="@Context.Session.GetString("ShopID")" type="button" class="btn btn-outline-success" style="margin-top: 10px;" id="fav">Add to Favorites</a>
+    }
+    else
+    {
+
+        <a asp-controller="Shops" asp-action="RemoveFav" asp-route-id="@Context.Session.GetString("ShopID")" type="button" class="btn btn-outline-danger" style="margin-top: 10px; " id="fav">Remove from Favorites</a>
+    }
+
+}
+
+else
+{
+    <p><a asp-action="Login" asp-controller="Home">Login </a> to favorite this shop!</p>
+}
+
+<hr />
 
 <section class="holder">
-
-    @*<div class="shop-border">*@
     <div class="">
         <img src="~/images/@Model.ShopPicture" style="width:250px" class="justify-content-center image-padding" />
         <br />
         <br />
-        <a asp-controller="Shops" asp-action="ViewShops">Back to Shops Page</a>
     </div>
+
     <fieldset class="FormContent">
         <div class="form-group row">
             <label asp-for="ShopDescription" class="col-sm-3 col-form-label"></label>
@@ -49,128 +65,128 @@
         </div>
 
     </fieldset>
-    
-    
+
+
 
 </section>
 
-    <section class="holder">
+<section class="holder">
+    <div class=" col-xl-4 ">
 
-        <div class=" col-xl-4 ">
+        @if (Model.reviewsList.Count != 0)
+        {
+            <br />
+            <hr />
+            <h5 style="margin-bottom:15px; ">
+                Reviews:
+            </h5>
+            <p>@ViewData["avgScore"]</p>
+            <partial name="~/Views/Shops/_ViewReviews.cshtml" />
+            <a style="margin-bottom: 15px; " asp-action="ViewReviews" asp-route-id="@Context.Session.GetString("ShopID")">View More Reviews</a>
 
-            @if (Model.reviewsList.Count != 0)
-            {
-                <br />
-                <hr />
-                <h5 style="margin-bottom:15px; ">
-                    Reviews:
-                </h5>
-                <partial name="~/Views/Shops/_ViewReviews.cshtml" />
-                <a style="margin-bottom: 15px; " asp-action="ViewReviews" asp-route-id="@Context.Session.GetString("ShopID")">View More Reviews</a>
+        }
+        else
+        {
+            <br />
+            <hr />
+            <h5 style="margin-bottom:15px; ">
+                Reviews:
+            </h5>
+            <p>No reviews yet</p>
+        }
+    </div>
 
-            }
-            else
-            {
-                <br />
-                <hr />
-                <h5 style="margin-bottom:15px; ">
-                    Reviews:
-                </h5>
-                <h4>No reviews yet</h4>
-            }
-        </div>
-
-        <div class="col-xl-8">
-
-            @if (Model.shopPostList.Count != 0)
-            {<br />
-                <hr />
-                <h5 style="margin-bottom: 15px; ">
-                    Shop Post:
-                </h5>
-                <partial name="~/Views/Shops/_Posts.cshtml" />
-                <a style="margin-bottom: 15px; margin-right: 3%;" asp-action="ViewPosts" asp-route-id="@Context.Session.GetString("ShopID")">View More Posts</a>
-            }
-            else
-            {
-                <br />
-                <hr />
-                <h5 style="margin-bottom:15px; ">
-                    Shop Post:
-                </h5>
-                <h4>No Post yet</h4>
-            }
-        </div>
-    </section>
+    <div class="col-xl-8">
+        @if (Model.shopPostList.Count != 0)
+        {<br />
+            <hr />
+            <h5 style="margin-bottom: 15px; ">
+                Shop Post:
+            </h5>
+            <partial name="~/Views/Shops/_Posts.cshtml" />
+            <a style="margin-bottom: 15px; margin-right: 3%;" asp-action="ViewPosts" asp-route-id="@Context.Session.GetString("ShopID")">View More Posts</a>
+        }
+        else
+        {
+            <br />
+            <hr />
+            <h5 style="margin-bottom:15px; ">
+                Shop Post:
+            </h5>
+            <p>No posts yet</p>
+        }
+    </div>
+</section>
 <br />
-<div>
-
-    @if (Context.Session.GetString("Role") == "Customer")
-    {
-        <hr />
-        <h5>
-            Add Review:
-        </h5>
-        <form asp-action="ShopDetails" asp-controller="Shops" asp-route-id="@Model.ShopID">
-            <fieldset class="FormContent">
-                <div class="form-group review-row ">
-                    <label asp-for="ShopID"
-                           class="col-sm-3 col-form-label sr-only"></label>
-                    <div class="col-sm-9 col-md-5">
-                        <input asp-for="ShopID" readonly
-                               class="form-control-plaintext sr-only" />
-                    </div>
-                </div>
-                <div class="form-group review-row">
-                    <label asp-for="CustomerID"
-                           class="col-sm-3 col-form-label sr-only"></label>
-                    <div class="col-sm-9 col-md-5">
-                        <input asp-for="CustomerID" readonly
-                               class="form-control-plaintext sr-only" />
-                    </div>
-                </div>
-                <div class="form-group review-row">
-                    <label asp-for="Rating"
-                           class="col-sm-3 col-form-label"></label>
-                    <div class="col-sm-9 col-md-5">
-                        <input asp-for="Rating" class="form-control" />
-                        <span asp-validation-for="Rating"
-                              class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group review-row">
-                    <label asp-for="Description"
-                           class="col-sm-3 col-form-label"></label>
-                    <div class="col-sm-9 col-md-5">
-                        <input asp-for="Description" class="form-control" />
-                        <span asp-validation-for="Description"
-                              class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group review-row">
-                    <div class="col-sm-9">
-                        <input type="submit" value="Submit"
-                               class="btn btn-primary" />
-                    </div>
-                </div>
-                <span style="color:red">@ViewData["RatingError"]</span>
-            </fieldset>
-        </form>
-    }
-    else if (Context.Session.GetString("Role") == "Shop")
-            {
-
-            }
-    else
-    {
-        <hr />
-        <p><a asp-action="Login" asp-controller="Home">Login </a> to leave a review!</p>
-    }
-</div>
 
 
-    @*<div class="form-group row">
-            <div class="col-sm-9 offset-sm-3">
-                <a asp-action="Add" asp-route-id="@Context.Session.GetString("ShopID")">Add Review</a>
-            </div>
-        </div>*@
+<section class="holder">
+    <div class=" col-xl-4 ">
+        @if (Context.Session.GetString("Role") == "Customer")
+        {
+            <hr />
+            <h5>
+                Add Review:
+            </h5>
+
+            <form asp-action="ShopDetails" asp-controller="Shops" asp-route-id="@Model.ShopID">
+                <fieldset class="FormContent">
+                    <div class="form-group review-row ">
+                        <label asp-for="ShopID"
+                               class="col-sm-3 col-form-label sr-only"></label>
+                        <div class="col-sm-9 col-md-5">
+                            <input asp-for="ShopID" readonly
+                                   class="form-control-plaintext sr-only" />
+                        </div>
+                    </div>
+                    <div class="form-group review-row">
+                        <label asp-for="CustomerID"
+                               class="col-sm-3 col-form-label sr-only"></label>
+                        <div class="col-sm-9 col-md-5">
+                            <input asp-for="CustomerID" readonly
+                                   class="form-control-plaintext sr-only" />
+                        </div>
+                    </div>
+                    <div class="form-group review-row">
+                        <label asp-for="Rating"
+                               class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-md-5">
+                            <input asp-for="Rating" class="form-control" />
+                            <span asp-validation-for="Rating"
+                                  class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group review-row">
+                        <label asp-for="Description"
+                               class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-md-5">
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description"
+                                  class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group review-row">
+                        <div class="col-sm-9">
+                            <input type="submit" value="Submit"
+                                   class="btn btn-primary" />
+                        </div>
+                    </div>
+                    <span style="color:red">@ViewData["RatingError"]</span>
+                </fieldset>
+            </form>
+        }
+
+        else
+        {
+            <hr />
+            <p><a asp-action="Login" asp-controller="Home">Login </a> to leave a review!</p>
+        }
+    </div>
+</section>
+
+
+@*<div class="form-group row">
+    <div class="col-sm-9 offset-sm-3">
+        <a asp-action="Add" asp-route-id="@Context.Session.GetString("ShopID")">Add Review</a>
+    </div>
+</div>*@

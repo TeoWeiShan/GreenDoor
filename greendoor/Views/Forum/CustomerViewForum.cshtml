@@ -9,6 +9,9 @@
     <title>@ViewData["Title"] - GreenDoor</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" />
+    
+
 </head>
 @*<style>
     #abc {
@@ -126,7 +129,7 @@
                         <p> Date Posted by: <span class="date-posted">@item.DateTimePosted</span> </p>
 
                         <p class="post-description">@item.PostDescription</p>
-
+                        
                         <div class="comment-section">
                             @*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
                             *@                      <a asp-action="CustomerViewDiscussion" asp-controller="Forum" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
@@ -158,6 +161,8 @@
                             @*                        <button id="commentsSection" onclick="comments_show()">Comments</button>
                             *@                      <a asp-action="CustomerViewDiscussion" asp-controller="Forum" asp-route-ForumPostID="@item.ForumPostID">View Discussion</a>
                         </div>
+                        
+                       
 
                     </div>
                 </div>
@@ -166,6 +171,7 @@
         }
 
     </div>
+    
 </body>
 @*Below is code for pop up view post, not done yet
 *@<!--<div id="abc">-->

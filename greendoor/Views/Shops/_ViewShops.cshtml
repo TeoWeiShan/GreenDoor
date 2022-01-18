@@ -1,92 +1,85 @@
 ﻿@model IEnumerable<greendoor.Models.Shop>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>View Shops</title>
-        <style>
-            .container {
-                z-index: 0;
-                width: 100%;
-                display: flex;
-                justify-content: space-around;
-                flex-wrap: wrap;
-            }
 
-            .card {
-                margin: 30px auto;
-                width: 300px;
-                height: 300px;
-                border-radius: 40px;
-                box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
-                cursor: pointer;
-                transition: 0.4s;
-            }
+<title>View Shops</title>
+<style>
+    .container {
+        z-index: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
 
-                .card .card-img-top {
-                    width: inherit;
-                    height: inherit;
-                    border-radius: 40px;
-                }
+    .card {
+        margin: 30px auto;
+        width: 300px;
+        height: 300px;
+        border-radius: 40px;
+        box-shadow: 0 0 11px rgba(33,33,33,.2);
+        cursor: pointer;
+        transition: 0.4s;
+    }
 
-                    .card .card-img-top img {
-                        width: inherit;
-                        height: inherit;
-                        border-radius: 40px;
-                        object-fit: cover;
-                    }
-
-                .card .card-title {
-                    text-align: center;
-                    border-radius: 0px 0px 40px 40px;
-                    font-family: sans-serif;
-                    font-weight: bold;
-                    font-size: 30px;
-                    margin-top: -80px;
-                    height: 40px;
-                }
-
-                .card:hover {
-                    transform: scale(0.9, 0.9);
-                    box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25), -5px -5px 30px 15px rgba(0,0,0,0.22);
-                }
-
-            .card-title {
-                color: white;
-            }
-            
-        </style>
-    </head>
-    <body>
-        @if (Model.ToList().Count > 0)
-        {
-
-            <div class="container">
-                <div class="split">
-                    @foreach (var item in Model)
-                    {
-                        <div class="card" style="width:300px; margin-top:5%; margin-left:3%;">
-
-                            <img class="card-img-top" src="~/images/@item.ShopPicture" alt="Card image" style="width:100%">
-                            <div class="card-body">
-                                <a asp-action="ShopDetails" asp-controller="Shops"
-                                   asp-route-id="@item.ShopID">
-                                    <h4 class="card-title"> @item.ShopName</h4>
-                                          @*<div class="card-footer">
-                                        <a asp-action="Details" asp-controller="Shops"
-                                           asp-route-id="@item.ShopID">Details</a>
-                                    </div>*@
-                                </a>
-                            </div>
-                            
-
-                        </div>
-                        <br>
-                    }
-
-                </div>
-            </div>
-
+        .card .card-img-top {
+            width: inherit;
+            height: inherit;
+            border-radius: 40px;
+               background-size: cover;
         }
 
+            .card .card-img-top img {
+                width: inherit;
+                height: inherit;
+                border-radius: 30px;
+                object-fit: cover;
+            }
+
+        .card .card-title {
+            text-align: center;
+            border-radius: 0px 0px 40px 40px;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 30px;
+            margin-top: -80px;
+            height: 40px;
+        }
+
+        .card:hover {
+            transform: scale(0.9, 0.9);
+            box-shadow: 0 0 11px rgba(33,33,33,.2);
+        }
+
+    .card-title {
+        color: white;
+        font-family: "Poppins", sans-serif;
+    }
+            
+</style>
+
+    <body class=" col-xl-12">
+
+        @if (Model.ToList().Count > 0)
+        {
+            <div class="container">
+                <div class="card-deck">
+                    @foreach (var item in Model)
+                    {
+                        <a asp-action="ShopDetails" asp-controller="Shops"
+                           asp-route-id="@item.ShopID">
+                            <div class="card" style="width:300px; margin-top:5%; margin-left:3%;">
+                                <img class="card-img-top" src="~/images/@item.ShopPicture" alt="Card image" style="width:100%">
+
+                                <div class="card-body">
+                                    <h4 class="card-title"> @item.ShopName</h4>
+                                </div>
+                            </div>
+
+                        </a>
+                    }
+                </div>
+               
+            </div>
+        }
         else
         {
             <span style="color:red">No record found!</span>

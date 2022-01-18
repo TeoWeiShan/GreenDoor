@@ -1,15 +1,15 @@
-﻿@model greendoor.Models.Customer
+﻿@model greendoor.Models.FavouriteShopViewModel
 
 @{
     ViewData["Title"] = "Profile";
 }
+
 <br>
 <h4 class="PageTitle">Profile</h4>
 <hr />
 
+<!-- details -->
 <section class="holder">
-
-
     <div class="split">
         <img src="https://picsum.photos/400/400" />
     </div>
@@ -51,14 +51,53 @@
                 </div>
             </div>
             <br />
-            <br />
-            <br />
             <div>
-                <a asp-action="UpdateProfile" asp-controller="Customer">Update Profile</a>&nbsp&nbsp&nbsp&nbsp||&nbsp&nbsp&nbsp&nbsp
+                <a asp-action="UpdateProfile" asp-controller="Customer">Update Profile</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp
                 <a asp-action="DeleteProfile" asp-controller="Customer">Delete Profile</a>
             </div>
         </fieldset>
     </div>
+</section>
 
+<!-- liked shops -->
+<section class="holder">
+    <div class=" col-xl-12">
+        @if (Context.Session.GetString("Role") == "Customer")
+        {
+            <hr />
+            <h5 style="margin-bottom: 15px; ">
+                Favourite Shops:
+            </h5>
 
+            <div class="table-responsive">
+                <table id="viewFavShop" class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Shop Name</th>
+                            <th>Description</th>
+                            <th>Website</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model.ShopList)
+                        {
+                            <tr>
+                                <td>@item.ShopName</td>
+                                <td>@item.ShopDescription</td>
+                                <td><a>@item.WebsiteLink</a></td>
+                                <td>
+                                    <a asp-action="ShopDetails" asp-controller="Shops"
+                                        asp-route-id="@item.ShopID">Details</a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        </div>
 </section>
