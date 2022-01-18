@@ -240,11 +240,11 @@ namespace greendoor.Controllers
             fpcVM.ShopName = (shopCtx.GetDetails(fpcVM.ShopID)).ShopName;
             return View(fpcVM);
         }
-        public ActionResult PublicViewSearchResults(string searchQuery)
+        public ActionResult PublicViewSearchResults(ForumPostCommentViewModel searchQuery)
         {
-            ViewData["Keyword"] = searchQuery;
+            ViewData["Keyword"] = searchQuery.searchQuery;
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
-            if (!String.IsNullOrEmpty(searchQuery))
+            if (!String.IsNullOrEmpty(searchQuery.searchQuery))
             {
                 fpcVM.searchCustPostList = forumCtx.searchCustPostList(searchQuery);
                 fpcVM.searchShopPostList = forumCtx.searchShopPostList(searchQuery);
@@ -304,7 +304,7 @@ namespace greendoor.Controllers
 
             return RedirectToAction("ShopViewDiscussion", "Forum", shopComment);
         }
-
+/*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult PublicViewSearchResults(ForumPostCommentViewModel forumPost)
@@ -313,7 +313,7 @@ namespace greendoor.Controllers
             fpcVM.searchCustPostList =  forumCtx.searchCustPostList(forumPost);
             fpcVM.searchShopPostList =  forumCtx.searchShopPostList(forumPost);
             return View(fpcVM);
-        }
+        }*/
     }
 }
 
