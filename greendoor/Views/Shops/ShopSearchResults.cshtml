@@ -1,0 +1,107 @@
+﻿@model greendoor.Models.Shop
+
+@{
+    ViewData["Title"] = "Index";
+}
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- Set the initial view zooming scale for mobile device -->
+    <meta name="viewport" content="width = device-width,
+ initial-scale = 1" />
+    <title>Shops</title>
+    <!-- Reference to customized styling for this website -->
+    <link rel="stylesheet" type="text/css" href="~/css/Site.css">
+</head>
+<style>
+    .container {
+        z-index: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        margin: 30px auto;
+        width: 300px;
+        height: 300px;
+        border-radius: 40px;
+        box-shadow: 0 0 11px rgba(33,33,33,.2);
+        cursor: pointer;
+        transition: 0.4s;
+    }
+
+        .card .card-img-top {
+            width: inherit;
+            height: inherit;
+            border-radius: 40px;
+            background-size: cover;
+        }
+
+            .card .card-img-top img {
+                width: inherit;
+                height: inherit;
+                border-radius: 30px;
+                object-fit: cover;
+            }
+
+        .card .card-title {
+            text-align: center;
+            border-radius: 0px 0px 40px 40px;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 30px;
+            margin-top: -80px;
+            height: 40px;
+        }
+
+        .card:hover {
+            transform: scale(0.9, 0.9);
+            box-shadow: 0 0 11px rgba(33,33,33,.2);
+        }
+
+    .card-title {
+        color: white;
+        font-family: "Poppins", sans-serif;
+    }
+</style>
+<br />
+@using (Html.BeginForm("ShopSearchResults", "Shops", FormMethod.Post))
+{
+    <p>Search using keyword : <input type="text" name="searchQuery"></p>
+    <br />
+    <p><input type="submit" value="Submit"></p>
+}
+<a asp-controller="Shops" asp-action="ViewShops">Back to Shops List</a>
+<body class="text-center">
+    <br /><br />
+    @if (Model.searchResultsList.Count != 0)
+    {
+        <div class="container">
+            <div class="card-deck">
+                @foreach (var item in Model.searchResultsList)
+                {
+                    <a asp-action="ShopDetails" asp-controller="Shops"
+                       asp-route-id="@item.ShopID">
+                        <div class="card" style="width:300px; margin-top:5%; margin-left:3%;">
+                            <img class="card-img-top" src="~/images/@item.ShopPicture" alt="Card image" style="width:100%">
+
+                            <div class="card-body">
+                                <h4 class="card-title"> @item.ShopName</h4>
+                            </div>
+                        </div>
+
+                    </a>
+                }
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <h5>No shops found! Check keyword again! </h5>
+    }
+</body>
+</html>

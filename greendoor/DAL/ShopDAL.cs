@@ -350,6 +350,42 @@ namespace greendoor.DAL
             //Close database connection
             conn.Close();
         }
+        public List<Shop> shopSearchList(string searchQuery)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement
+            cmd.CommandText = @"SELECT * 
+                                FROM Shop
+                                WHERE ShopName like '%"+searchQuery+"%'";
+
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            //Read all records until the end, save data into a list of forum post objects
+            List<Shop> shopList = new List<Shop>();
+
+            while (reader.Read())
+            {
+                shopList.Add(
+                    new Shop
+                    {
+                        ShopID = reader.GetInt32(0),
+                        ShopPicture = !reader.IsDBNull(1) ? reader.GetString(1) : null,
+                        ShopName = reader.GetString(2),
+                    }
+                );
+            }
+
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+            return shopList;
+        }
 
     }
 }

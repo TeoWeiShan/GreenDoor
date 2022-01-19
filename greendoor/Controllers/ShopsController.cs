@@ -493,5 +493,13 @@ namespace greendoor.Controllers
             reviews.ShopID = id;
             return View(reviews);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ShopSearchResults(string searchQuery)
+        {
+            Shop shop = new Shop();
+            shop.searchResultsList = shopContext.shopSearchList(searchQuery);
+            return View(shop);
+        }
     }
 }

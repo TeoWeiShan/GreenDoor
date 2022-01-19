@@ -61,5 +61,11 @@ namespace greendoor.Models
         [StringLength(255, ErrorMessage = "Password cannot exceed 255 characters!")]
         public string Password { get; set; }
         public bool IsVerified { get; set; }
+        public string searchQuery { get; set; }
+        public List<Shop> searchResultsList { get; set; }
+        public Shop()
+        {
+            searchResultsList = new List<Shop>();
+        }
     }
 }
