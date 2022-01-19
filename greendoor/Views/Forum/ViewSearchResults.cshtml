@@ -105,8 +105,14 @@
 
         @using (Html.BeginForm("ViewSearchResults", "Forum", FormMethod.Post))
         {
-            <p>Search using keyword : <input type="text" name="searchQuery"></p>
+            <p>Search using keyword or category : <input type="text" asp-for="searchQuery"></p>
+            <select asp-for="categorySelected"
+                    asp-items="@ViewData["searchCategory"] as List<SelectListItem>"
+                    class="form-control">
+            </select>
+            <br />
             <p><input type="submit" value="Submit"></p>
+
         }
 
         <a asp-controller="Forum" asp-action="ViewForum">Back to Main List</a>
@@ -114,7 +120,6 @@
         @if (Model.searchShopPostList.Count == 0 && Model.searchCustPostList.Count == 0)
         {
             <h5>No Post Available! Check your keyword again! </h5>
-            <h5>@Model.searchQuery</h5>
         }
         @if (Model.searchShopPostList.Count != 0)
         {

@@ -16,12 +16,22 @@ namespace greendoor.Controllers
         private CustomerDAL custCtx = new CustomerDAL();
         private ShopDAL shopCtx = new ShopDAL();
         private List<string> postCatList = new List<string> { "Upcycling", "Discussion", "Lobang", "Exchange", "Sharing", "Request" };
+        private List<string> searchpostCatList = new List<string> { "-","Upcycling", "Discussion", "Lobang", "Exchange", "Sharing", "Request" };
         private List<SelectListItem> postCatDropDownList = new List<SelectListItem>();
+        private List<SelectListItem> searchpostCatDropDownList = new List<SelectListItem>();
         public ForumController()
         {
             foreach(string postCat in postCatList)
             {
                 postCatDropDownList.Add(
+                    new SelectListItem
+                    {
+                        Text = postCat,
+                    });
+            }
+            foreach(string postCat in searchpostCatList)
+            {
+                searchpostCatDropDownList.Add(
                     new SelectListItem
                     {
                         Text = postCat,
@@ -33,6 +43,7 @@ namespace greendoor.Controllers
             ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
             fpcVM.CustomerPostsList = forumCtx.CustomerPostList();
             fpcVM.ShopPostsList = forumCtx.ShopPostList();
+            ViewData["searchCategory"] = searchpostCatDropDownList;
             return View(fpcVM);
         }
         public ActionResult ViewDiscussion(int ForumPostID)
@@ -132,13 +143,38 @@ namespace greendoor.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ViewSearchResults(string searchQuery)
+        public ActionResult ViewSearchResults(ForumPostCommentViewModel fpc)
         {
-            ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
-            fpcVM.searchCustPostList = forumCtx.searchCustPostList(searchQuery);
-            fpcVM.searchShopPostList = forumCtx.searchShopPostList(searchQuery);
-            fpcVM.searchQuery = searchQuery;
-            return View(fpcVM);
+            ViewData["searchCategory"] = searchpostCatDropDownList;
+            if (fpc.searchQuery != null && fpc.categorySelected!= "-")
+            {
+                ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+                fpcVM.searchCustPostList = forumCtx.searchCustPostAllList(fpc);
+                fpcVM.searchShopPostList = forumCtx.searchShopPostAllList(fpc);
+                fpcVM.categorySelected = fpc.categorySelected;
+                fpcVM.searchQuery = fpc.searchQuery;
+                return View(fpcVM);
+            }
+            else if(fpc.categorySelected != "-")
+            {
+                ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+                fpcVM.searchCustPostList = forumCtx.searchCustPostCatList(fpc);
+                fpcVM.searchShopPostList = forumCtx.searchShopPostCatList(fpc);
+                fpcVM.categorySelected = fpc.categorySelected;
+                return View(fpcVM);
+            }
+            else if(fpc.searchQuery != null)
+            {
+                ForumPostCommentViewModel fpcVM = new ForumPostCommentViewModel();
+                fpcVM.searchCustPostList = forumCtx.searchCustPostList(fpc);
+                fpcVM.searchShopPostList = forumCtx.searchShopPostList(fpc);
+                fpcVM.searchQuery = fpc.searchQuery;
+                return View(fpcVM);
+            } 
+            else
+            {
+                return View();
+            }
         }
 
         // POST: ForumController/Create

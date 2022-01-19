@@ -52,8 +52,8 @@ namespace greendoor.Models
         [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters!")]
         public string ShopName { get; set; }
 
+        public string categorySelected { get; set; }
         public string searchQuery { get; set; }
-
         public List<ForumPostCommentViewModel> CustomerCommentsList { get; set; }
 
         public List<ForumPostCommentViewModel> ShopCommentsList { get; set; }
