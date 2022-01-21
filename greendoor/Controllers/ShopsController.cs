@@ -129,6 +129,59 @@ namespace greendoor.Controllers
                 sortedDict2.Remove(first.Key);
             }
 
+            // Calculating top 3 shops in terms of number of favourites
+            Dictionary<string, int> shopFavouriteList = new Dictionary<string, int>();
+            foreach (Shop shop in shopList)
+            {
+                int i = favouriteContext.GetNumFavourite(shop.ShopID);
+                shopFavouriteList.Add(shop.ShopName, i);
+            }
+
+            int n = shopFavouriteList.Count();
+            if (n > 3)
+            {
+                n = 3;
+            }
+            var sortedDict3 = (from pair in shopFavouriteList
+                              orderby pair.Value descending
+                              select pair).Take(n).ToDictionary(pair => pair.Key, pair => pair.Value);
+            if (n == 3)
+            {
+                var first = sortedDict3.First();
+                ViewData["topNumFavourite1a"] = first.Key;
+                ViewData["topNumFavourite1b"] = first.Value;
+                sortedDict3.Remove(first.Key);
+
+                var second = sortedDict3.First();
+                ViewData["topNumFavourite2a"] = second.Key;
+                ViewData["topNumFavourite2b"] = second.Value;
+                sortedDict3.Remove(second.Key);
+
+                var third = sortedDict3.First();
+                ViewData["topNumFavourite3a"] = third.Key;
+                ViewData["topNumFavourite3b"] = third.Value;
+                sortedDict3.Remove(third.Key);
+            }
+            else if (n == 2)
+            {
+                var first = sortedDict3.First();
+                ViewData["topNumFavourite1a"] = first.Key;
+                ViewData["topNumFavourite1b"] = first.Value;
+                sortedDict3.Remove(first.Key);
+
+                var second = sortedDict3.First();
+                ViewData["topNumFavourite2a"] = second.Key;
+                ViewData["topNumFavourite2b"] = second.Value;
+                sortedDict3.Remove(second.Key);
+            }
+            else if (n == 1)
+            {
+                var first = sortedDict3.First();
+                ViewData["topNumFavourite1a"] = first.Key;
+                ViewData["topNumFavourite1b"] = first.Value;
+                sortedDict3.Remove(first.Key);
+            }
+
 
             return View(shopList);
         }

@@ -155,5 +155,37 @@ namespace greendoor.DAL
             return favShopList;
         }
 
+        public int GetNumFavourite(int shopID)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement
+            //CHANGE SQL QUERY (Name)
+            cmd.CommandText = @"SELECT * FROM Favourite WHERE ShopID = @selectedShopID";
+            cmd.Parameters.AddWithValue("@selectedShopID", shopID);
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            //Read all records until the end, save data into a list
+            List<Favourite> favouriteList = new List<Favourite>();
+            while (reader.Read())
+            {
+                favouriteList.Add(
+                new Favourite
+                {
+                    //CHANGE RELAVANT DETAILS
+                    CustomerID = reader.GetInt32(0),
+                    ShopID = reader.GetInt32(1)
+                });
+            }
+
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+            return favouriteList.Count;
+        }
+
     }
 }
