@@ -62,6 +62,7 @@ namespace greendoor.Models
         public string Password { get; set; }
         public bool IsVerified { get; set; }
         public string searchQuery { get; set; }
+        public string zoneSelected { get; set; }
         public List<Shop> searchResultsList { get; set; }
         public Shop()
         {

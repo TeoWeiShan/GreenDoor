@@ -136,7 +136,11 @@
     </section>
     @using (Html.BeginForm("ShopSearchResults", "Shops", FormMethod.Post))
     {
-        <p>Search using keyword : <input type="text" name="searchQuery"></p>
+        <p>Search using keyword or zone : <input type="text" name="searchQuery"></p>
+        <select name="zoneSelected"
+                asp-items="@ViewData["zoneSelected"] as List<SelectListItem>"
+                class="form-control">
+        </select>
         <br />
         <p><input type="submit" value="Submit"></p>
 

@@ -17,9 +17,23 @@ namespace greendoor.Controllers
         private ReviewsDAL reviewContext = new ReviewsDAL();
         private ShopPostDAL shopPostContext = new ShopPostDAL();
         private FavouriteDAL favouriteContext = new FavouriteDAL();
+        private List<string> searchShopZoneList = new List<string> { "-", "West", "Central", "East", "North", "North-East", "NA" };
+        private List<SelectListItem> searchshopZoneDropDownList = new List<SelectListItem>();
+        public ShopsController()
+        {
+            foreach (string postCat in searchShopZoneList)
+            {
+                searchshopZoneDropDownList.Add(
+                    new SelectListItem
+                    {
+                        Text = postCat,
+                    });
+            }
+        }
 
         public IActionResult ViewShops() // shop lsit for customer and public
         {
+            ViewData["zoneSelected"] = searchshopZoneDropDownList;
             List<Shop> shopList = shopContext.GetAllShop();
             // Calculating top 3 shops in terms of number of reviews
             Dictionary<string, int> shopReviewList = new Dictionary<string, int>();
@@ -548,11 +562,35 @@ namespace greendoor.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ShopSearchResults(string searchQuery)
+        public ActionResult ShopSearchResults(string searchQuery, string zoneSelected)
         {
-            Shop shop = new Shop();
-            shop.searchResultsList = shopContext.shopSearchList(searchQuery);
-            return View(shop);
+            ViewData["zoneSelected"] = searchshopZoneDropDownList;
+            if (searchQuery != null && zoneSelected != "-")
+            {
+                Shop shop = new Shop();
+                shop.searchResultsList = shopContext.shopSearchList(searchQuery, zoneSelected);
+                shop.zoneSelected = zoneSelected;
+                shop.searchQuery = searchQuery;
+                return View(shop);
+            }
+            else if (zoneSelected != "-")
+            {
+                Shop shop = new Shop();
+                shop.searchResultsList = shopContext.shopSearchZoneList(zoneSelected);
+                shop.zoneSelected = zoneSelected;
+                return View(shop);
+            }
+            else if (searchQuery != null)
+            {
+                Shop shop = new Shop();
+                shop.searchResultsList = shopContext.shopSearchQueryList(searchQuery);
+                shop.searchQuery = searchQuery;
+                return View(shop);
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }
