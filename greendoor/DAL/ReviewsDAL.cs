@@ -94,6 +94,45 @@ INNER JOIN Reviews ON Reviews.CustomerID = Customer.CustomerID WHERE ShopID = @s
             return reviewsList;
         }
 
+        public List<Reviews> GetSelectedReviews(string reviewCat, int shopID)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statement
+            //CHANGE SQL QUERY (Name)
+            cmd.CommandText = @"SELECT Reviews.* , Customer.CustomerName FROM Customer
+INNER JOIN Reviews ON Reviews.CustomerID = Customer.CustomerID WHERE ShopID = @selectedShopID and Rating = @selectedRating";
+            cmd.Parameters.AddWithValue("@selectedShopID", shopID);
+            cmd.Parameters.AddWithValue("@selectedRating", reviewCat);
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            //Read all records until the end, save data into a list
+            List<Reviews> reviewsList = new List<Reviews>();
+            while (reader.Read())
+            {
+                reviewsList.Add(
+                new Reviews
+                {
+                    //CHANGE RELAVANT DETAILS
+                    ReviewsID = reader.GetInt32(0),
+                    Rating = !reader.IsDBNull(1) ? reader.GetInt32(1) : (int?)null,
+
+                    ShopID = reader.GetInt32(3),
+                    Description = reader.GetString(4),
+                    DateTimePosted = reader.GetDateTime(5),
+                    CustomerName = reader.GetString(6),
+                }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+            return reviewsList;
+        }
+
         public List<Reviews> GetLatestReview(int shopID)
         {
             //Create a SqlCommand object from connection object

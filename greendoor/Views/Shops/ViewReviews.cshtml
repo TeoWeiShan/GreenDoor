@@ -15,6 +15,32 @@
     <link rel="stylesheet" type="text/css" href="~/css/Site.css">
 
 </head>
+<style>
+    .btn-group button {
+        background-color: #416a59; /* Green background */
+        border: 1px solid green; /* Green border */
+        color: white; /* White text */
+        padding: 10px 24px; /* Some padding */
+        cursor: pointer; /* Pointer/hand icon */
+        float: left; /* Float the buttons side by side */
+    }
+
+    /* Clear floats (clearfix hack) */
+    .btn-group:after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .btn-group button:not(:last-child) {
+        border-right: none; /* Prevent double borders */
+    }
+
+    /* Add a background color on hover */
+    .btn-group button:hover {
+        background-color: #3e8e41;
+    }
+</style>
 
 <body class="text-center">
     <div class="px-4 py-5 my-5 text-center">
@@ -22,9 +48,19 @@
             <p class="lead mb-4"> View Reviews</p>
 
         </div>
+        <form asp-action="ViewReviews" asp-controller="Shops" asp-route-shopID="@Model.ShopID">
+            <div class="btn-group" style="width:100%">
+                <button name="reviewCat" value="all" style="width:20%">All</button>
+                <button name="reviewCat" value="5" style="width:20%">5 Star</button>
+                <button name="reviewCat" value="4" style="width:20%">4 Star</button>
+                <button name="reviewCat" value="3" style="width:20%">3 Star</button>
+                <button name="reviewCat" value="2" style="width:20%">2 Star</button>
+                <button name="reviewCat" value="1" style="width:20%">1 Star</button>
+            </div>
+        </form>
 
-        <partial name="~/Views/Shops/_ViewReviews.cshtml" />
-    </div>
+            <partial name="~/Views/Shops/_ViewReviews.cshtml" />
+</div>
     <a asp-controller="Shops" asp-action="ShopDetails" asp-route-id="@Model.ShopID">Back to Shop</a>
 </body>
 </html>

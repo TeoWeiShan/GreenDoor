@@ -560,6 +560,27 @@ namespace greendoor.Controllers
             reviews.ShopID = id;
             return View(reviews);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ViewReviews(string reviewCat, int ShopID) // customer and public
+        {
+            ShopReviewViewModel reviews = new ShopReviewViewModel();
+            if ((reviewCat == null) ||(reviewCat == "all"))
+            {
+                reviews.reviewsList = reviewContext.GetAllReviews(ShopID);
+                reviews.ShopID = ShopID;
+                return View(reviews);
+            }
+            else
+            {
+                reviews.reviewsList = reviewContext.GetSelectedReviews(reviewCat, ShopID);
+                reviews.ShopID = ShopID;
+                return View(reviews);
+            }
+            
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ShopSearchResults(string searchQuery, string zoneSelected)
