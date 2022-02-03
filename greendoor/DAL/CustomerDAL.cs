@@ -68,14 +68,15 @@ namespace greendoor.DAL
             SqlCommand cmd = conn.CreateCommand();
             //Specify an INSERT SQL statement which will
             //return the auto-generated StaffID after insertion
-            cmd.CommandText = @"INSERT INTO Customer (CustomerName, EmailAddr, Password)
+            cmd.CommandText = @"INSERT INTO Customer (CustomerName, EmailAddr, Credibility, Password)
                                 OUTPUT INSERTED.CustomerID
-                                VALUES(@name, @email, @password)";
+                                VALUES(@name, @email, @credibility, @password)";
             //Define the parameters used in SQL statement, value for each parameter
             //is retrieved from respective class's property.
             cmd.Parameters.AddWithValue("@name", customer.CustomerName);
             cmd.Parameters.AddWithValue("@email", customer.EmailAddr);
             cmd.Parameters.AddWithValue("@password", customer.Password);
+            cmd.Parameters.AddWithValue("@credibility", 0);
             //A connection to database must be opened before any operations made.
             conn.Open();
             //ExecuteScalar is used to retrieve the auto-generated
