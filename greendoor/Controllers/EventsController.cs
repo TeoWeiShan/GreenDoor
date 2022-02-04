@@ -24,11 +24,14 @@ namespace greendoor.Controllers
         // GET: EventsController/Details/5
         public ActionResult Details(int id)
         {
-            HttpContext.Session.SetString("ShopID", id.ToString());
             EcoEvents e = new EcoEvents();
             e.EventID = id;
             e = eContext.GetDetails(e.EventID);
-            e.CheckShopID = (int)HttpContext.Session.GetInt32("LoginID");
+            if ((HttpContext.Session.GetString("Role") != null) ||
+                (HttpContext.Session.GetString("Role") == "Shop"))
+            {
+                e.CheckShopID = (int)HttpContext.Session.GetInt32("LoginID");
+            }
             if(HttpContext.Session.GetString("Role")=="Shop" && e.CheckShopID == e.ShopID)
             {
                 e.isShop = true;
